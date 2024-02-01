@@ -4,8 +4,9 @@ from pathlib import Path
 import sys
 import time
 
-from pathsec import (
-
+from pathsec.policies import (
+    EdgeFilterSimplePolicy,
+    SpoofingEdgeOTCFiltersSimplePolicy,
 )
 
 from bgpy.simulation_engine import (
@@ -52,7 +53,7 @@ classes = [
 ]
 
 run_kwargs = {
-    "GraphFactorCls": None if "quick" in str(sys.argv) else GraphFactory,
+    "GraphFactoryCls": None if "quick" in str(sys.argv) else GraphFactory,
 
 }
 
