@@ -15,7 +15,6 @@ class SpoofingFilterSimplePolicy(BGPSimplePolicy):
 
     def _valid_ann(self, ann: "Ann", from_rel: Relationships) -> bool:  # type: ignore
         """Prevents anns where next_hop != ann.as_path[0]"""
-
         if ann.next_hop_asn != ann.as_path[0]:
             return False
         else:

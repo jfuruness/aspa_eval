@@ -9,17 +9,19 @@ if TYPE_CHECKING:
 
 from .edge_filter_simple_policy import EdgeFilterSimplePolicy
 from .spoofing_filter_simple_policy import SpoofingFilterSimplePolicy
+from .path_sus_algo_simple_policy import PathSusAlgo5SimplePolicy
 
 
-class SpoofingEdgeOTCFiltersSimplePolicy(
+class SpoofingEdgeOTCPathSusFiltersSimplePolicy(
     OnlyToCustomersSimplePolicy,
+    PathSusAlgo5SimplePolicy,
     # EdgeFilterSimplePolicy,
     # SpoofingFilterSimplePolicy,
     # BGPSimplePolicy,
 ):
     """Runs spoofing, edge, OTC filters and adds OTC attr"""
 
-    name: str = "SpoofingEdgeOTCFiltersSimple"
+    name: str = "SpoofingEdgeOTCPathSus5FiltersSimple"
 
     def _valid_ann(self, ann: "Ann", from_rel: Relationships) -> bool:  # type: ignore
         """Returns invalid if an edge AS is announcing a path longer than len 1"""
