@@ -1,15 +1,19 @@
 from copy import deepcopy
 from multiprocessing import cpu_count
 from pathlib import Path
+import sys
 import time
 
+from pathsec import (
+
+)
+
 from bgpy.simulation_engine import (
+    BGPSimplePolicy,
     ASPASimplePolicy,
     BGPSecSimplePolicy,
     PathendSimplePolicy,
     OnlyToCustomersSimplePolicy,
-    EzPathsecSimplePolicy,
-    EzbbPathsecSimplePolicy,
 )
 
 from bgpy.enums import ASGroups, SpecialPercentAdoptions
@@ -19,6 +23,7 @@ from bgpy.simulation_framework import (
     PrefixHijack,
     preprocess_anns_funcs,
     ScenarioConfig,
+    GraphFactory,
 )
 
 default_kwargs = {
@@ -32,20 +37,24 @@ default_kwargs = {
         # Using only 1 AS not adopting causes extreme variance
         # SpecialPercentAdoptions.ALL_BUT_ONE,
     ),
-    "num_trials": 100,
+    "num_trials": 1 if "quick" in str(sys.argv) else 100,
     "parse_cpus": cpu_count(),
 }
 
 classes = [
-    EzbbPathsecSimplePolicy,
     ASPASimplePolicy,
-    EzPathsecSimplePolicy,
-
-#     BGPSecSimplePolicy,
-#     PathendSimplePolicy,
-#     OnlyToCustomersSimplePolicy,
+    BGPSecSimplePolicy,
+    PathendSimplePolicy,
+    OnlyToCustomersSimplePolicy,
+    EdgeFilterSimplePolicy,
+    SpoofingEdgeOTCFiltersSimplePolicy,
+    BGPSimplePolicy,
 ]
 
+run_kwargs = {
+    "GraphFactorCls": None if "quick" in str(sys.argv) else GraphFactory,
+
+}
 
 def main():
     """Runs the defaults"""
@@ -84,7 +93,7 @@ def main():
         **shortest_path_kwargs,
     )
     start = time.perf_counter()
-    sim.run()
+    sim.run(**run_kwargs)
     print(time.perf_counter() - start)
 
     # Shortest path export all multi attackers
@@ -106,7 +115,7 @@ def main():
         **shortest_path_kwargs,
     )
     start = time.perf_counter()
-    sim.run()
+    sim.run(**run_kwargs)
     print(time.perf_counter() - start)
 
 
@@ -128,7 +137,7 @@ def main():
         **default_kwargs,
     )
     start = time.perf_counter()
-    sim.run()
+    sim.run(**run_kwargs)
     print(time.perf_counter() - start)
 
     # Origin Hijack
@@ -147,7 +156,7 @@ def main():
         **default_kwargs,
     )
     start = time.perf_counter()
-    sim.run()
+    sim.run(**run_kwargs)
     print(time.perf_counter() - start)
 
     # Origin Spoofing Hijack
@@ -166,7 +175,7 @@ def main():
         **default_kwargs,
     )
     start = time.perf_counter()
-    sim.run()
+    sim.run(**run_kwargs)
     print(time.perf_counter() - start)
 
     # geographic adoption
