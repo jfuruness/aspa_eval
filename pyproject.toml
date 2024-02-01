@@ -1,0 +1,129 @@
+[build-system]
+requires = ["setuptools>=69.0.3", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pathsec"
+version = "0.0.0"
+requires-python = ">=3.10"
+description = "Simulates Path security policies"
+readme = "README.md"
+authors = [
+    {name = "Justin Furuness", email = "jfuruness@gmail.com"},
+    {name = "Cameron Morris", email = "cameron.morris@uconn.edu"},
+    {name = "Reynaldo Morillo", email = "reynaldo.morillo@uconn.edu"},
+    {name = "Arvind Kasiliya", "email" = "arvind.kasiliya@uconn.edu"}
+]
+maintainers = [
+  {name = "Justin Furuness", email = "jfuruness@gmail.com"}
+]
+license = {file = "LICENSE.txt"}
+keywords = [
+    "BGPy",
+    "pathsec",
+    "bgpc",
+    "pathsec",
+    "BGP",
+    "Caida",
+    "CAIDA",
+    "Peers",
+    "Providers",
+    "Relationships",
+    "AS-Serial",
+    "Customers",
+    "Simulation",
+    "ROV",
+    "Furuness",
+    "ASPA",
+    "Pathend",
+    "OTC",
+    "BGPSec",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Environment :: Console",
+    "License :: OSI Approved :: BSD License",
+    "Intended Audience :: Developers"
+]
+dependencies = [
+    "bgpy_pkg",
+]
+
+[project.urls]
+Homepage = "https://github.com/jfuruness/pathsec"
+Documentation = "https://github.com/jfuruness/pathsec/wiki"
+
+[project.scripts]
+pathsec = "pathsec.__main__:main"
+
+[project.optional-dependencies]
+test = [
+    "bgpy_pkg[test]"
+]
+
+[tool.setuptools]
+include-package-data = true
+
+# https://stackoverflow.com/a/76214408/8903959
+[tool.setuptools.package-data]
+"pathsec" = ["py.typed"]
+
+# https://stackoverflow.com/a/76214408/8903959
+# [tool.setuptools.packages.find]
+# where = ["pathsec"]
+
+[tool.pytest.ini_options]
+python_files = ["test*.py"]
+python_classes = ["Test*"]
+python_functions = ["test*"]
+# addopts = "-m 'not slow'"  # -n 6
+markers = [
+    "slow",  # All slow tests
+    "framework",  # All framework tests
+    "unit_tests",  # All unit tests
+    "engine",  # All engine tests
+    "caida_collector_base_funcs",  # other funcs in caida collector
+    "data_extraction_funcs",  # Related to reading data from file
+    "html_funcs",  # Funcs related to html
+    "read_file_funcs",  # Reading caida files
+]
+filterwarnings = [
+    "ignore::DeprecationWarning:yamlable",
+    "ignore::DeprecationWarning:tqdm",
+    "ignore::DeprecationWarning:dateutil.tz.tz",
+]
+
+[tool.mypy]
+mypy_path = "pathsec"
+check_untyped_defs = true
+disallow_any_generics = true
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+no_implicit_reexport = true
+
+[tool.flake8]
+max-line-length = 88
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "*tests*",
+    "*__init__*"
+]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    # Excludes lines overrides pragma: no cover, so add it back
+    "pragma: no cover",
+    # Code below this is not meant to be tested
+    "raise NotImplementedError",
+    # Code that isn't meant to be run
+    "if __name__ == .__main__.:"
+]
