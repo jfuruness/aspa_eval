@@ -42,7 +42,6 @@ class SpoofingEdgeOTCPathSusFiltersSimplePolicy(
 
         # SPOOFING FILTER
         if ann.next_hop_asn != ann.as_path[0]:
-            print("\n\n\nSHOULD ONLY HEPPN LATER WHEN YOU REACH SPOOFING\n\n\n")
             return False
 
         return super()._valid_ann(ann, from_rel)
