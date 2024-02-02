@@ -45,7 +45,7 @@ default_kwargs = {
         # SpecialPercentAdoptions.ALL_BUT_ONE,
     ),
     "num_trials": 1 if "quick" in str(sys.argv) else 50,
-    "parse_cpus": cpu_count(),
+    "parse_cpus": 1,#,cpu_count(),
 }
 
 classes = [
@@ -91,6 +91,7 @@ def main():
             [
                 ScenarioConfig(
                     ScenarioCls=SusRouteLeak,
+                    BasePolicyCls=BGPPolicy,
                     AdoptPolicyCls=AdoptPolicyCls,
                     # Leakers from anywhere
                     attacker_subcategory_attr=ASGroups.ALL_WOUT_IXPS.value,
@@ -108,7 +109,7 @@ def main():
     sim.run(**run_kwargs_copy)
     print(time.perf_counter() - start)
 
-
+    raise NotImplementedError("Write custom scenarios for others as well due to sus algo")
 
     # Shortest path export all
     sim = Simulation(
@@ -116,6 +117,7 @@ def main():
             [
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
+                    BasePolicyCls=BGPPolicy,
                     AdoptPolicyCls=AdoptPolicyCls,
                     preprocess_anns_func=(
                         preprocess_anns_funcs.shortest_path_export_all_hijack
@@ -136,6 +138,7 @@ def main():
             [
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
+                    BasePolicyCls=BGPPolicy,
                     AdoptPolicyCls=AdoptPolicyCls,
                     preprocess_anns_func=(
                         preprocess_anns_funcs.shortest_path_export_all_hijack
@@ -158,6 +161,7 @@ def main():
             [
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
+                    BasePolicyCls=BGPPolicy,
                     AdoptPolicyCls=AdoptPolicyCls,
                     preprocess_anns_func=preprocess_anns_funcs.origin_hijack,
                 )
@@ -177,6 +181,7 @@ def main():
             [
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
+                    BasePolicyCls=BGPPolicy,
                     AdoptPolicyCls=AdoptPolicyCls,
                     preprocess_anns_func=preprocess_anns_funcs.origin_spoofing_hijack,
                 )
