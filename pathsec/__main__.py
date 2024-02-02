@@ -44,7 +44,7 @@ default_kwargs = {
         # Using only 1 AS not adopting causes extreme variance
         # SpecialPercentAdoptions.ALL_BUT_ONE,
     ),
-    "num_trials": 1 if "quick" in str(sys.argv) else 5,
+    "num_trials": 1 if "quick" in str(sys.argv) else 20,
     "parse_cpus": cpu_count(),
 }
 
@@ -76,7 +76,7 @@ def main():
     shortest_path_kwargs = deepcopy(default_kwargs)
     shortest_path_kwargs.update({
         "percent_adoptions": (
-            SpecialPercentAdoptions.ONLY_ONE,
+            # SpecialPercentAdoptions.ONLY_ONE,
             0.1,
             0.2,
             0.5,
