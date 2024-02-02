@@ -44,8 +44,8 @@ default_kwargs = {
         # Using only 1 AS not adopting causes extreme variance
         # SpecialPercentAdoptions.ALL_BUT_ONE,
     ),
-    "num_trials": 1 if "quick" in str(sys.argv) else 50,
-    "parse_cpus": 1,#,cpu_count(),
+    "num_trials": 1 if "quick" in str(sys.argv) else 5,
+    "parse_cpus": cpu_count(),
 }
 
 classes = [
@@ -81,7 +81,7 @@ def main():
             0.2,
             0.5,
             0.8,
-            0.99,
+            # 0.99,
         ),
     })
 
