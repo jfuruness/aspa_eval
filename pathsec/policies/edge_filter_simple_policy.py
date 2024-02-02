@@ -8,10 +8,10 @@ if TYPE_CHECKING:
     from bgpy.simulation_engine import Announcement as Ann
 
 
-class EdgeFilterSimplePolicy(BGPPolicy):
+class EdgeFilterPolicy(BGPPolicy):
     """Prevents edge ASes from paths longer than 1"""
 
-    name: str = "EdgeFilterSimple"
+    name: str = "EdgeFilter"
 
     def _valid_ann(self, ann: "Ann", from_rel: Relationships) -> bool:  # type: ignore
         """Returns invalid if an edge AS is announcing a path longer than len 1"""

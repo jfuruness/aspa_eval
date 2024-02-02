@@ -2,8 +2,8 @@ from typing import TYPE_CHECKING
 
 from bgpy.enums import Relationships, SpecialPercentAdoptions, Timestamps
 
-from .valid_prefix import ValidPrefix
-from ..scenario import Scenario
+from bgpy.simulation_framework import ValidPrefix
+from bgpy.simulation_framework import Scenario
 
 
 if TYPE_CHECKING:

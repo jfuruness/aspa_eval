@@ -8,10 +8,10 @@ if TYPE_CHECKING:
     from bgpy.simulation_engine import Announcement as Ann
 
 
-class SpoofingFilterSimplePolicy(BGPPolicy):
+class SpoofingFilterPolicy(BGPPolicy):
     """Prevents anns where next_hop != ann.as_path[0]"""
 
-    name: str = "SpoofingFilterSimple"
+    name: str = "SpoofingFilter"
 
     def _valid_ann(self, ann: "Ann", from_rel: Relationships) -> bool:  # type: ignore
         """Prevents anns where next_hop != ann.as_path[0]"""

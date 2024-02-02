@@ -1,27 +1,27 @@
 from typing import Optional, TYPE_CHECKING
 
 from bgpy.enums import Relationships
-from bgpy.simulation_engine import BGPPolicy, OnlyToCustomersSimplePolicy
+from bgpy.simulation_engine import BGPPolicy, OnlyToCustomersPolicy
 
 if TYPE_CHECKING:
     from bgpy.as_graphs import AS
     from bgpy.simulation_engine import Announcement as Ann
 
-from .edge_filter_simple_policy import EdgeFilterSimplePolicy
-from .spoofing_filter_simple_policy import SpoofingFilterSimplePolicy
-from .path_sus_algo_simple_policy import PathSusAlgo5SimplePolicy
+from .edge_filter_simple_policy import EdgeFilterPolicy
+from .spoofing_filter_simple_policy import SpoofingFilterPolicy
+from .path_sus_algo_simple_policy import PathSusAlgo5Policy
 
 
-class SpoofingEdgeOTCPathSusFiltersSimplePolicy(
-    OnlyToCustomersSimplePolicy,
-    PathSusAlgo5SimplePolicy,
-    # EdgeFilterSimplePolicy,
-    # SpoofingFilterSimplePolicy,
+class SpoofingEdgeOTCPathSusFiltersPolicy(
+    OnlyToCustomersPolicy,
+    PathSusAlgo5Policy,
+    # EdgeFilterPolicy,
+    # SpoofingFilterPolicy,
     # BGPPolicy,
 ):
     """Runs spoofing, edge, OTC filters and adds OTC attr"""
 
-    name: str = "SpoofingEdgeOTCPathSus5FiltersSimple"
+    name: str = "SpoofingEdgeOTCPathSus5Filters"
 
     def _valid_ann(self, ann: "Ann", from_rel: Relationships) -> bool:  # type: ignore
         """Returns invalid if an edge AS is announcing a path longer than len 1"""

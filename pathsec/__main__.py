@@ -5,20 +5,20 @@ import sys
 import time
 
 from pathsec.policies import (
-    EdgeFilterSimplePolicy,
-    SpoofingEdgeOTCFiltersSimplePolicy,
-    SpoofingEdgeOTCPathSusFiltersSimplePolicy,
-    PathSusAlgo3SimplePolicy,
-    PathSusAlgo4SimplePolicy,
-    PathSusAlgo5SimplePolicy,
+    EdgeFilterPolicy,
+    SpoofingEdgeOTCFiltersPolicy,
+    SpoofingEdgeOTCPathSusFiltersPolicy,
+    PathSusAlgo3Policy,
+    PathSusAlgo4Policy,
+    PathSusAlgo5Policy,
 )
 
 from bgpy.simulation_engine import (
     BGPPolicy,
-    ASPASimplePolicy,
-    BGPSecSimplePolicy,
-    PathendSimplePolicy,
-    OnlyToCustomersSimplePolicy,
+    ASPAPolicy,
+    BGPSecPolicy,
+    PathendPolicy,
+    OnlyToCustomersPolicy,
 )
 
 from bgpy.enums import ASGroups, SpecialPercentAdoptions
@@ -49,16 +49,16 @@ default_kwargs = {
 }
 
 classes = [
-    SpoofingEdgeOTCPathSusFiltersSimplePolicy,
-    ASPASimplePolicy,
-    # BGPSecSimplePolicy,
-    # PathendSimplePolicy,
-    # OnlyToCustomersSimplePolicy,
-    # EdgeFilterSimplePolicy,
-    SpoofingEdgeOTCFiltersSimplePolicy,
-    # PathSusAlgo3SimplePolicy,
-    # PathSusAlgo4SimplePolicy,
-    PathSusAlgo5SimplePolicy,
+    SpoofingEdgeOTCPathSusFiltersPolicy,
+    ASPAPolicy,
+    # BGPSecPolicy,
+    # PathendPolicy,
+    # OnlyToCustomersPolicy,
+    # EdgeFilterPolicy,
+    SpoofingEdgeOTCFiltersPolicy,
+    # PathSusAlgo3Policy,
+    # PathSusAlgo4Policy,
+    PathSusAlgo5Policy,
     # BGPPolicy,
 ]
 

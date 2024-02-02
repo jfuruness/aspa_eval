@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from bgpy.simulation_engine import Announcement as Ann
 
 
-class EzPathsecSimplePolicy(BGPPolicy):
+class EzPathsecPolicy(BGPPolicy):
     """An Policy that deploys ez"""
 
     name: str = "aspa_is_dumb_lolz"
@@ -33,7 +33,7 @@ class EzPathsecSimplePolicy(BGPPolicy):
 
         # If the origin is deploying pathend and the path is longer than 1
         if (
-            isinstance(origin_as_obj.policy, EzPathsecSimplePolicy)
+            isinstance(origin_as_obj.policy, EzPathsecPolicy)
             and len(ann.as_path) > 1
         ):
             # If the provider is real, do the loop check
@@ -66,8 +66,8 @@ class EzPathsecSimplePolicy(BGPPolicy):
             return False
 
 
-class EzbbPathsecSimplePolicy(EzPathsecSimplePolicy):
-    name = "ComplexPathsecSimple (protects third as)"
+class EzbbPathsecPolicy(EzPathsecPolicy):
+    name = "ComplexPathsec (protects third as)"
 
     def _get_best_ann_by_gao_rexford(
         self: "BGPPolicy",
