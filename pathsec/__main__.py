@@ -14,7 +14,7 @@ from pathsec.policies import (
 )
 
 from bgpy.simulation_engine import (
-    BGPSimplePolicy,
+    BGPPolicy,
     ASPASimplePolicy,
     BGPSecSimplePolicy,
     PathendSimplePolicy,
@@ -30,6 +30,8 @@ from bgpy.simulation_framework import (
     ScenarioConfig,
     GraphFactory,
 )
+
+from .sus_route_leak import SusRouteLeak
 
 default_kwargs = {
     "percent_adoptions": (
@@ -56,8 +58,8 @@ classes = [
     SpoofingEdgeOTCFiltersSimplePolicy,
     # PathSusAlgo3SimplePolicy,
     # PathSusAlgo4SimplePolicy,
-    # PathSusAlgo5SimplePolicy,
-    # BGPSimplePolicy,
+    PathSusAlgo5SimplePolicy,
+    # BGPPolicy,
 ]
 
 run_kwargs = {
@@ -78,8 +80,8 @@ def main():
             0.1,
             0.2,
             0.5,
-            # Max adoption, beyond this RAM explodes due to bug
             0.8,
+            0.99,
         ),
     })
 
@@ -88,7 +90,7 @@ def main():
         scenario_configs=tuple(
             [
                 ScenarioConfig(
-                    ScenarioCls=AccidentalRouteLeak,
+                    ScenarioCls=SusRouteLeak,
                     AdoptPolicyCls=AdoptPolicyCls,
                     # Leakers from anywhere
                     attacker_subcategory_attr=ASGroups.ALL_WOUT_IXPS.value,
@@ -97,12 +99,12 @@ def main():
             ]
         ),
         propagation_rounds=2,
-        output_dir=DIR / "accidental_route_leak",
+        output_dir=DIR / "sus_route_leak",
         **default_kwargs,
     )
     start = time.perf_counter()
     run_kwargs_copy = deepcopy(run_kwargs)
-    run_kwargs_copy["graph_factory_kwargs"] = {"y_limit": 30}
+    # run_kwargs_copy["graph_factory_kwargs"] = {"y_limit": 30}
     sim.run(**run_kwargs_copy)
     print(time.perf_counter() - start)
 

@@ -1,14 +1,14 @@
 from typing import Optional, TYPE_CHECKING
 
 from bgpy.enums import Relationships
-from bgpy.simulation_engine.policies.bgp import BGPSimplePolicy
+from bgpy.simulation_engine.policies.bgp import BGPPolicy
 
 if TYPE_CHECKING:
     from bgpy.as_graphs import AS
     from bgpy.simulation_engine import Announcement as Ann
 
 
-class EdgeFilterSimplePolicy(BGPSimplePolicy):
+class EdgeFilterSimplePolicy(BGPPolicy):
     """Prevents edge ASes from paths longer than 1"""
 
     name: str = "EdgeFilterSimple"

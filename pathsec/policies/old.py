@@ -1,14 +1,14 @@
 from typing import Optional, TYPE_CHECKING
 
 from bgpy.enums import Relationships
-from bgpy.simulation_engine.policies.bgp import BGPSimplePolicy
+from bgpy.simulation_engine.policies.bgp import BGPPolicy
 
 if TYPE_CHECKING:
     from bgpy.as_graphs import AS
     from bgpy.simulation_engine import Announcement as Ann
 
 
-class EzPathsecSimplePolicy(BGPSimplePolicy):
+class EzPathsecSimplePolicy(BGPPolicy):
     """An Policy that deploys ez"""
 
     name: str = "aspa_is_dumb_lolz"
@@ -70,7 +70,7 @@ class EzbbPathsecSimplePolicy(EzPathsecSimplePolicy):
     name = "ComplexPathsecSimple (protects third as)"
 
     def _get_best_ann_by_gao_rexford(
-        self: "BGPSimplePolicy",
+        self: "BGPPolicy",
         current_ann: Optional["Ann"],
         new_ann: "Ann",
     ) -> "Ann":

@@ -1,7 +1,7 @@
 from typing import Optional, TYPE_CHECKING
 
 from bgpy.enums import Relationships
-from bgpy.simulation_engine import BGPSimplePolicy, OnlyToCustomersSimplePolicy
+from bgpy.simulation_engine import BGPPolicy, OnlyToCustomersSimplePolicy
 
 if TYPE_CHECKING:
     from bgpy.as_graphs import AS
@@ -15,7 +15,7 @@ class SpoofingEdgeOTCFiltersSimplePolicy(
     OnlyToCustomersSimplePolicy,
     # EdgeFilterSimplePolicy,
     # SpoofingFilterSimplePolicy,
-    # BGPSimplePolicy,
+    # BGPPolicy,
 ):
     """Runs spoofing, edge, OTC filters and adds OTC attr"""
 
@@ -25,7 +25,7 @@ class SpoofingEdgeOTCFiltersSimplePolicy(
         """Returns invalid if an edge AS is announcing a path longer than len 1"""
 
         # Since each class calls super() at the end of it's func call,
-        # it will actually run through every class up until BGPSimplePolicy
+        # it will actually run through every class up until BGPPolicy
         # https://stackoverflow.com/a/55006027/8903959
         # super()._valid_ann(ann, from_rel)
 

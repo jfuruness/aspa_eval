@@ -1,14 +1,14 @@
 from typing import Optional, TYPE_CHECKING
 
 from bgpy.enums import Relationships
-from bgpy.simulation_engine.policies.bgp import BGPSimplePolicy
+from bgpy.simulation_engine.policies.bgp import BGPPolicy
 
 if TYPE_CHECKING:
     from bgpy.as_graphs import AS
     from bgpy.simulation_engine import Announcement as Ann
 
 
-class SpoofingFilterSimplePolicy(BGPSimplePolicy):
+class SpoofingFilterSimplePolicy(BGPPolicy):
     """Prevents anns where next_hop != ann.as_path[0]"""
 
     name: str = "SpoofingFilterSimple"

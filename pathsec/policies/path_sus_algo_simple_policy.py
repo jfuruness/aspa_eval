@@ -1,13 +1,13 @@
 from typing import Optional, TYPE_CHECKING
 
 from bgpy.enums import Relationships
-from bgpy.simulation_engine.policies.bgp import BGPSimplePolicy
+from bgpy.simulation_engine.policies.bgp import BGPPolicy
 
 if TYPE_CHECKING:
     from bgpy.simulation_engine import Announcement as Ann
 
 
-class PathSusAlgo5SimplePolicy(BGPSimplePolicy):
+class PathSusAlgo5SimplePolicy(BGPPolicy):
     """Detects origin hijacks and drops them"""
 
     name: str = "PathSusAlgo5Simple"
@@ -15,7 +15,7 @@ class PathSusAlgo5SimplePolicy(BGPSimplePolicy):
     MIN_SUS_PATH_LEN = 5
 
     def _get_best_ann_by_gao_rexford(
-        self: "BGPSimplePolicy",
+        self: "BGPPolicy",
         current_ann: Optional["Ann"],
         new_ann: "Ann",
     ) -> "Ann":
@@ -36,10 +36,13 @@ class PathSusAlgo5SimplePolicy(BGPSimplePolicy):
             # Having this dynamic like above is literally 7x slower, resulting
             # in bottlenecks. Gotta do it the ugly way unfortunately
             if (
-                current_ann.recv_relationship.value == Relationships.CUSTOMERS.value
-                and new_ann.recv_relationship.value == Relationships.PROVIDERS.value
-                and len(current_ann.as_path) > len(new_ann.as_path)
-                and len(current_ann.as_path) >= self.MIN_SUS_PATH_LEN
+                new_ann.recv_relationship.value == Relationships.CUSTOMERS.value
+                and current_ann.recv_relationship.value in (
+                    Relationships.PROVIDERS.value,
+                    Relationships.PEERS.value
+                )
+                and len(new_ann.as_path) > len(current_ann.as_path)
+                and len(new_ann.as_path) >= self.MIN_SUS_PATH_LEN
             ):
                 return new_ann
             else:
