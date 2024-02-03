@@ -1,21 +1,21 @@
 from typing import Optional, TYPE_CHECKING
 
 from bgpy.enums import Relationships
-from bgpy.simulation_engine.policies.bgp import BGPPolicy
+from bgpy.simulation_engine.policies.bgp import BGPSimplePolicy
 
 if TYPE_CHECKING:
     from bgpy.simulation_engine import Announcement as Ann
 
 
-class PathSusAlgo5Policy(BGPPolicy):
+class PathSusAlgo5SimplePolicy(BGPSimplePolicy):
     """Detects origin hijacks and drops them"""
 
-    name: str = "PathSusAlgo5"
+    name: str = "PathSusAlgo5Simple"
 
     MIN_SUS_PATH_LEN = 5
 
     def _get_best_ann_by_gao_rexford(
-        self: "BGPPolicy",
+        self: "BGPSimplePolicy",
         current_ann: Optional["Ann"],
         new_ann: "Ann",
     ) -> "Ann":
@@ -35,20 +35,13 @@ class PathSusAlgo5Policy(BGPPolicy):
 
             # Having this dynamic like above is literally 7x slower, resulting
             # in bottlenecks. Gotta do it the ugly way unfortunately
-
-
-            # NOTE: THIS REQUIRES TWO ROUNDS OF PROPAGATION
-            # SINCE FOR HERE ORDER MATTERS
             if (
-                new_ann.recv_relationship.value == Relationships.CUSTOMERS.value
-                and current_ann.recv_relationship.value in (
-                    Relationships.PROVIDERS.value,
-                    Relationships.PEERS.value
-                )
-                and len(new_ann.as_path) > len(current_ann.as_path)
-                and len(new_ann.as_path) >= self.MIN_SUS_PATH_LEN
+                current_ann.recv_relationship.value == Relationships.CUSTOMERS.value
+                and new_ann.recv_relationship.value == Relationships.PROVIDERS.value
+                and len(current_ann.as_path) > len(new_ann.as_path)
+                and len(current_ann.as_path) >= self.MIN_SUS_PATH_LEN
             ):
-                return current_ann
+                return new_ann
             else:
                 ann = self._get_best_ann_by_local_pref(current_ann, new_ann)
                 if ann:
@@ -64,17 +57,17 @@ class PathSusAlgo5Policy(BGPPolicy):
             raise Exception("No ann was chosen")
 
 
-class PathSusAlgo4Policy(PathSusAlgo5Policy):
+class PathSusAlgo4SimplePolicy(PathSusAlgo5SimplePolicy):
     """Detects origin hijacks and drops them"""
 
-    name: str = "PathSusAlgo4"
+    name: str = "PathSusAlgo4Simple"
 
     MIN_SUS_PATH_LEN = 4
 
 
-class PathSusAlgo3Policy(PathSusAlgo5Policy):
+class PathSusAlgo3SimplePolicy(PathSusAlgo5SimplePolicy):
     """Detects origin hijacks and drops them"""
 
-    name: str = "PathSusAlgo3"
+    name: str = "PathSusAlgo3Simple"
 
     MIN_SUS_PATH_LEN = 3

@@ -1,14 +1,14 @@
 from typing import Optional, TYPE_CHECKING
 
 from bgpy.enums import Relationships
-from bgpy.simulation_engine.policies.bgp import BGPPolicy
+from bgpy.simulation_engine.policies.bgp import BGPSimplePolicy
 
 if TYPE_CHECKING:
     from bgpy.as_graphs import AS
     from bgpy.simulation_engine import Announcement as Ann
 
 
-class EzPathsecPolicy(BGPPolicy):
+class EzPathsecSimplePolicy(BGPSimplePolicy):
     """An Policy that deploys ez"""
 
     name: str = "aspa_is_dumb_lolz"
@@ -33,7 +33,7 @@ class EzPathsecPolicy(BGPPolicy):
 
         # If the origin is deploying pathend and the path is longer than 1
         if (
-            isinstance(origin_as_obj.policy, EzPathsecPolicy)
+            isinstance(origin_as_obj.policy, EzPathsecSimplePolicy)
             and len(ann.as_path) > 1
         ):
             # If the provider is real, do the loop check
@@ -66,11 +66,11 @@ class EzPathsecPolicy(BGPPolicy):
             return False
 
 
-class EzbbPathsecPolicy(EzPathsecPolicy):
-    name = "ComplexPathsec (protects third as)"
+class EzbbPathsecSimplePolicy(EzPathsecSimplePolicy):
+    name = "ComplexPathsecSimple (protects third as)"
 
     def _get_best_ann_by_gao_rexford(
-        self: "BGPPolicy",
+        self: "BGPSimplePolicy",
         current_ann: Optional["Ann"],
         new_ann: "Ann",
     ) -> "Ann":

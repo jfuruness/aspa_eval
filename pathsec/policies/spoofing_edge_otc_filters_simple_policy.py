@@ -1,31 +1,31 @@
 from typing import Optional, TYPE_CHECKING
 
 from bgpy.enums import Relationships
-from bgpy.simulation_engine import BGPPolicy, OnlyToCustomersPolicy
+from bgpy.simulation_engine import BGPSimplePolicy, OnlyToCustomersSimplePolicy
 
 if TYPE_CHECKING:
     from bgpy.as_graphs import AS
     from bgpy.simulation_engine import Announcement as Ann
 
-from .edge_filter_simple_policy import EdgeFilterPolicy
-from .spoofing_filter_simple_policy import SpoofingFilterPolicy
+from .edge_filter_simple_policy import EdgeFilterSimplePolicy
+from .spoofing_filter_simple_policy import SpoofingFilterSimplePolicy
 
 
-class SpoofingEdgeOTCFiltersPolicy(
-    OnlyToCustomersPolicy,
-    # EdgeFilterPolicy,
-    # SpoofingFilterPolicy,
-    # BGPPolicy,
+class SpoofingEdgeOTCFiltersSimplePolicy(
+    OnlyToCustomersSimplePolicy,
+    # EdgeFilterSimplePolicy,
+    # SpoofingFilterSimplePolicy,
+    # BGPSimplePolicy,
 ):
     """Runs spoofing, edge, OTC filters and adds OTC attr"""
 
-    name: str = "SpoofingEdgeOTCFilters"
+    name: str = "SpoofingEdgeOTCFiltersSimple"
 
     def _valid_ann(self, ann: "Ann", from_rel: Relationships) -> bool:  # type: ignore
         """Returns invalid if an edge AS is announcing a path longer than len 1"""
 
         # Since each class calls super() at the end of it's func call,
-        # it will actually run through every class up until BGPPolicy
+        # it will actually run through every class up until BGPSimplePolicy
         # https://stackoverflow.com/a/55006027/8903959
         # super()._valid_ann(ann, from_rel)
 

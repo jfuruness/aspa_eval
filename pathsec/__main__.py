@@ -5,20 +5,20 @@ import sys
 import time
 
 from pathsec.policies import (
-    EdgeFilterPolicy,
-    SpoofingEdgeOTCFiltersPolicy,
-    SpoofingEdgeOTCPathSusFiltersPolicy,
-    PathSusAlgo3Policy,
-    PathSusAlgo4Policy,
-    PathSusAlgo5Policy,
+    EdgeFilterSimplePolicy,
+    SpoofingEdgeOTCFiltersSimplePolicy,
+    SpoofingEdgeOTCPathSusFiltersSimplePolicy,
+    PathSusAlgo3SimplePolicy,
+    PathSusAlgo4SimplePolicy,
+    PathSusAlgo5SimplePolicy,
 )
 
 from bgpy.simulation_engine import (
-    BGPPolicy,
-    ASPAPolicy,
-    BGPSecPolicy,
-    PathendPolicy,
-    OnlyToCustomersPolicy,
+    BGPSimplePolicy,
+    ASPASimplePolicy,
+    BGPSecSimplePolicy,
+    PathendSimplePolicy,
+    OnlyToCustomersSimplePolicy,
 )
 
 from bgpy.enums import ASGroups, SpecialPercentAdoptions
@@ -31,8 +31,6 @@ from bgpy.simulation_framework import (
     GraphFactory,
 )
 
-from .sus_route_leak import SusRouteLeak
-
 default_kwargs = {
     "percent_adoptions": (
         SpecialPercentAdoptions.ONLY_ONE,
@@ -44,22 +42,22 @@ default_kwargs = {
         # Using only 1 AS not adopting causes extreme variance
         # SpecialPercentAdoptions.ALL_BUT_ONE,
     ),
-    "num_trials": 1 if "quick" in str(sys.argv) else 20,
+    "num_trials": 1 if "quick" in str(sys.argv) else 500,
     "parse_cpus": cpu_count(),
 }
 
 classes = [
-    SpoofingEdgeOTCPathSusFiltersPolicy,
-    ASPAPolicy,
-    # BGPSecPolicy,
-    # PathendPolicy,
-    # OnlyToCustomersPolicy,
-    # EdgeFilterPolicy,
-    SpoofingEdgeOTCFiltersPolicy,
-    # PathSusAlgo3Policy,
-    # PathSusAlgo4Policy,
-    PathSusAlgo5Policy,
-    # BGPPolicy,
+    SpoofingEdgeOTCPathSusFiltersSimplePolicy,
+    ASPASimplePolicy,
+    # BGPSecSimplePolicy,
+    # PathendSimplePolicy,
+    # OnlyToCustomersSimplePolicy,
+    # EdgeFilterSimplePolicy,
+    SpoofingEdgeOTCFiltersSimplePolicy,
+    # PathSusAlgo3SimplePolicy,
+    # PathSusAlgo4SimplePolicy,
+    # PathSusAlgo5SimplePolicy,
+    # BGPSimplePolicy,
 ]
 
 run_kwargs = {
@@ -76,12 +74,12 @@ def main():
     shortest_path_kwargs = deepcopy(default_kwargs)
     shortest_path_kwargs.update({
         "percent_adoptions": (
-            # SpecialPercentAdoptions.ONLY_ONE,
+            SpecialPercentAdoptions.ONLY_ONE,
             0.1,
             0.2,
             0.5,
             0.8,
-            # 0.99,
+            0.99,
         ),
     })
 
@@ -90,8 +88,7 @@ def main():
         scenario_configs=tuple(
             [
                 ScenarioConfig(
-                    ScenarioCls=SusRouteLeak,
-                    BasePolicyCls=BGPPolicy,
+                    ScenarioCls=AccidentalRouteLeak,
                     AdoptPolicyCls=AdoptPolicyCls,
                     # Leakers from anywhere
                     attacker_subcategory_attr=ASGroups.ALL_WOUT_IXPS.value,
@@ -100,16 +97,16 @@ def main():
             ]
         ),
         propagation_rounds=2,
-        output_dir=DIR / "sus_route_leak",
+        output_dir=DIR / "accidental_route_leak",
         **default_kwargs,
     )
     start = time.perf_counter()
     run_kwargs_copy = deepcopy(run_kwargs)
-    # run_kwargs_copy["graph_factory_kwargs"] = {"y_limit": 30}
+    run_kwargs_copy["graph_factory_kwargs"] = {"y_limit": 30}
     sim.run(**run_kwargs_copy)
     print(time.perf_counter() - start)
 
-    raise NotImplementedError("Write custom scenarios for others as well due to sus algo")
+
 
     # Shortest path export all
     sim = Simulation(
@@ -117,7 +114,6 @@ def main():
             [
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
-                    BasePolicyCls=BGPPolicy,
                     AdoptPolicyCls=AdoptPolicyCls,
                     preprocess_anns_func=(
                         preprocess_anns_funcs.shortest_path_export_all_hijack
@@ -138,7 +134,6 @@ def main():
             [
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
-                    BasePolicyCls=BGPPolicy,
                     AdoptPolicyCls=AdoptPolicyCls,
                     preprocess_anns_func=(
                         preprocess_anns_funcs.shortest_path_export_all_hijack
@@ -161,7 +156,6 @@ def main():
             [
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
-                    BasePolicyCls=BGPPolicy,
                     AdoptPolicyCls=AdoptPolicyCls,
                     preprocess_anns_func=preprocess_anns_funcs.origin_hijack,
                 )
@@ -181,7 +175,6 @@ def main():
             [
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
-                    BasePolicyCls=BGPPolicy,
                     AdoptPolicyCls=AdoptPolicyCls,
                     preprocess_anns_func=preprocess_anns_funcs.origin_spoofing_hijack,
                 )
