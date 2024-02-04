@@ -59,8 +59,6 @@ def main():
 
     DIR = Path.home() / "Desktop" / "aspa_sims"
 
-
-
     # Origin Hijack
     origin_hijack_classes = [
         EdgeFilterSimplePolicy,
@@ -173,16 +171,16 @@ def main():
     start = time.perf_counter()
     sim.run(**run_kwargs)
     print(time.perf_counter() - start)
-
     # Route leak multihomed
     route_leak_multihomed_classes = [
         EdgeFilterSimplePolicy,
         OnlyToCustomersEdgeSimplePolicy,
         OnlyToCustomersSimplePolicy,
+        ASPASimplePolicy,
         ASPAEdgeSimplePolicy,
         ASPAEdgeOTCSimplePolicy,
         PathSusAlgo5SimplePolicy,
-        SpoofingEdgeOTCFiltersSimplePolicy,  # EdgeOTCSus - RENAME
+        SpoofingEdgeOTCPathSusFiltersSimplePolicy,  # EdgeOTCSus - RENAME
         ASPAEdgeOTCSusAlgoSimplePolicy,
         BGPSimplePolicy,
     ]
@@ -203,7 +201,7 @@ def main():
     )
     start = time.perf_counter()
     run_kwargs_copy = deepcopy(run_kwargs)
-    # run_kwargs_copy["graph_factory_kwargs"] = {"y_limit": 30}
+    run_kwargs_copy["graph_factory_kwargs"] = {"y_limit": 30}
     sim.run(**run_kwargs_copy)
     print(time.perf_counter() - start)
 
@@ -213,7 +211,7 @@ def main():
         ASPASimplePolicy,
         ASPAEdgeOTCSimplePolicy,  # RENAME - remove edge
         PathSusAlgo5SimplePolicy,
-        SpoofingEdgeOTCFiltersSimplePolicy,  # OTCSus - RENAME
+        SpoofingEdgeOTCPathSusFiltersSimplePolicy,  # OTCSus - RENAME
         ASPAEdgeOTCSusAlgoSimplePolicy,  # ASPAEdgeOTCSs - RENAEM
         BGPSimplePolicy, # BGPSec, Pathend, Edge as well as BGP
     ]
@@ -234,7 +232,7 @@ def main():
     )
     start = time.perf_counter()
     run_kwargs_copy = deepcopy(run_kwargs)
-    # run_kwargs_copy["graph_factory_kwargs"] = {"y_limit": 30}
+    run_kwargs_copy["graph_factory_kwargs"] = {"y_limit": 30}
     sim.run(**run_kwargs_copy)
     print(time.perf_counter() - start)
 
