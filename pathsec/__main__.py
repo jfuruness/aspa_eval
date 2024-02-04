@@ -4,17 +4,12 @@ from pathlib import Path
 import sys
 import time
 
-from pathsec.policies import (
-    EdgeFilterSimplePolicy,
-    SpoofingEdgeOTCFiltersSimplePolicy,
-    SpoofingEdgeOTCPathSusFiltersSimplePolicy,
-    PathSusAlgo3SimplePolicy,
-    PathSusAlgo4SimplePolicy,
-    PathSusAlgo5SimplePolicy,
-)
+# I know this is bad, but I gotta save on the devtime
+from pathsec.policies import *
 
 from bgpy.simulation_engine import (
     BGPSimplePolicy,
+    ROVSimplePolicy,
     ASPASimplePolicy,
     BGPSecSimplePolicy,
     PathendSimplePolicy,
@@ -42,23 +37,16 @@ default_kwargs = {
         # Using only 1 AS not adopting causes extreme variance
         # SpecialPercentAdoptions.ALL_BUT_ONE,
     ),
-    "num_trials": 1 if "quick" in str(sys.argv) else 500,
-    "parse_cpus": cpu_count(),
+    "num_trials": 1 if "quick" in str(sys.argv) else 40,
+    "parse_cpus": cpu_count() - 2,
 }
 
-classes = [
-    SpoofingEdgeOTCPathSusFiltersSimplePolicy,
-    ASPASimplePolicy,
-    # BGPSecSimplePolicy,
-    # PathendSimplePolicy,
-    # OnlyToCustomersSimplePolicy,
-    # EdgeFilterSimplePolicy,
-    SpoofingEdgeOTCFiltersSimplePolicy,
-    # PathSusAlgo3SimplePolicy,
-    # PathSusAlgo4SimplePolicy,
-    # PathSusAlgo5SimplePolicy,
-    # BGPSimplePolicy,
-]
+
+class ROVWOriginHijack(ROVSimplePolicy):
+    name = "ROV & Origin Hijack"
+class ROVWOriginSpoofingHijack(ROVSimplePolicy):
+    name = "ROV & Origin Spoofing Hijack"
+
 
 run_kwargs = {
     "GraphFactoryCls": None if "quick" in str(sys.argv) else GraphFactory,
@@ -71,44 +59,79 @@ def main():
 
     DIR = Path.home() / "Desktop" / "aspa_sims"
 
-    shortest_path_kwargs = deepcopy(default_kwargs)
-    shortest_path_kwargs.update({
-        "percent_adoptions": (
-            SpecialPercentAdoptions.ONLY_ONE,
-            0.1,
-            0.2,
-            0.5,
-            0.8,
-            0.99,
-        ),
-    })
 
-    # Route leak
+
+    # Origin Hijack
+    origin_hijack_classes = [
+        EdgeFilterSimplePolicy,
+        PathendSimplePolicy,
+        # ASPASimplePolicy,
+        BGPSecSimplePolicy,
+        # BGPSecEdgeSimplePolicy,
+        # PathendEdgeSimplePolicy,
+        # ASPAEdgeSimplePolicy,
+        BGPSimplePolicy,
+    ]
     sim = Simulation(
         scenario_configs=tuple(
             [
                 ScenarioConfig(
-                    ScenarioCls=AccidentalRouteLeak,
+                    ScenarioCls=PrefixHijack,
                     AdoptPolicyCls=AdoptPolicyCls,
-                    # Leakers from anywhere
-                    attacker_subcategory_attr=ASGroups.ALL_WOUT_IXPS.value,
+                    preprocess_anns_func=preprocess_anns_funcs.origin_hijack,
                 )
-                for AdoptPolicyCls in classes
+                for AdoptPolicyCls in origin_hijack_classes
             ]
         ),
-        propagation_rounds=2,
-        output_dir=DIR / "accidental_route_leak",
+        output_dir=DIR / "origin_hijack",
         **default_kwargs,
     )
     start = time.perf_counter()
-    run_kwargs_copy = deepcopy(run_kwargs)
-    run_kwargs_copy["graph_factory_kwargs"] = {"y_limit": 30}
-    sim.run(**run_kwargs_copy)
+    sim.run(**run_kwargs)
+
     print(time.perf_counter() - start)
 
 
 
+    # Origin Spoofing Hijack
+    sim = Simulation(
+        scenario_configs=tuple(
+            [
+                ScenarioConfig(
+                    ScenarioCls=PrefixHijack,
+                    AdoptPolicyCls=ROVWOriginHijack,
+                    preprocess_anns_func=preprocess_anns_funcs.origin_hijack,
+                ),
+                ScenarioConfig(
+                    ScenarioCls=PrefixHijack,
+                    AdoptPolicyCls=ROVWOriginSpoofingHijack,
+                    preprocess_anns_func=preprocess_anns_funcs.origin_spoofing_hijack,
+                ),
+
+            ]
+        ),
+        output_dir=DIR / "origin_spoofing",
+        **default_kwargs,
+    )
+    start = time.perf_counter()
+    sim.run(**run_kwargs)
+    print(time.perf_counter() - start)
+
     # Shortest path export all
+    shortest_path_export_all_classes = [
+        # EdgeFilterSimplePolicy,
+        # PathendSimplePolicy,
+        # ASPASimplePolicy,
+        PathendEdgeSimplePolicy,
+        ASPAEdgeSimplePolicy,
+        # PathSusAlgo5SimplePolicy,
+        # SpoofingEdgeOTCPathSusFiltersSimplePolicy,  # RENAME in graph
+        PathendEdgeSusAlgoSimplePolicy,
+        ASPAEdgeSusAlgoSimplePolicy,
+        BGPSimplePolicy,
+    ]
+
+
     sim = Simulation(
         scenario_configs=tuple(
             [
@@ -119,15 +142,16 @@ def main():
                         preprocess_anns_funcs.shortest_path_export_all_hijack
                     ),
                 )
-                for AdoptPolicyCls in classes
+                for AdoptPolicyCls in shortest_path_export_all_classes
             ]
         ),
         output_dir=DIR / "shortest_path_export_all",
-        **shortest_path_kwargs,
+        **default_kwargs,
     )
     start = time.perf_counter()
     sim.run(**run_kwargs)
     print(time.perf_counter() - start)
+
     # Shortest path export all multi attackers
     sim = Simulation(
         scenario_configs=tuple(
@@ -140,56 +164,79 @@ def main():
                     ),
                     num_attackers=10,
                 )
-                for AdoptPolicyCls in classes
+                for AdoptPolicyCls in shortest_path_export_all_classes
             ]
         ),
         output_dir=DIR / "shortest_path_export_all_multi",
-        **shortest_path_kwargs,
-    )
-    start = time.perf_counter()
-    sim.run(**run_kwargs)
-    print(time.perf_counter() - start)
-
-    # Origin Hijack
-    sim = Simulation(
-        scenario_configs=tuple(
-            [
-                ScenarioConfig(
-                    ScenarioCls=PrefixHijack,
-                    AdoptPolicyCls=AdoptPolicyCls,
-                    preprocess_anns_func=preprocess_anns_funcs.origin_hijack,
-                )
-                for AdoptPolicyCls in classes
-            ]
-        ),
-        output_dir=DIR / "origin_hijack",
         **default_kwargs,
     )
     start = time.perf_counter()
     sim.run(**run_kwargs)
     print(time.perf_counter() - start)
 
-    # Origin Spoofing Hijack
+    # Route leak multihomed
+    route_leak_multihomed_classes = [
+        EdgeFilterSimplePolicy,
+        OnlyToCustomersEdgeSimplePolicy,
+        OnlyToCustomersSimplePolicy,
+        ASPAEdgeSimplePolicy,
+        ASPAEdgeOTCSimplePolicy,
+        PathSusAlgo5SimplePolicy,
+        SpoofingEdgeOTCFiltersSimplePolicy,  # EdgeOTCSus - RENAME
+        ASPAEdgeOTCSusAlgoSimplePolicy,
+        BGPSimplePolicy,
+    ]
     sim = Simulation(
         scenario_configs=tuple(
             [
                 ScenarioConfig(
-                    ScenarioCls=PrefixHijack,
+                    ScenarioCls=AccidentalRouteLeak,
                     AdoptPolicyCls=AdoptPolicyCls,
-                    preprocess_anns_func=preprocess_anns_funcs.origin_spoofing_hijack,
+                    attacker_subcategory_attr=ASGroups.MULTIHOMED.value,
                 )
-                for AdoptPolicyCls in classes
+                for AdoptPolicyCls in route_leak_multihomed_classes
             ]
         ),
-        output_dir=DIR / "origin_spoofing",
+        propagation_rounds=2,
+        output_dir=DIR / "accidental_route_leak_mh",
         **default_kwargs,
     )
     start = time.perf_counter()
-    sim.run(**run_kwargs)
+    run_kwargs_copy = deepcopy(run_kwargs)
+    # run_kwargs_copy["graph_factory_kwargs"] = {"y_limit": 30}
+    sim.run(**run_kwargs_copy)
     print(time.perf_counter() - start)
 
-    # geographic adoption
-    raise NotImplementedError("GEOGRAPHIC ADOPTION")
+    # Route leak transit
+    route_leak_transit_classes = [
+        OnlyToCustomersSimplePolicy,
+        ASPASimplePolicy,
+        ASPAEdgeOTCSimplePolicy,  # RENAME - remove edge
+        PathSusAlgo5SimplePolicy,
+        SpoofingEdgeOTCFiltersSimplePolicy,  # OTCSus - RENAME
+        ASPAEdgeOTCSusAlgoSimplePolicy,  # ASPAEdgeOTCSs - RENAEM
+        BGPSimplePolicy, # BGPSec, Pathend, Edge as well as BGP
+    ]
+    sim = Simulation(
+        scenario_configs=tuple(
+            [
+                ScenarioConfig(
+                    ScenarioCls=AccidentalRouteLeak,
+                    AdoptPolicyCls=AdoptPolicyCls,
+                    attacker_subcategory_attr=ASGroups.TRANSIT.value,
+                )
+                for AdoptPolicyCls in route_leak_transit_classes
+            ]
+        ),
+        propagation_rounds=2,
+        output_dir=DIR / "accidental_route_leak_transit",
+        **default_kwargs,
+    )
+    start = time.perf_counter()
+    run_kwargs_copy = deepcopy(run_kwargs)
+    # run_kwargs_copy["graph_factory_kwargs"] = {"y_limit": 30}
+    sim.run(**run_kwargs_copy)
+    print(time.perf_counter() - start)
 
 
 if __name__ == "__main__":
