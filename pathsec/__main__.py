@@ -2,7 +2,7 @@ import time
 
 from .sims import (
     run_origin_hijack_sim,
-    run_origin_spoofig_hijack_sim
+    run_origin_spoofing_hijack_sim
 )
 
 
