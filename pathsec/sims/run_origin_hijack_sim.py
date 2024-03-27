@@ -46,4 +46,11 @@ def run_origin_hijack_sim():
         output_dir=DIR / "origin_hijack",
         **default_kwargs,  # type: ignore
     )
-    sim.run(**run_kwargs)
+    sim.run(
+        graph_factory_kwargs={
+            "label_replacement_dict": {
+                Pathend.name: "Pathend/ASPA/PathendEdge/ASPAEdge",
+                EdgeFilter.name: "EdgeFilter/BGPSecEdge"
+            }
+        },
+        **run_kwargs)

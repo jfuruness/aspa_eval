@@ -18,7 +18,7 @@ class EdgeFilter(BGP):
         otherwise returns the superclasses _valid_ann (loop checking currently)
         """
 
-        if self._valid_edge(ann, from_rel):
+        if self._valid_edge_ann(ann, from_rel):
             return super()._valid_ann(ann, from_rel)
         else:
             return False

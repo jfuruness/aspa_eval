@@ -1,12 +1,15 @@
 import time
 
-from .sims import run_origin_hijack_sim
+from .sims import (
+    run_origin_hijack_sim,
+    run_origin_spoofig_hijack_sim
+)
 
 
 def main():
     """Runs the defaults"""
 
-    sim_funcs = (run_origin_hijack_sim,)
+    sim_funcs = (run_origin_hijack_sim, run_origin_spoofing_hijack_sim)
     for sim_func in sim_funcs:
         start = time.perf_counter()
         sim_func()
