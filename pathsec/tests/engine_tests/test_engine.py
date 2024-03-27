@@ -3,8 +3,8 @@ from pathlib import Path
 import pytest
 
 from bgpy.tests.engine_tests.engine_test_configs import engine_test_configs
-from bgpy.tests.utils import EngineTester
-from bgpy.tests.utils import EngineTestConfig
+from bgpy.tests import EngineTester
+from bgpy.tests import EngineTestConfig
 
 
 @pytest.mark.engine
