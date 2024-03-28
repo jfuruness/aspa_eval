@@ -33,12 +33,12 @@ def run_route_leak_transit_sim():
                     ScenarioCls=AccidentalRouteLeak,
                     AdoptPolicyCls=AdoptPolicyCls,
                     attacker_subcategory_attr=ASGroups.TRANSIT.value,
+                    propagation_rounds=2,
                 )
                 for AdoptPolicyCls in sim_classes
             ]
         ),
         output_dir=DIR / "route_leak_transit",
-        propagation_rounds=2,
         **default_kwargs,  # type: ignore
     )
     sim.run(

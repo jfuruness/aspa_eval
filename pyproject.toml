@@ -46,7 +46,7 @@ classifiers = [
     "Intended Audience :: Developers"
 ]
 dependencies = [
-    "bgpy_pkg",
+    "bgpy_pkg==7.0.6",
 ]
 
 [project.urls]
@@ -58,7 +58,7 @@ pathsec = "pathsec.__main__:main"
 
 [project.optional-dependencies]
 test = [
-    "bgpy_pkg[test]"
+    "bgpy_pkg[test]==7.0.6"
 ]
 
 [tool.setuptools]

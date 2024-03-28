@@ -39,12 +39,12 @@ def run_route_leak_mh_sim():
                     ScenarioCls=AccidentalRouteLeak,
                     AdoptPolicyCls=AdoptPolicyCls,
                     attacker_subcategory_attr=ASGroups.MULTIHOMED.value,
+                    propagation_rounds=2,
                 )
                 for AdoptPolicyCls in sim_classes
             ]
         ),
         output_dir=DIR / "route_leak_mh",
-        propagation_rounds=2,
         **default_kwargs,  # type: ignore
     )
     sim.run(
