@@ -1,7 +1,4 @@
 from pathsec.policies import (
-    EdgeFilter,
-    OTCEdge,
-    ASPAEdge,
     ASPAOTCEdge,
 )
 
@@ -22,13 +19,10 @@ from bgpy.simulation_framework import (
 from .sim_kwargs import DIR, default_kwargs, run_kwargs
 
 
-def run_route_leak_mh_sim():
-    """Runs sim for an origin hijack"""
+def run_route_leak_transit_sim():
+    """Runs sim for an transit attacker's route leak"""
 
     sim_classes = [
-        EdgeFilter,
-        OTCEdge,
-        ASPAEdge,
         ASPAOTCEdge,
         ASPA,
         OnlyToCustomers,
@@ -40,20 +34,19 @@ def run_route_leak_mh_sim():
                 ScenarioConfig(
                     ScenarioCls=AccidentalRouteLeak,
                     AdoptPolicyCls=AdoptPolicyCls,
-                    attacker_subcategory_attr=ASGroups.MULTIHOMED.value
+                    attacker_subcategory_attr=ASGroups.TRANSIT.value
                 )
                 for AdoptPolicyCls in sim_classes
             ]
         ),
-        output_dir=DIR / "route_leak_mh",
+        output_dir=DIR / "route_leak_transit",
         propagation_rounds=2,
         **default_kwargs,  # type: ignore
     )
     sim.run(
         graph_factory_kwargs={
             "label_replacement_dict": {
-                # Pathend.name: "Pathend/ASPA/PathendEdge/ASPAEdge",
-                # EdgeFilter.name: "EdgeFilter/BGPSecEdge"
+                ASPAOTCEdge.name: "ASPA & OTC",
             },
             "y_limit": 30,
         },
