@@ -50,7 +50,8 @@ def run_origin_hijack_sim():
         graph_factory_kwargs={
             "label_replacement_dict": {
                 Pathend.name: "Pathend/ASPA/PathendEdge/ASPAEdge",
-                EdgeFilter.name: "EdgeFilter/BGPSecEdge"
+                EdgeFilter.name: "EdgeFilter/BGPSecEdge",
             }
         },
-        **run_kwargs)
+        **run_kwargs,
+    )

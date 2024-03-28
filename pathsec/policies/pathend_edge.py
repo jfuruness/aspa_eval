@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
 from bgpy.enums import Relationships
-from bgpy.simulation_engine import BGP, Pathend
+from bgpy.simulation_engine import Pathend
 
 if TYPE_CHECKING:
     from bgpy.simulation_engine import Announcement as Ann
@@ -23,6 +23,8 @@ class PathendEdge(Pathend):
         # NOTE: you could probably use multiple inheritance here, but to save some dev
         # time, I'm just going to use mixins instead
         if EdgeFilter._valid_edge_ann(self, ann, from_rel):
-            return super()._valid_ann(ann, from_rel)
+            rv = super()._valid_ann(ann, from_rel)
+            assert isinstance(rv, bool), "mypy type check"
+            return rv
         else:
             return False

@@ -9,10 +9,10 @@ if TYPE_CHECKING:
 from .edge_filter import EdgeFilter
 
 
-class OnlyToCustomersEdge(OnlyToCustomers):
+class OTCEdge(OnlyToCustomers):
     """Prevents edge ASes from paths longer than 1, and OnlyToCustomers"""
 
-    name: str = "OnlyToCustomerswEdge"
+    name: str = "OnlyToCustomers & Edge"
 
     def _valid_ann(self, ann: "Ann", from_rel: Relationships) -> bool:  # type: ignore
         """Returns invalid if an edge AS is announcing a path longer than len 1
@@ -23,6 +23,8 @@ class OnlyToCustomersEdge(OnlyToCustomers):
         # NOTE: you could probably use multiple inheritance here, but to save some dev
         # time, I'm just going to use mixins instead
         if EdgeFilter._valid_edge_ann(self, ann, from_rel):
-            return super()._valid_ann(ann, from_rel)
+            rv = super()._valid_ann(ann, from_rel)
+            assert isinstance(rv, bool), "mypy type check"
+            return rv
         else:
             return False

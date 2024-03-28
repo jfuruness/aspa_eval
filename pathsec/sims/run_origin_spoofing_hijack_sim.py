@@ -33,7 +33,6 @@ def run_origin_spoofing_hijack_sim():
                     AdoptPolicyCls=ROVWOriginSpoofingHijack,
                     preprocess_anns_func=preprocess_anns_funcs.origin_spoofing_hijack,
                 ),
-
             ]
         ),
         output_dir=DIR / "origin_spoofing_hijack",

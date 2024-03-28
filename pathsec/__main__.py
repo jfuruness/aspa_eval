@@ -25,8 +25,8 @@ def main():
     )
     for sim_func in sim_funcs:
         start = time.perf_counter()
-        sim_func()
-        print(f"{time.perf_counter() - start}s for {sim_func.__name__}")
+        sim_func()  # type: ignore
+        print(f"{time.perf_counter() - start}s for {getattr(sim_func, '__name__', '')}")
 
 
 if __name__ == "__main__":

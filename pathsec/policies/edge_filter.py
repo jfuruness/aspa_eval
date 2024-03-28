@@ -19,7 +19,9 @@ class EdgeFilter(BGP):
         """
 
         if self._valid_edge_ann(ann, from_rel):
-            return super()._valid_ann(ann, from_rel)
+            rv = super()._valid_ann(ann, from_rel)
+            assert isinstance(rv, bool), "mypy type check"
+            return rv
         else:
             return False
 

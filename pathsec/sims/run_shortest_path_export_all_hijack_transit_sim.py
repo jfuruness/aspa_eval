@@ -34,14 +34,12 @@ def run_shortest_path_export_all_hijack_transit_sim():
                     preprocess_anns_func=(
                         preprocess_anns_funcs.shortest_path_export_all_hijack
                     ),
-                    attacker_subcategory_attr=ASGroups.TRANSIT.value
+                    attacker_subcategory_attr=ASGroups.TRANSIT.value,
                 )
                 for AdoptPolicyCls in sim_classes
             ]
         ),
-        output_dir=DIR / f"shortest_path_export_all_hijack_transit",
+        output_dir=DIR / "shortest_path_export_all_hijack_transit",
         **default_kwargs,  # type: ignore
     )
-    sim.run(
-        **run_kwargs
-    )
+    sim.run(**run_kwargs)

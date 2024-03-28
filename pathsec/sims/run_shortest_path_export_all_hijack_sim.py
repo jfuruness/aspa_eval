@@ -57,5 +57,5 @@ def run_shortest_path_export_all_hijack_sim(num_attackers=1):
                 # EdgeFilter.name: "EdgeFilter/BGPSecEdge"
             }
         },
-        **run_kwargs
+        **run_kwargs,
     )

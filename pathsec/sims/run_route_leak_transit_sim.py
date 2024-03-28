@@ -5,14 +5,12 @@ from pathsec.policies import (
 from bgpy.enums import ASGroups
 from bgpy.simulation_engine import (
     BGP,
-    BGPSec,
     ASPA,
     OnlyToCustomers,
 )
 from bgpy.simulation_framework import (
     Simulation,
     AccidentalRouteLeak,
-    preprocess_anns_funcs,
     ScenarioConfig,
 )
 
@@ -34,7 +32,7 @@ def run_route_leak_transit_sim():
                 ScenarioConfig(
                     ScenarioCls=AccidentalRouteLeak,
                     AdoptPolicyCls=AdoptPolicyCls,
-                    attacker_subcategory_attr=ASGroups.TRANSIT.value
+                    attacker_subcategory_attr=ASGroups.TRANSIT.value,
                 )
                 for AdoptPolicyCls in sim_classes
             ]
@@ -50,5 +48,5 @@ def run_route_leak_transit_sim():
             },
             "y_limit": 30,
         },
-        **run_kwargs
+        **run_kwargs,
     )
