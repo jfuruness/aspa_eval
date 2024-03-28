@@ -5,6 +5,7 @@ from .sims import (
     run_origin_hijack_sim,
     run_origin_spoofing_hijack_sim,
     run_shortest_path_export_all_hijack_sim,
+    run_route_leak_mh_sim,
 )
 
 
@@ -15,7 +16,8 @@ def main():
         run_origin_hijack_sim,
         run_origin_spoofing_hijack_sim,
         run_shortest_path_export_all_hijack_sim,
-        partial(run_shortest_path_export_all_hijack_sim, num_attackers=10)
+        partial(run_shortest_path_export_all_hijack_sim, num_attackers=10),
+        run_route_leak_mh_sim,
     )
     for sim_func in sim_funcs:
         start = time.perf_counter()
