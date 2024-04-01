@@ -20,7 +20,7 @@ default_kwargs = frozendict(
             # Using only 1 AS not adopting causes extreme variance
             # SpecialPercentAdoptions.ALL_BUT_ONE,
         ),
-        "num_trials": 1 if "quick" in str(sys.argv) else 40,
+        "num_trials": 1 if "quick" in str(sys.argv) else 2000,
         "parse_cpus": cpu_count() - 2,
     }
 )

@@ -53,7 +53,7 @@ def run_route_leak_mh_sim():
                 # Pathend.name: "Pathend/ASPA/PathendEdge/ASPAEdge",
                 # EdgeFilter.name: "EdgeFilter/BGPSecEdge"
             },
-            "y_limit": 30,
+            # "y_limit": 30,
         },
         **run_kwargs,
     )

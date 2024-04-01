@@ -44,9 +44,9 @@ def run_route_leak_transit_sim():
     sim.run(
         graph_factory_kwargs={
             "label_replacement_dict": {
-                ASPAOTCEdge.name: "ASPA & OTC",
+                ASPAOTCEdge.name: "ASPAwOTC",
             },
-            "y_limit": 30,
+            # "y_limit": 30,
         },
         **run_kwargs,
     )
