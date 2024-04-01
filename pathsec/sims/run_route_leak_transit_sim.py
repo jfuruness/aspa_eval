@@ -4,7 +4,7 @@ from pathsec.policies import (
 
 from bgpy.enums import ASGroups
 from bgpy.simulation_engine import (
-    BGP,
+    ROV,
     ASPA,
     OnlyToCustomers,
 )
@@ -24,7 +24,7 @@ def run_route_leak_transit_sim():
         ASPAOTCEdge,
         ASPA,
         OnlyToCustomers,
-        BGP,
+        ROV,
     ]
     sim = Simulation(
         scenario_configs=tuple(

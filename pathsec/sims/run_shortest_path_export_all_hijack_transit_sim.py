@@ -1,6 +1,6 @@
 from bgpy.enums import ASGroups
 from bgpy.simulation_engine import (
-    BGP,
+    ROV,
     BGPSec,
     Pathend,
     ASPA,
@@ -23,7 +23,7 @@ def run_shortest_path_export_all_hijack_transit_sim():
         ASPA,
         Pathend,
         BGPSec,
-        BGP,
+        ROV,
     ]
     sim = Simulation(
         scenario_configs=tuple(

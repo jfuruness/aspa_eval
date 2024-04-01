@@ -3,7 +3,7 @@ from pathsec.policies import (
 )
 
 from bgpy.simulation_engine import (
-    BGP,
+    ROV,
     BGPSec,
     Pathend,
 )
@@ -25,7 +25,7 @@ def run_origin_hijack_sim():
         EdgeFilter,
         Pathend,
         BGPSec,
-        BGP,
+        ROV,
         # See paper, the following policies overlap with other lines
         # ASPA,  # overlaps with pathend
         # BGPSecEdge,  # overlaps with edge
