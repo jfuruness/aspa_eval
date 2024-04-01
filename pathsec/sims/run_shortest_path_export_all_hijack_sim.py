@@ -43,6 +43,7 @@ def run_shortest_path_export_all_hijack_sim(num_attackers=1):
                     preprocess_anns_func=(
                         preprocess_anns_funcs.shortest_path_export_all_hijack
                     ),
+                    num_attackers=num_attackers,
                 )
                 for AdoptPolicyCls in sim_classes
             ]
