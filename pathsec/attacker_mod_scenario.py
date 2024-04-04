@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from typing import Optional, TYPE_CHECKING
 
+from bgpy.enums import SpecialPercentAdoptions
 from bgpy.simulation_engine import BGP, Policy
 from bgpy.simulation_framework import ScenarioConfig, PrefixHijack
 
 
 if TYPE_CHECKING:
-    from bgpy.enums import SpecialPercentAdoptions
     from bgpy.simulation_engine import BaseSimulationEngine
     from bgpy.simulation_framework import Scenario
 
@@ -45,7 +45,7 @@ class AttackerModScenario(PrefixHijack):
     """
 
     def setup_engine(
-        self, engine: BaseSimulationEngine, prev_scenario: Optional["Scenario"] = None
+        self, engine: "BaseSimulationEngine", prev_scenario: Optional["Scenario"] = None
     ) -> None:
         """Sets up engine"""
 
@@ -53,7 +53,7 @@ class AttackerModScenario(PrefixHijack):
         for attacker_asn in self.attacker_asns:
             as_obj = engine.as_graph.as_dict[attacker_asn]
             assert isinstance(self.scenario_config, AttackerModScenarioConfig), "Mypy"
-            self.__OGAttackerBasePolicyCls = as_obj.policy
+            self.__OGAttackerBasePolicyCls = as_obj.policy.__class__
             as_obj.policy.__class__ = self.scenario_config.AttackerBasePolicyCls
 
     def pre_aggregation_hook(
