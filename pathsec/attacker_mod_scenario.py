@@ -9,7 +9,6 @@ class AttackerModScenarioConfig(ScenarioConfig):
     AttackerBasePolicyCls: type[Policy] = BGP
 
 
-
 class AttackerModScenario(PrefixHijack):
     """This class came up as the need for an attacker class arose.
 

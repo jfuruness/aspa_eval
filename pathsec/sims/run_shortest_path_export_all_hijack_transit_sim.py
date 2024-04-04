@@ -44,7 +44,8 @@ def run_shortest_path_export_all_hijack_transit_sim():
                     attacker_subcategory_attr=ASGroups.TRANSIT.value,
                 )
                 for AdoptPolicyCls in sim_classes
-            ] + [
+            ]
+            + [
                 AttackerModScenarioConfig(
                     ScenarioCls=AttackerModScenario,
                     AdoptPolicyCls=ASPACorrected,

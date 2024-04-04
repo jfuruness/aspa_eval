@@ -1,4 +1,12 @@
-from bgpy import BGP
+from typing import TYPE_CHECKING
+
+from bgpy.enums import Relationships
+from bgpy.simulation_engine import BGP
+
+
+if TYPE_CHECKING:
+    from bgpy.simulation_engine import Announcement as Ann
+    from bgpy.as_graphs import AS
 
 
 class ShortestPathExportAllAttacker(BGP):
@@ -11,7 +19,7 @@ class ShortestPathExportAllAttacker(BGP):
     don't assert this anywhere, so use outside of our results is not advised
     """
 
-    def _policy_propagate(self):
+    def _policy_propagate(
         self: "BGP",
         neighbor: "AS",
         ann: "Ann",
@@ -23,7 +31,7 @@ class ShortestPathExportAllAttacker(BGP):
         # This ann is the one we want to overwrite - the ann seeded at the attacker
         if ann.seed_asn is not None and propagate_to == Relationships.CUSTOMER:
             # Only need origin hijack when sending to customers
-            new_ann = ann.copy({"as_path": (self.as_.asn, ann.origin),})
+            new_ann = ann.copy({"as_path": (self.as_.asn, ann.origin)})
             self._process_outgoing_ann(neighbor, new_ann, propagate_to, send_rels)
             return True
         else:

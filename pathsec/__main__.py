@@ -29,6 +29,7 @@ def main():
         print(f"{time.perf_counter() - start}s for {getattr(sim_func, '__name__', '')}")
     raise NotImplementedError("PUT OTHER SIMS BACK")
 
+
 if __name__ == "__main__":
     start = time.perf_counter()
     main()
