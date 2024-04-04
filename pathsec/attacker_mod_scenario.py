@@ -1,7 +1,14 @@
 from dataclasses import dataclass
+from typing import Optional, TYPE_CHECKING
 
 from bgpy.simulation_engine import BGP, Policy
-from bgpy.simulation_framework import ScenarioConfig, Prefixhijack
+from bgpy.simulation_framework import ScenarioConfig, PrefixHijack
+
+
+if TYPE_CHECKING:
+    from bgpy.enums import SpecialPercentAdoptions
+    from bgpy.simulation_engine import BaseSimulationEngine
+    from bgpy.simulation_framework import Scenario
 
 
 @dataclass(frozen=True)
