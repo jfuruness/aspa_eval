@@ -23,7 +23,7 @@ class ASPAwNeighbors(ASPA):
     name = "ASPAwNeighbors"
 
 
-def run_shortest_path_export_all_hijack_transit_sim():
+def run_shortest_path_export_all_hijack_etc_sim():
     """Runs sim for shortest path export all"""
 
     sim_classes = [
