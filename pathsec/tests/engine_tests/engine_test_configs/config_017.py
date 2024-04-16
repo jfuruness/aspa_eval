@@ -19,8 +19,8 @@ desc = (
     "AS prevents the attack, this is merely to check attack functionality"
 )
 
-ex_config_026_b = EngineTestConfig(
-    name="ex_026_shortest_path_export_all_aspa_otc_edge_peer",
+config_017 = EngineTestConfig(
+    name="017_shortest_path_export_all_aspa_otc_edge_peer",
     desc=desc,
     scenario_config=ScenarioConfig(
         ScenarioCls=PrefixHijack,

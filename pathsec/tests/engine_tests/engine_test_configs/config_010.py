@@ -9,37 +9,26 @@ from bgpy.simulation_engine import BGP
 from pathsec.policies import ASPAEdge
 from bgpy.simulation_framework import (
     ScenarioConfig,
-    PrefixHijack,
+    AccidentalRouteLeak,
     preprocess_anns_funcs,
 )
 
 
-desc = (
-    "shortest path export all against ASPAEdge from a peer\n"
-    "AS prevents the attack, this is merely to check attack functionality"
-)
+desc = "accidental route leak against ASPAEdge"
 
-ex_config_026_a = EngineTestConfig(
-    name="ex_026_shortest_path_export_all_aspa_edge_peer",
+config_010 = EngineTestConfig(
+    name="010_route_leak_aspa_edge_upstream_verification",
     desc=desc,
     scenario_config=ScenarioConfig(
-        ScenarioCls=PrefixHijack,
-        preprocess_anns_func=preprocess_anns_funcs.shortest_path_export_all_hijack,
+        ScenarioCls=AccidentalRouteLeak,
+        preprocess_anns_func=preprocess_anns_funcs.noop,
         BasePolicyCls=BGP,
-        AdoptPolicyCls=ASPAEdge,
         override_attacker_asns=frozenset({ASNs.ATTACKER.value}),
         override_victim_asns=frozenset({ASNs.VICTIM.value}),
         override_non_default_asn_cls_dict=frozendict(
             {
+                1: ASPAEdge,
                 2: ASPAEdge,
-                4: ASPAEdge,
-                5: ASPAEdge,
-                8: ASPAEdge,
-                9: ASPAEdge,
-                10: ASPAEdge,
-                11: ASPAEdge,
-                12: ASPAEdge,
-                ASNs.VICTIM.value: ASPAEdge,
             }
         ),
     ),

@@ -6,7 +6,7 @@ from bgpy.tests.engine_tests.engine_test_configs.examples.as_graph_info_000 impo
 from bgpy.tests.engine_tests.utils import EngineTestConfig
 
 from bgpy.simulation_engine import BGP
-from pathsec.policies import PathendEdge
+from pathsec.policies import OTCEdge
 from bgpy.simulation_framework import (
     ScenarioConfig,
     AccidentalRouteLeak,
@@ -15,13 +15,14 @@ from bgpy.simulation_framework import (
 
 
 desc = (
-    "accidental route leak against pathend edge\n"
-    "Pathend checks the end of the path for valid providers\n"
-    "so anything beyond the third AS is not protected"
+    "accidental route leak against OTCEdge\n"
+    "This policy sets the only_to_customers attribute"
+    "specified in RFC 9234 \n"
+    "which protects against simple route leaks"
 )
 
-ex_config_018 = EngineTestConfig(
-    name="ex_018_route_leak_pathend_edge",
+config_008 = EngineTestConfig(
+    name="008_route_leak_otc_edge",
     desc=desc,
     scenario_config=ScenarioConfig(
         ScenarioCls=AccidentalRouteLeak,
@@ -31,8 +32,8 @@ ex_config_018 = EngineTestConfig(
         override_victim_asns=frozenset({ASNs.VICTIM.value}),
         override_non_default_asn_cls_dict=frozendict(
             {
-                1: PathendEdge,
-                ASNs.VICTIM.value: PathendEdge,
+                1: OTCEdge,
+                2: OTCEdge,
             }
         ),
     ),

@@ -6,29 +6,34 @@ from bgpy.tests.engine_tests.engine_test_configs.examples.as_graph_info_000 impo
 from bgpy.tests.engine_tests.utils import EngineTestConfig
 
 from bgpy.simulation_engine import BGP
-from pathsec.policies import ASPAOTCEdge
+from pathsec.policies import ASPAEdge
 from bgpy.simulation_framework import (
     ScenarioConfig,
-    AccidentalRouteLeak,
+    SubprefixHijack,
     preprocess_anns_funcs,
 )
 
 
-desc = "accidental route leak against ASPAOTCEdge"
+desc = (
+    "subprefix origin hijack against ASPAEdge\n"
+    "This isn't realistic, just for testing to test the downstream"
+    "Use the subprefix to check"
+)
 
-ex_config_021_b = EngineTestConfig(
-    name="ex_021_route_leak_aspa_otc_edge_upstream_verification",
+config_012 = EngineTestConfig(
+    name="012_subprefix_origin_aspa_edge_downstream_verification",
     desc=desc,
     scenario_config=ScenarioConfig(
-        ScenarioCls=AccidentalRouteLeak,
-        preprocess_anns_func=preprocess_anns_funcs.noop,
+        ScenarioCls=SubprefixHijack,
+        preprocess_anns_func=preprocess_anns_funcs.origin_hijack,
         BasePolicyCls=BGP,
         override_attacker_asns=frozenset({ASNs.ATTACKER.value}),
         override_victim_asns=frozenset({ASNs.VICTIM.value}),
         override_non_default_asn_cls_dict=frozendict(
             {
-                1: ASPAOTCEdge,
-                2: ASPAOTCEdge,
+                2: ASPAEdge,
+                10: ASPAEdge,
+                ASNs.VICTIM.value: ASPAEdge,
             }
         ),
     ),

@@ -5,8 +5,8 @@ from bgpy.tests.engine_tests.engine_test_configs.examples.as_graph_info_000 impo
 )
 from bgpy.tests.engine_tests.utils import EngineTestConfig
 
-from bgpy.simulation_engine import BGP, ASPA
-from pathsec.policies import ASPAOTCEdge
+from bgpy.simulation_engine import BGP
+from pathsec.policies import ASPAEdge
 from bgpy.simulation_framework import (
     ScenarioConfig,
     PrefixHijack,
@@ -15,26 +15,31 @@ from bgpy.simulation_framework import (
 
 
 desc = (
-    "shortest path export all against ASPAOTCEdge from a customer\n"
-    "AS 5 fails to detect the shortest path export all"
+    "shortest path export all against ASPAEdge from a peer\n"
+    "AS prevents the attack, this is merely to check attack functionality"
 )
 
-ex_config_025_b = EngineTestConfig(
-    name="ex_025_shortest_path_export_all_aspa_otc_edge_customer",
+config_016 = EngineTestConfig(
+    name="016_shortest_path_export_all_aspa_edge_peer",
     desc=desc,
     scenario_config=ScenarioConfig(
         ScenarioCls=PrefixHijack,
         preprocess_anns_func=preprocess_anns_funcs.shortest_path_export_all_hijack,
         BasePolicyCls=BGP,
-        AdoptPolicyCls=ASPAOTCEdge,
+        AdoptPolicyCls=ASPAEdge,
         override_attacker_asns=frozenset({ASNs.ATTACKER.value}),
         override_victim_asns=frozenset({ASNs.VICTIM.value}),
         override_non_default_asn_cls_dict=frozendict(
             {
-                2: ASPAOTCEdge,
-                5: ASPAOTCEdge,
-                10: ASPAOTCEdge,
-                ASNs.VICTIM.value: ASPAOTCEdge,
+                2: ASPAEdge,
+                4: ASPAEdge,
+                5: ASPAEdge,
+                8: ASPAEdge,
+                9: ASPAEdge,
+                10: ASPAEdge,
+                11: ASPAEdge,
+                12: ASPAEdge,
+                ASNs.VICTIM.value: ASPAEdge,
             }
         ),
     ),

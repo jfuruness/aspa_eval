@@ -5,30 +5,36 @@ from bgpy.tests.engine_tests.engine_test_configs.examples.as_graph_info_000 impo
 )
 from bgpy.tests.engine_tests.utils import EngineTestConfig
 
-from bgpy.simulation_engine import BGP
-from pathsec.policies import ASPAEdge
+from bgpy.simulation_engine import BGP, ASPA
+from pathsec.policies import ASPAOTCEdge
 from bgpy.simulation_framework import (
     ScenarioConfig,
-    AccidentalRouteLeak,
+    PrefixHijack,
     preprocess_anns_funcs,
 )
 
 
-desc = "accidental route leak against ASPAEdge"
+desc = (
+    "shortest path export all against ASPAOTCEdge from a customer\n"
+    "AS 5 fails to detect the shortest path export all"
+)
 
-ex_config_021_a = EngineTestConfig(
-    name="ex_021_route_leak_aspa_edge_upstream_verification",
+config_015 = EngineTestConfig(
+    name="015_shortest_path_export_all_aspa_otc_edge_customer",
     desc=desc,
     scenario_config=ScenarioConfig(
-        ScenarioCls=AccidentalRouteLeak,
-        preprocess_anns_func=preprocess_anns_funcs.noop,
+        ScenarioCls=PrefixHijack,
+        preprocess_anns_func=preprocess_anns_funcs.shortest_path_export_all_hijack,
         BasePolicyCls=BGP,
+        AdoptPolicyCls=ASPAOTCEdge,
         override_attacker_asns=frozenset({ASNs.ATTACKER.value}),
         override_victim_asns=frozenset({ASNs.VICTIM.value}),
         override_non_default_asn_cls_dict=frozendict(
             {
-                1: ASPAEdge,
-                2: ASPAEdge,
+                2: ASPAOTCEdge,
+                5: ASPAOTCEdge,
+                10: ASPAOTCEdge,
+                ASNs.VICTIM.value: ASPAOTCEdge,
             }
         ),
     ),
