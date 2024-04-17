@@ -28,7 +28,11 @@ r"""Graph to test relationship preference
 """
 
 as_graph_info = ASGraphInfo(
-    peer_links=frozenset([PeerLink(666, 2), ]),
+    peer_links=frozenset(
+        [
+            PeerLink(666, 2),
+        ]
+    ),
     customer_provider_links=frozenset(
         [
             CPLink(provider_asn=3, customer_asn=4),
@@ -82,7 +86,7 @@ class Custom02ValidPrefix(ValidPrefix):
 
 
 internal_config_000 = EngineTestConfig(
-    name="internal_000",
+    name="pathsec_internal_000",
     desc="Test withdrawal mechanism choosing next best announcement",
     scenario_config=ScenarioConfig(
         ScenarioCls=Custom02ValidPrefix,
