@@ -17,7 +17,7 @@ from .config_016 import config_016
 from .config_017 import config_017
 from .config_018 import config_018
 from .config_019 import config_019
-
+from .internals import internal_configs
 
 engine_test_configs = [
     config_001,
