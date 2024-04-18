@@ -17,9 +17,9 @@ from .config_016 import config_016
 from .config_017 import config_017
 from .config_018 import config_018
 from .config_019 import config_019
-from .internals import internal_configs
+from .diagrams import diagram_configs
 
-engine_test_configs = [
+engine_test_configs = (
     config_001,
     config_002,
     config_003,
@@ -39,7 +39,7 @@ engine_test_configs = [
     config_017,
     config_018,
     config_019,
-]
+) + diagram_configs
 
 __all__ = [
     "engine_test_configs",
