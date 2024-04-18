@@ -3,10 +3,9 @@ from bgpy.as_graphs import PeerLink, CustomerProviderLink as CPLink
 from bgpy.enums import ASNs
 
 from frozendict import frozendict
-from bgpy.enums import ASNs
 from bgpy.tests.engine_tests.utils import EngineTestConfig
 
-from bgpy.simulation_engine import BGP, ROV, ASPA, Pathend
+from bgpy.simulation_engine import BGP
 from pathsec.policies import ASPAEdge
 from bgpy.simulation_framework import (
     ScenarioConfig,

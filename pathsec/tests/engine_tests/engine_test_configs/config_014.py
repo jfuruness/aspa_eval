@@ -5,7 +5,7 @@ from bgpy.tests.engine_tests.engine_test_configs.examples.as_graph_info_000 impo
 )
 from bgpy.tests.engine_tests.utils import EngineTestConfig
 
-from bgpy.simulation_engine import BGP, ASPA
+from bgpy.simulation_engine import BGP
 from pathsec.policies import ASPAEdge
 from bgpy.simulation_framework import (
     ScenarioConfig,

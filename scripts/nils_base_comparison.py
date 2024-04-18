@@ -1,4 +1,3 @@
-from functools import partial
 from multiprocessing import cpu_count
 from pathlib import Path
 import sys
@@ -18,7 +17,7 @@ from bgpy.simulation_framework import (
 DIR = Path.home() / "Desktop" / "aspa_comparison_sims"
 
 default_kwargs = {
-    "percent_adoptions": (.1,),
+    "percent_adoptions": (0.1,),
     "num_trials": 1 if "quick" in str(sys.argv) else 1000,
     "parse_cpus": cpu_count() - 2,
 }
@@ -26,7 +25,7 @@ default_kwargs = {
 nils_comparison_kwargs = {
     "adoption_subcategory_attrs": (ASGroups.ALL_WOUT_IXPS.value,),
     "attacker_subcategory_attr": ASGroups.ALL_WOUT_IXPS.value,
-    "victim_subcategory_attr": ASGroups.ALL_WOUT_IXPS.value
+    "victim_subcategory_attr": ASGroups.ALL_WOUT_IXPS.value,
 }
 
 
@@ -75,6 +74,7 @@ def run_route_leak_nils_comparison_sim():
         **default_kwargs,  # type: ignore
     )
     sim.run()
+
 
 def main():
     """Runs the defaults"""

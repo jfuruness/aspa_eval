@@ -1,17 +1,12 @@
-from functools import partial
-from multiprocessing import cpu_count
 from pathlib import Path
-import sys
 import time
 
 from bgpy.enums import ASGroups
-from bgpy.simulation_engine import ASPA, OnlyToCustomers
+from bgpy.simulation_engine import ROV, ASPA, OnlyToCustomers
 
 from bgpy.simulation_framework import (
     Simulation,
     AccidentalRouteLeak,
-    PrefixHijack,
-    preprocess_anns_funcs,
     ScenarioConfig,
 )
 from pathsec.policies import (
@@ -20,20 +15,7 @@ from pathsec.policies import (
     ASPAEdge,
     ASPAOTCEdge,
 )
-
-from bgpy.simulation_engine import (
-    ROV,
-    ASPA,
-    OnlyToCustomers,
-)
-from bgpy.simulation_framework import (
-    Simulation,
-    AccidentalRouteLeak,
-    ScenarioConfig,
-)
-
-from pathsec.sims.sim_kwargs import DIR, default_kwargs
-
+from pathsec.sims.sim_kwargs import default_kwargs
 
 
 DIR = Path.home() / "Desktop" / "aspa_route_leak_w_attacker_adopting"
@@ -56,10 +38,12 @@ class AccidentalRouteLeakAttackerAdopting(AccidentalRouteLeak):
         """By default, victim and attacker always adopts"""
 
         return self.victim_asns | self.attacker_asns
+
     @property
     def _default_non_adopters(self) -> frozenset[int]:
         """No default non adopters"""
         return frozenset()
+
 
 def run_route_leak_attacker_adopting():
     """Runs sim for a route leak that is directly comparable to Nils paper"""
@@ -89,7 +73,6 @@ def run_route_leak_attacker_adopting():
         **default_kwargs,  # type: ignore
     )
     sim.run()
-
 
 
 def main():
