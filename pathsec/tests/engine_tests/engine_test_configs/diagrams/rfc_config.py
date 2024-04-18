@@ -41,7 +41,7 @@ as_graph_info = ASGraphInfo(
 
 
 rfc_config = EngineTestConfig(
-    name="ASPA RFC Section 12 diagram",
+    name="ASPA RFC Section 12",
     desc="",
     scenario_config=ScenarioConfig(
         ScenarioCls=PrefixHijack,
