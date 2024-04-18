@@ -46,7 +46,7 @@ classifiers = [
     "Intended Audience :: Developers"
 ]
 dependencies = [
-    "bgpy_pkg==7.0.8",
+    "bgpy_pkg==7.0.9",
 ]
 
 [project.urls]
