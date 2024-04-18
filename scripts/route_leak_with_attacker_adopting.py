@@ -37,7 +37,7 @@ class AccidentalRouteLeakAttackerAdopting(AccidentalRouteLeak):
     def _default_adopters(self) -> frozenset[int]:
         """By default, victim and attacker always adopts"""
 
-        return self.victim_asns | self.attacker_asns
+        return self.victim_asns | self.attacker_asns  # type: ignore
 
     @property
     def _default_non_adopters(self) -> frozenset[int]:
