@@ -31,7 +31,6 @@ as_graph_info = ASGraphInfo(
         (1, 2),
         (ASNs.VICTIM.value,),
     ),
-
 )
 
 

@@ -1,12 +1,11 @@
 from frozendict import frozendict
 
-from bgpy.as_graphs import ASGraphInfo, CustomerProviderLink as CPLink
 from bgpy.enums import ASNs
 from bgpy.simulation_engine import BGP, Pathend
 from bgpy.simulation_framework import (
     preprocess_anns_funcs,
     ScenarioConfig,
-    PrefixHijack
+    PrefixHijack,
 )
 from bgpy.tests.engine_tests.utils import EngineTestConfig
 
