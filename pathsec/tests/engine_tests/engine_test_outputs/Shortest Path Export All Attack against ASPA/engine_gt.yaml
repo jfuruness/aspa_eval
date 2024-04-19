@@ -2,7 +2,7 @@
 as_graph: !yamlable/CAIDAASGraph
   as_dict:
     1: !yamlable/AS
-      as_rank: 4
+      as_rank: 5
       asn: 1
       customer_cone_size: 0
       customers: !!python/tuple []
@@ -33,10 +33,10 @@ as_graph: !yamlable/CAIDAASGraph
         _recv_q: !simulator_codec/RecvQueue {}
       propagation_rank: 0
       providers: !!python/tuple
+      - 8
       - 666
-      - 3333
     2: !yamlable/AS
-      as_rank: 2
+      as_rank: 3
       asn: 2
       customer_cone_size: 1
       customers: !!python/tuple
@@ -67,6 +67,7 @@ as_graph: !yamlable/CAIDAASGraph
         _recv_q: !simulator_codec/RecvQueue {}
       propagation_rank: 1
       providers: !!python/tuple
+      - 8
       - 3333
     4: !yamlable/AS
       as_rank: 0
@@ -102,7 +103,7 @@ as_graph: !yamlable/CAIDAASGraph
       propagation_rank: 2
       providers: !!python/tuple []
     5: !yamlable/AS
-      as_rank: 4
+      as_rank: 5
       asn: 5
       customer_cone_size: 0
       customers: !!python/tuple
@@ -116,7 +117,7 @@ as_graph: !yamlable/CAIDAASGraph
             as_path: !!python/tuple
             - 5
             - 666
-            - 3333
+            - 8
             - 2
             - 777
             bgpsec_as_path: !!python/tuple []
@@ -171,8 +172,42 @@ as_graph: !yamlable/CAIDAASGraph
         _recv_q: !simulator_codec/RecvQueue {}
       propagation_rank: 3
       providers: !!python/tuple []
+    8: !yamlable/AS
+      as_rank: 0
+      asn: 8
+      customer_cone_size: 3
+      customers: !!python/tuple
+      - 1
+      - 2
+      input_clique: false
+      ixp: false
+      peers: !!python/tuple []
+      policy: !yamlable/BGP
+        _local_rib: !simulator_codec/LocalRIB
+          1.2.0.0/16: !yamlable/Announcement
+            as_path: !!python/tuple
+            - 8
+            - 2
+            - 777
+            bgpsec_as_path: !!python/tuple []
+            bgpsec_next_asn: null
+            next_hop_asn: 2
+            only_to_customers: null
+            prefix: 1.2.0.0/16
+            recv_relationship: !simulator_codec/Relationships
+              name: CUSTOMERS
+              value: 3
+            roa_origin: 777
+            roa_valid_length: true
+            seed_asn: null
+            timestamp: 0
+            traceback_end: false
+            withdraw: false
+        _recv_q: !simulator_codec/RecvQueue {}
+      propagation_rank: 2
+      providers: !!python/tuple []
     666: !yamlable/AS
-      as_rank: 2
+      as_rank: 3
       asn: 666
       customer_cone_size: 1
       customers: !!python/tuple
@@ -185,7 +220,7 @@ as_graph: !yamlable/CAIDAASGraph
           1.2.0.0/16: !yamlable/Announcement
             as_path: !!python/tuple
             - 666
-            - 3333
+            - 8
             - 2
             - 777
             bgpsec_as_path: !!python/tuple []
@@ -209,7 +244,7 @@ as_graph: !yamlable/CAIDAASGraph
       - 5
       - 6
     777: !yamlable/AS
-      as_rank: 4
+      as_rank: 5
       asn: 777
       customer_cone_size: 0
       customers: !!python/tuple []
@@ -241,11 +276,10 @@ as_graph: !yamlable/CAIDAASGraph
       - 2
       - 4
     3333: !yamlable/AS
-      as_rank: 0
+      as_rank: 2
       asn: 3333
-      customer_cone_size: 3
+      customer_cone_size: 2
       customers: !!python/tuple
-      - 1
       - 2
       input_clique: false
       ixp: false
