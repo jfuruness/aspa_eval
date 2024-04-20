@@ -58,7 +58,7 @@ pathsec = "pathsec.__main__:main"
 
 [project.optional-dependencies]
 test = [
-    "bgpy_pkg[test]==7.0.6"
+    "bgpy_pkg[test]==7.0.9"
 ]
 
 [tool.setuptools]
