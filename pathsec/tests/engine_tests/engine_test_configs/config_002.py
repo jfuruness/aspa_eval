@@ -5,13 +5,11 @@ from bgpy.enums import ASNs
 from frozendict import frozendict
 from bgpy.tests.engine_tests.utils import EngineTestConfig
 
-from bgpy.simulation_engine import BGP, ASPA
+from bgpy.simulation_engine import BGP
 from pathsec.policies import ASPAEdge
 from bgpy.simulation_framework import (
     ScenarioConfig,
-    PrefixHijack,
     AccidentalRouteLeak,
-    preprocess_anns_funcs,
 )
 
 r"""

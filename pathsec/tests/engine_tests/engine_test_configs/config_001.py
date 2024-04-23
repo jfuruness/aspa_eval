@@ -5,8 +5,8 @@ from bgpy.enums import ASNs
 from frozendict import frozendict
 from bgpy.tests.engine_tests.utils import EngineTestConfig
 
-from bgpy.simulation_engine import BGP, Pathend
-from pathsec.policies import EdgeFilter, PathendEdge
+from bgpy.simulation_engine import BGP
+from pathsec.policies import EdgeFilter
 from bgpy.simulation_framework import (
     ScenarioConfig,
     PrefixHijack,

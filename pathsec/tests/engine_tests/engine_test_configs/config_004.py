@@ -5,7 +5,7 @@ from bgpy.enums import ASNs
 from frozendict import frozendict
 from bgpy.tests.engine_tests.utils import EngineTestConfig
 
-from bgpy.simulation_engine import BGP, OnlyToCustomers as OTC
+from bgpy.simulation_engine import BGP
 from pathsec.policies import OTCEdge
 from bgpy.simulation_framework import (
     ScenarioConfig,
