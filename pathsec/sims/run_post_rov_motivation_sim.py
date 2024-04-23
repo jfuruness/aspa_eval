@@ -14,7 +14,7 @@ from bgpy.simulation_framework import (
     PrefixHijack,
     SubprefixHijack,
     ScenarioConfig,
-    preprocess_anns_funcs
+    preprocess_anns_funcs,
 )
 
 
@@ -74,7 +74,6 @@ def get_real_world_rov_asn_cls_dict(
             prob_to_adopt: float = 0
 
             if method == "max":
-                prob_to_adopt: float = 0
                 # Calculate max_percent for each ASN
                 for info in info_list:
                     prob_to_adopt = max(prob_to_adopt, float(info["percent"]))
@@ -129,9 +128,10 @@ def run_post_rov_motivation_sim(method):
             ),
         ),
         output_dir=DIR / f"rov_deployment_{method}",
-        **default_kwargs
+        **default_kwargs,
     )
-    run_kwargs["graph_factory_kwargs"] = {
+    new_run_kwargs = dict(run_kwargs)
+    new_run_kwargs["graph_factory_kwargs"] = {
         "y_axis_label_replacement_dict": {
             "PERCENT ATTACKER SUCCESS": "Percent Attacker Success"
         },
@@ -140,4 +140,4 @@ def run_post_rov_motivation_sim(method):
         },
     }
 
-    sim.run(**run_kwargs)
+    sim.run(**new_run_kwargs)
