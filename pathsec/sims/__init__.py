@@ -13,6 +13,7 @@ from .run_shortest_path_export_all_hijack_etc_sim import (
 
 from .run_route_leak_mh_sim import run_route_leak_mh_sim
 from .run_route_leak_transit_sim import run_route_leak_transit_sim
+from .run_post_rov_motivation_sim import run_post_rov_motivation_sim
 
 __all__ = [
     "run_origin_hijack_sim",
@@ -22,4 +23,5 @@ __all__ = [
     "run_shortest_path_export_all_hijack_etc_sim",
     "run_route_leak_mh_sim",
     "run_route_leak_transit_sim",
+    "run_post_rov_motivation_sim",
 ]

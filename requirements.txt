@@ -1,1 +1,2 @@
 bgpy_pkg==7.0.9
+rov_collector==1.1.4
