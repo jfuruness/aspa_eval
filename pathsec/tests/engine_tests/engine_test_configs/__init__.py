@@ -22,27 +22,31 @@ from .diagrams import diagram_configs
 from .internals import internal_configs
 
 engine_test_configs = (
-    config_001,
-    config_002,
-    config_003,
-    config_004,
-    config_005,
-    config_006,
-    config_007,
-    config_008,
-    config_009,
-    config_010,
-    config_011,
-    config_012,
-    config_013,
-    config_014,
-    config_015,
-    config_016,
-    config_017,
-    config_018,
-    config_019,
-    config_020,
-) + diagram_configs + internal_configs
+    (
+        config_001,
+        config_002,
+        config_003,
+        config_004,
+        config_005,
+        config_006,
+        config_007,
+        config_008,
+        config_009,
+        config_010,
+        config_011,
+        config_012,
+        config_013,
+        config_014,
+        config_015,
+        config_016,
+        config_017,
+        config_018,
+        config_019,
+        config_020,
+    )
+    + diagram_configs
+    + internal_configs
+)
 
 __all__ = [
     "engine_test_configs",

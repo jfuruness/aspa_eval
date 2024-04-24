@@ -128,10 +128,10 @@ def run_post_rov_motivation_sim(method):
             ),
         ),
         output_dir=DIR / f"rov_deployment_{method}",
-        **default_kwargs,
+        **default_kwargs,  # type: ignore
     )
     new_run_kwargs = dict(run_kwargs)
-    new_run_kwargs["graph_factory_kwargs"] = {
+    new_run_kwargs["graph_factory_kwargs"] = {  # type: ignore
         "y_axis_label_replacement_dict": {
             "PERCENT ATTACKER SUCCESS": "Percent Attacker Success"
         },

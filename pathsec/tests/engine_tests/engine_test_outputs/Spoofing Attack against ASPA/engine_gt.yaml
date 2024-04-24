@@ -112,28 +112,7 @@ as_graph: !yamlable/CAIDAASGraph
       ixp: false
       peers: !!python/tuple []
       policy: !yamlable/ASPA
-        _local_rib: !simulator_codec/LocalRIB
-          1.2.0.0/16: !yamlable/Announcement
-            as_path: !!python/tuple
-            - 5
-            - 666
-            - 8
-            - 2
-            - 777
-            bgpsec_as_path: !!python/tuple []
-            bgpsec_next_asn: null
-            next_hop_asn: 666
-            only_to_customers: null
-            prefix: 1.2.0.0/16
-            recv_relationship: !simulator_codec/Relationships
-              name: CUSTOMERS
-              value: 3
-            roa_origin: 777
-            roa_valid_length: true
-            seed_asn: null
-            timestamp: 1
-            traceback_end: false
-            withdraw: false
+        _local_rib: !simulator_codec/LocalRIB {}
         _recv_q: !simulator_codec/RecvQueue {}
       propagation_rank: 2
       providers: !!python/tuple []
@@ -219,7 +198,6 @@ as_graph: !yamlable/CAIDAASGraph
         _local_rib: !simulator_codec/LocalRIB
           1.2.0.0/16: !yamlable/Announcement
             as_path: !!python/tuple
-            - 666
             - 8
             - 2
             - 777

@@ -21,7 +21,7 @@ class ShortestPathExportAllAttacker(BGP):
     Also see comment below about using the timestamp... just use this policy here
     """
 
-    def _policy_propagate(
+    def _policy_propagate(  # type: ignore
         self: "BGP",
         neighbor: "AS",
         ann: "Ann",
