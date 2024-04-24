@@ -13,12 +13,20 @@ class ROVWOriginHijack(ROV):
     name = "ROV & Origin Hijack"
 
 
-class ROVWOriginSpoofingHijack(ROV):
-    name = "ROV & Origin Spoofing Hijack"
+class ROVWNeighborSpoofingHijack(ROV):
+    name = "ROV & Neighbor Spoofing Hijack"
 
 
-def run_origin_spoofing_hijack_sim():
-    """Runs sim for an origin hijack"""
+class ASPAWNeighborSpoofingHijack(ASPA):
+    name = "ASPA & Neighbor Spoofing Hijack"
+
+
+class PathendWNeighborSpoofingHijack(Pathend):
+    name = "Pathend & Neighbor Spoofing Hijack"
+
+
+def run_neighbor_spoofing_hijack_sim():
+    """Runs sim for an neighbor spoofing hijack"""
 
     sim = Simulation(
         scenario_configs=tuple(
@@ -30,17 +38,17 @@ def run_origin_spoofing_hijack_sim():
                 ),
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
-                    AdoptPolicyCls=ROVWOriginSpoofingHijack,
+                    AdoptPolicyCls=ROVWNeighborSpoofingHijack,
                     preprocess_anns_func=preprocess_anns_funcs.neighbor_spoofing_hijack,
                 ),
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
-                    AdoptPolicyCls=ASPA,
+                    AdoptPolicyCls=ASPAWNeighborSpoofingHijack,
                     preprocess_anns_func=preprocess_anns_funcs.neighbor_spoofing_hijack,
                 ),
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
-                    AdoptPolicyCls=Pathend,
+                    AdoptPolicyCls=PathendWNeighborSpoofingHijack,
                     preprocess_anns_func=preprocess_anns_funcs.neighbor_spoofing_hijack,
                 ),
             ]

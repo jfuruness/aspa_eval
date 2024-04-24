@@ -106,7 +106,7 @@ def run_post_rov_motivation_sim(method):
         scenario_configs=(
             ScenarioConfig(
                 ScenarioCls=PrefixHijack,
-                preprocess_anns_func=preprocess_anns_funcs.origin_spoofing_hijack,
+                preprocess_anns_func=preprocess_anns_funcs.neighbor_spoofing_hijack,
                 AdoptPolicyCls=NeighborSpoofingHijackROV,
                 hardcoded_asn_cls_dict=rov_asns_dict,
             ),

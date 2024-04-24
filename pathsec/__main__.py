@@ -3,7 +3,7 @@ import time
 
 from .sims import (
     run_origin_hijack_sim,  # noqa
-    run_origin_spoofing_hijack_sim,  # noqa
+    run_neighbor_spoofing_hijack_sim,  # noqa
     run_shortest_path_export_all_hijack_sim,  # noqa
     run_shortest_path_export_all_hijack_input_clique_sim,  # noqa
     run_shortest_path_export_all_hijack_etc_sim,  # noqa
@@ -17,7 +17,7 @@ def main():
     """Runs the defaults"""
 
     sim_funcs = (
-        run_origin_spoofing_hijack_sim,
+        run_neighbor_spoofing_hijack_sim,
         partial(run_post_rov_motivation_sim, method="avg"),
         partial(run_post_rov_motivation_sim, method="avg_when_measured"),
         partial(run_post_rov_motivation_sim, method="max"),

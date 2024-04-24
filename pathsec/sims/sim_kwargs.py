@@ -22,6 +22,7 @@ default_kwargs = frozendict(
         ),
         "num_trials": 1 if "quick" in str(sys.argv) else 2000,
         "parse_cpus": cpu_count() - 2,
+        "python_hash_seed": 0,
     }
 )
 
