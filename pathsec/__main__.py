@@ -17,11 +17,11 @@ def main():
     """Runs the defaults"""
 
     sim_funcs = (
+        run_origin_spoofing_hijack_sim,
         partial(run_post_rov_motivation_sim, method="avg"),
         partial(run_post_rov_motivation_sim, method="avg_when_measured"),
         partial(run_post_rov_motivation_sim, method="max"),
         # run_origin_hijack_sim,
-        # run_origin_spoofing_hijack_sim,
         # run_shortest_path_export_all_hijack_sim,
         # partial(run_shortest_path_export_all_hijack_sim, num_attackers=10),
         # run_route_leak_mh_sim,

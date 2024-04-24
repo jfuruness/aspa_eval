@@ -1,4 +1,4 @@
-from bgpy.simulation_engine import ROV
+from bgpy.simulation_engine import ROV, ASPA, Pathend
 from bgpy.simulation_framework import (
     Simulation,
     PrefixHijack,
@@ -31,11 +31,21 @@ def run_origin_spoofing_hijack_sim():
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
                     AdoptPolicyCls=ROVWOriginSpoofingHijack,
-                    preprocess_anns_func=preprocess_anns_funcs.origin_spoofing_hijack,
+                    preprocess_anns_func=preprocess_anns_funcs.neighbor_spoofing_hijack,
+                ),
+                ScenarioConfig(
+                    ScenarioCls=PrefixHijack,
+                    AdoptPolicyCls=ASPA,
+                    preprocess_anns_func=preprocess_anns_funcs.neighbor_spoofing_hijack,
+                ),
+                ScenarioConfig(
+                    ScenarioCls=PrefixHijack,
+                    AdoptPolicyCls=Pathend,
+                    preprocess_anns_func=preprocess_anns_funcs.neighbor_spoofing_hijack,
                 ),
             ]
         ),
-        output_dir=DIR / "origin_spoofing_hijack",
+        output_dir=DIR / "neighbor_spoofing_hijack",
         **default_kwargs,  # type: ignore
     )
     sim.run(**run_kwargs)
