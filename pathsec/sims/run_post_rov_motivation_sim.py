@@ -18,7 +18,7 @@ from bgpy.simulation_framework import (
 )
 
 
-from rov_collector import rov_collector_classes
+from rov_collector import rov_collector_classes, Source as ROVSource
 
 
 from .sim_kwargs import DIR, default_kwargs, run_kwargs
@@ -44,10 +44,40 @@ class NeighborSpoofingHijackROV(ROVSimplePolicy):
     name = "Neighbor Spoofing Hijack (ROV)"
 
 
+def max_prob_func(
+    asn,
+    info_list,
+    allowed_sources=frozenset([x.value for x in ROVSource])
+) -> float:
+    """Returns max probability for a given ASN"""
+    prob_to_adopt: float = 0
+    for info in info_list:
+        if info["source"] in allowed_sources:
+            prob_to_adopt = max(prob_to_adopt, float(info["percent"]))
+    return prob_to_adopt
+
+
+def mean_prob_func(asn, info_list) -> float:
+    """Returns avg prob for a given ASN"""
+
+
+    return mean(float(x["percent"]) for x in info_list)
+
+
+def mean_when_measured_prob_func(asn, info_list) -> float:
+    """Returns avg prob for a given ASN when ASN doesn't measure as 0
+
+    Sometimes these sources will list an AS as 0 simply because they
+    don't measure it
+    """
+
+    return mean(float(x["percent"]) for x in info_list if float(x["percent"]) > 0)
+
+
 def get_real_world_rov_asn_cls_dict(
     json_path: Path = Path.home() / "Desktop" / "rov_info.json",
     requests_cache_db_path: Optional[Path] = None,
-    method: str = "",  # really should be an enum
+    prob_func=max_prob_func,
 ) -> frozendict[int, type[RealROVSimplePolicy]]:
     if not json_path.exists():
         for CollectorCls in rov_collector_classes:
@@ -65,41 +95,22 @@ def get_real_world_rov_asn_cls_dict(
     with json_path.open() as f:
         data = json.load(f)
         hardcoded_dict = dict()
-        if method == "avg" or method == "mean":
+        if prob_func == mean_prob_func:
             print(
-                f"Method {method} isn't realistic since most data "
-                "sources only have a few ASes, use avg_when_measured instead"
+                f"Method isn't realistic since most data "
+                "sources only have a few ASes, use mean_when_measured instead"
             )
         for asn, info_list in data.items():
-            prob_to_adopt: float = 0
-
-            if method == "max":
-                # Calculate max_percent for each ASN
-                for info in info_list:
-                    prob_to_adopt = max(prob_to_adopt, float(info["percent"]))
-
-            elif method == "avg" or method == "mean":
-                # When ROV is measured take the average of those
-                prob_to_adopt = mean(float(x["percent"]) for x in info_list)
-            elif method == "avg_when_measured" or method == "mean_when_measured":
-                # When ROV is measured take the average of those
-                prob_to_adopt = mean(
-                    float(x["percent"]) for x in info_list if float(x["percent"]) > 0
-                )
-
-            else:
-                raise NotImplementedError
-
-            if random.random() * 100 < prob_to_adopt:
+            if random.random() * 100 < prob_func(asn, info_list):
                 hardcoded_dict[int(asn)] = RealROVSimplePolicy
 
     return frozendict(hardcoded_dict)
 
 
-def run_post_rov_motivation_sim(method):
+def run_post_rov_motivation_sim(prob_func):
     """ya, it's janky af. Sorry."""
 
-    rov_asns_dict = get_real_world_rov_asn_cls_dict(method=method)
+    rov_asns_dict = get_real_world_rov_asn_cls_dict(prob_func=prob_func)
 
     # Simulation for the paper
     sim = Simulation(
@@ -127,7 +138,7 @@ def run_post_rov_motivation_sim(method):
                 hardcoded_asn_cls_dict=rov_asns_dict,
             ),
         ),
-        output_dir=DIR / f"rov_deployment_{method}",
+        output_dir=DIR / f"rov_deployment" / "{prob_func.__name__}",
         **default_kwargs,  # type: ignore
     )
     new_run_kwargs = dict(run_kwargs)

@@ -47,7 +47,7 @@ classifiers = [
 ]
 dependencies = [
     "bgpy_pkg==7.0.12",
-    "rov_collector==1.1.4",
+    "rov_collector==1.1.5",
 ]
 
 [project.urls]
