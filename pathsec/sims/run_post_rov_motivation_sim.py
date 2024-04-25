@@ -131,7 +131,7 @@ for valid_categories_subset in [
 ]:
     new_func = partial(max_when_hayas_paper, valid_categories=valid_categories_subset)
     cat_str = ''.join(str(x) for x in sorted(valid_categories_subset))
-    new_func.__name__ = f"friends_{cat_str}"
+    new_func.__name__ = f"friends_{cat_str}"  # type: ignore
     prob_funcs.append(new_func)
 
 ###########################
@@ -140,14 +140,14 @@ for valid_categories_subset in [
 
 for Src in [x for x in ROVSource if x != ROVSource.FRIENDS]:
     new_func = partial(max_prob_func, allowed_sources=frozenset([Src.value]))
-    new_func.__name__ = Src.value
+    new_func.__name__ = Src.value  # type: ignore
     prob_funcs.append(new_func)
 
 #############
 # Agg funcs #
 #############
 
-prob_funcs.extend([max_prob_func, mean_prob_func, mean_when_measured_prob_func])
+prob_funcs.extend([max_prob_func, mean_prob_func, mean_when_measured_prob_func])  # type: ignore
 
 
 

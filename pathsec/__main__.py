@@ -27,9 +27,9 @@ def main():
         run_shortest_path_export_all_hijack_input_clique_sim,
         run_shortest_path_export_all_hijack_etc_sim,
     ]
-    for prob_func in pob_funcs:
+    for prob_func in prob_funcs:
         post_rov_func = partial(run_post_rov_motivation_sim, prob_func)
-        post_rov_func.__name__ = prob_func.__name__
+        post_rov_func.__name__ = prob_func.__name__  # type: ignore
         sim_funcs.append(post_rov_func)
 
     for sim_func in sim_funcs:
