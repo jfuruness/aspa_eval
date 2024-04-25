@@ -94,7 +94,7 @@ def get_real_world_rov_asn_cls_dict(
         hardcoded_dict = dict()
         if prob_func == mean_prob_func:
             print(
-                f"Method isn't realistic since most data "
+                "Method isn't realistic since most data "
                 "sources only have a few ASes, use mean_when_measured instead"
             )
         for asn, info_list in data.items():
@@ -135,7 +135,7 @@ def run_post_rov_motivation_sim(prob_func):
                 hardcoded_asn_cls_dict=rov_asns_dict,
             ),
         ),
-        output_dir=DIR / f"rov_deployment" / prob_func.__name__,
+        output_dir=DIR / "rov_deployment" / prob_func.__name__,
         **default_kwargs,  # type: ignore
     )
     new_run_kwargs = dict(run_kwargs)
