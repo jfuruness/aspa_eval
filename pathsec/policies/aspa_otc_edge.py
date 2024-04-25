@@ -12,7 +12,7 @@ from .edge_filter import EdgeFilter
 class ASPAOTCEdge(ASPA):
     """Prevents edge ASes from paths longer than 1, and ASPA"""
 
-    name: str = "ASPAwOTCwEdge"
+    name: str = "ASPA+OTC+EdgeFilter"
 
     # NOTE: you could probably use multiple inheritance here, but to save some dev
     # time, I'm just going to use mixins instead

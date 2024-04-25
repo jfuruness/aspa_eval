@@ -21,7 +21,6 @@ from .sim_kwargs import DIR, default_kwargs, run_kwargs
 
 
 def run_route_leak_mh_sim():
-    """Runs sim for an origin hijack"""
 
     sim_classes = [
         EdgeFilter,
@@ -47,13 +46,4 @@ def run_route_leak_mh_sim():
         output_dir=DIR / "route_leak_mh",
         **default_kwargs,  # type: ignore
     )
-    sim.run(
-        graph_factory_kwargs={
-            "label_replacement_dict": {
-                # Pathend.name: "Pathend/ASPA/PathendEdge/ASPAEdge",
-                # EdgeFilter.name: "EdgeFilter/BGPSecEdge"
-            },
-            # "y_limit": 30,
-        },
-        **run_kwargs,
-    )
+    sim.run(**run_kwargs)

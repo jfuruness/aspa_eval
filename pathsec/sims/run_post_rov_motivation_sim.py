@@ -138,17 +138,12 @@ def run_post_rov_motivation_sim(prob_func):
                 hardcoded_asn_cls_dict=rov_asns_dict,
             ),
         ),
-        output_dir=DIR / f"rov_deployment" / "{prob_func.__name__}",
+        output_dir=DIR / f"rov_deployment" / prob_func.__name__,
         **default_kwargs,  # type: ignore
     )
     new_run_kwargs = dict(run_kwargs)
-    new_run_kwargs["graph_factory_kwargs"] = {  # type: ignore
-        "y_axis_label_replacement_dict": {
-            "PERCENT ATTACKER SUCCESS": "Percent Attacker Success"
-        },
-        "x_axis_label_replacement_dict": {
+    new_run_kwargs["graph_factory_kwargs"]["x_axis_label_replacement_dict"] = {
             "Percent Adoption": "Percent of Additional Adoption"
         },
     }
-
     sim.run(**new_run_kwargs)

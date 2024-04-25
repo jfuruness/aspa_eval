@@ -12,7 +12,7 @@ from .edge_filter import EdgeFilter
 class OTCEdge(OnlyToCustomers):
     """Prevents edge ASes from paths longer than 1, and OnlyToCustomers"""
 
-    name: str = "OnlyToCustomerswEdge"
+    name: str = "OTC+EdgeFilter"
 
     def _valid_ann(self, ann: "Ann", from_rel: Relationships) -> bool:  # type: ignore
         """Returns invalid if an edge AS is announcing a path longer than len 1

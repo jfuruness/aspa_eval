@@ -51,12 +51,4 @@ def run_shortest_path_export_all_hijack_sim(num_attackers=1):
         output_dir=DIR / f"shortest_path_export_all_hijack_{num_attackers}_attackers",
         **default_kwargs,  # type: ignore
     )
-    sim.run(
-        graph_factory_kwargs={
-            "label_replacement_dict": {
-                # Pathend.name: "Pathend/ASPA/PathendEdge/ASPAEdge",
-                # EdgeFilter.name: "EdgeFilter/BGPSecEdge"
-            }
-        },
-        **run_kwargs,
-    )
+    sim.run(**run_kwargs)

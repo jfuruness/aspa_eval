@@ -10,7 +10,7 @@ from .sim_kwargs import DIR, default_kwargs, run_kwargs
 
 
 class ROVWOriginHijack(ROV):
-    name = "ROV & Origin Hijack"
+    name = "ROV & Forged Origin Export All Hijack"
 
 
 class ROVWNeighborSpoofingHijack(ROV):
@@ -22,7 +22,7 @@ class ASPAWNeighborSpoofingHijack(ASPA):
 
 
 class PathendWNeighborSpoofingHijack(Pathend):
-    name = "Pathend & Neighbor Spoofing Hijack"
+    name = "Path-End & Neighbor Spoofing Hijack"
 
 
 def run_neighbor_spoofing_hijack_sim():

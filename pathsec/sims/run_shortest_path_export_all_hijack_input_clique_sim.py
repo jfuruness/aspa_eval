@@ -20,7 +20,7 @@ from .sim_kwargs import DIR, default_kwargs, run_kwargs
 
 
 class ASPAwNeighbors(ASPA):
-    name = "ASPAwNeighbors"
+    name = "ASPAWN"
 
 
 def run_shortest_path_export_all_hijack_input_clique_sim():

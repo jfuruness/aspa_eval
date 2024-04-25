@@ -43,15 +43,12 @@ def run_origin_hijack_sim():
                 for AdoptPolicyCls in origin_hijack_classes
             ]
         ),
-        output_dir=DIR / "origin_hijack",
+        output_dir=DIR / "forged_origin_export_all_hijack",
         **default_kwargs,  # type: ignore
     )
-    sim.run(
-        graph_factory_kwargs={
-            "label_replacement_dict": {
-                Pathend.name: "Pathend/ASPA/PathendEdge/ASPAEdge",
-                EdgeFilter.name: "EdgeFilter/BGPSecEdge",
-            }
-        },
-        **run_kwargs,
-    )
+    new_run_kwargs = dict(run_kwargs)
+    new_run_kwargs["graph_factory_kwargs"]["label_replacement_dict"] = {
+        Pathend.name: "Path-End/ASPA/Pathend+EdgeFilter/ASPA+EdgeFilter",
+        EdgeFilter.name: "EdgeFilter/BGPSec+EdgeFilter",
+    }
+    sim.run(**new_run_kwargs)
