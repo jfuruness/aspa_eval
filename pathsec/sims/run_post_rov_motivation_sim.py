@@ -45,9 +45,7 @@ class NeighborSpoofingHijackROV(ROVSimplePolicy):
 
 
 def max_prob_func(
-    asn,
-    info_list,
-    allowed_sources=frozenset([x.value for x in ROVSource])
+    asn, info_list, allowed_sources=frozenset([x.value for x in ROVSource])
 ) -> float:
     """Returns max probability for a given ASN"""
     prob_to_adopt: float = 0
@@ -59,7 +57,6 @@ def max_prob_func(
 
 def mean_prob_func(asn, info_list) -> float:
     """Returns avg prob for a given ASN"""
-
 
     return mean(float(x["percent"]) for x in info_list)
 

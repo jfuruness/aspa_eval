@@ -7,9 +7,23 @@ from bgpy.enums import SpecialPercentAdoptions
 from bgpy.simulation_framework import GraphFactory
 
 # Set up argparse to handle command line arguments
-parser = argparse.ArgumentParser(description="Run simulations with dynamic configurations.")
-parser.add_argument("-n", "--num_trials", "--trials", dest="trials", type=int, default=1000, help="Number of trials to run")
-parser.add_argument("--quick", action="store_true", help="Run a quick simulation with reduced parameters")
+parser = argparse.ArgumentParser(
+    description="Run simulations with dynamic configurations."
+)
+parser.add_argument(
+    "-n",
+    "--num_trials",
+    "--trials",
+    dest="trials",
+    type=int,
+    default=1000,
+    help="Number of trials to run",
+)
+parser.add_argument(
+    "--quick",
+    action="store_true",
+    help="Run a quick simulation with reduced parameters",
+)
 
 args = parser.parse_args()
 
@@ -37,7 +51,7 @@ run_kwargs = frozendict(
             "y_axis_label_replacement_dict": {
                 "PERCENT ATTACKER SUCCESS": "Percent Attacker Success"
             },
-        }
+        },
     }
 )
 
