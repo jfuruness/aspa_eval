@@ -33,7 +33,7 @@ default_kwargs = frozendict(
 run_kwargs = frozendict(
     {
         "GraphFactoryCls": None if args.quick else GraphFactory,
-        "graph_factory_kwargs" = {
+        "graph_factory_kwargs": {
             "y_axis_label_replacement_dict": {
                 "PERCENT ATTACKER SUCCESS": "Percent Attacker Success"
             },
