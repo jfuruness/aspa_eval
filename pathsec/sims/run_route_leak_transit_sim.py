@@ -42,7 +42,7 @@ def run_route_leak_transit_sim():
         **default_kwargs,  # type: ignore
     )
     new_run_kwargs = dict(run_kwargs)
-    new_run_kwargs["graph_factory_kwargs"]["label_replacement_dict"] = {
+    new_run_kwargs["graph_factory_kwargs"]["label_replacement_dict"] = {  # type: ignore
         ASPAOTCEdge.name: "ASPA+OTC",
     }
-    sim.run(**new_run_kwargs)
+    sim.run(**new_run_kwargs)  # type: ignore

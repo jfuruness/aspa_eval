@@ -47,8 +47,8 @@ def run_origin_hijack_sim():
         **default_kwargs,  # type: ignore
     )
     new_run_kwargs = dict(run_kwargs)
-    new_run_kwargs["graph_factory_kwargs"]["label_replacement_dict"] = {
+    new_run_kwargs["graph_factory_kwargs"]["label_replacement_dict"] = {  # type: ignore
         Pathend.name: "Path-End/ASPA/Pathend+EdgeFilter/ASPA+EdgeFilter",
         EdgeFilter.name: "EdgeFilter/BGPSec+EdgeFilter",
     }
-    sim.run(**new_run_kwargs)
+    sim.run(**new_run_kwargs)  # type: ignore

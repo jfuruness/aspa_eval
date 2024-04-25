@@ -46,4 +46,4 @@ def run_route_leak_mh_sim():
         output_dir=DIR / "route_leak_mh",
         **default_kwargs,  # type: ignore
     )
-    sim.run(**run_kwargs)
+    sim.run(**run_kwargs)  # type: ignore

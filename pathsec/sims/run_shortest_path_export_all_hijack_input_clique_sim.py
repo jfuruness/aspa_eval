@@ -60,4 +60,4 @@ def run_shortest_path_export_all_hijack_input_clique_sim():
         output_dir=DIR / "shortest_path_export_all_hijack_INPUT_CLIQUE",
         **default_kwargs,  # type: ignore
     )
-    sim.run(**run_kwargs)
+    sim.run(**run_kwargs)  # type: ignore

@@ -142,7 +142,7 @@ def run_post_rov_motivation_sim(prob_func):
         **default_kwargs,  # type: ignore
     )
     new_run_kwargs = dict(run_kwargs)
-    new_run_kwargs["graph_factory_kwargs"]["x_axis_label_replacement_dict"] = {
+    new_run_kwargs["graph_factory_kwargs"]["x_axis_label_replacement_dict"] = {  # type: ignore
         "Percent Adoption": "Percent of Additional Adoption"
     }
-    sim.run(**new_run_kwargs)
+    sim.run(**new_run_kwargs)  # type: ignore

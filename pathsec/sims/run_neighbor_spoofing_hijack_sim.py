@@ -56,4 +56,4 @@ def run_neighbor_spoofing_hijack_sim():
         output_dir=DIR / "neighbor_spoofing_hijack",
         **default_kwargs,  # type: ignore
     )
-    sim.run(**run_kwargs)
+    sim.run(**run_kwargs)  # type: ignore
