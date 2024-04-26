@@ -5,7 +5,7 @@ from pathsec.policies import (
 from bgpy.simulation_engine import (
     ROV,
     BGPSec,
-    Pathend,
+    PathEnd,
 )
 
 from bgpy.simulation_framework import (
@@ -18,18 +18,18 @@ from bgpy.simulation_framework import (
 from .sim_kwargs import DIR, default_kwargs, run_kwargs
 
 
-def run_origin_hijack_sim():
+def run_forged_origin_export_all_hijack_sim():
     """Runs sim for an origin hijack"""
 
-    origin_hijack_classes = [
+    forged_origin_export_all_hijack_classes = [
         EdgeFilter,
-        Pathend,
+        PathEnd,
         BGPSec,
         ROV,
         # See paper, the following policies overlap with other lines
         # ASPA,  # overlaps with pathend
         # BGPSecEdge,  # overlaps with edge
-        # PathendEdge,  # overlaps with pathend
+        # PathEndEdge,  # overlaps with pathend
         # ASPAEdge,  # overlaps with pathend
     ]
     sim = Simulation(
@@ -38,9 +38,9 @@ def run_origin_hijack_sim():
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
                     AdoptPolicyCls=AdoptPolicyCls,
-                    preprocess_anns_func=preprocess_anns_funcs.origin_hijack,
+                    preprocess_anns_func=preprocess_anns_funcs.forged_origin_export_all_hijack,
                 )
-                for AdoptPolicyCls in origin_hijack_classes
+                for AdoptPolicyCls in forged_origin_export_all_hijack_classes
             ]
         ),
         output_dir=DIR / "forged_origin_export_all_hijack",
@@ -48,7 +48,7 @@ def run_origin_hijack_sim():
     )
     new_run_kwargs = dict(run_kwargs)
     new_run_kwargs["graph_factory_kwargs"]["label_replacement_dict"] = {  # type: ignore
-        Pathend.name: "Path-End/ASPA/Pathend+EdgeFilter/ASPA+EdgeFilter",
+        PathEnd.name: "Path-End/ASPA/PathEnd+EdgeFilter/ASPA+EdgeFilter",
         EdgeFilter.name: "EdgeFilter/BGPSec+EdgeFilter",
     }
     sim.run(**new_run_kwargs)  # type: ignore

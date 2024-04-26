@@ -1,4 +1,4 @@
-from bgpy.simulation_engine import ROV, ASPA, Pathend
+from bgpy.simulation_engine import ROV, ASPA, PathEnd
 from bgpy.simulation_framework import (
     Simulation,
     PrefixHijack,
@@ -21,7 +21,7 @@ class ASPAWNeighborSpoofingHijack(ASPA):
     name = "ASPA & Neighbor Spoofing Hijack"
 
 
-class PathendWNeighborSpoofingHijack(Pathend):
+class PathEndWNeighborSpoofingHijack(PathEnd):
     name = "Path-End & Neighbor Spoofing Hijack"
 
 
@@ -34,7 +34,7 @@ def run_neighbor_spoofing_hijack_sim():
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
                     AdoptPolicyCls=ROVWOriginHijack,
-                    preprocess_anns_func=preprocess_anns_funcs.origin_hijack,
+                    preprocess_anns_func=preprocess_anns_funcs.forged_origin_export_all_hijack,
                 ),
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
@@ -48,7 +48,7 @@ def run_neighbor_spoofing_hijack_sim():
                 ),
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
-                    AdoptPolicyCls=PathendWNeighborSpoofingHijack,
+                    AdoptPolicyCls=PathEndWNeighborSpoofingHijack,
                     preprocess_anns_func=preprocess_anns_funcs.neighbor_spoofing_hijack,
                 ),
             ]

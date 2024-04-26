@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
 from bgpy.enums import Relationships
-from bgpy.simulation_engine import Pathend
+from bgpy.simulation_engine import PathEnd
 
 if TYPE_CHECKING:
     from bgpy.simulation_engine import Announcement as Ann
@@ -9,15 +9,15 @@ if TYPE_CHECKING:
 from .edge_filter import EdgeFilter
 
 
-class PathendEdge(Pathend):
-    """Prevents edge ASes from paths longer than 1, and Pathend"""
+class PathEndEdge(PathEnd):
+    """Prevents edge ASes from paths longer than 1, and PathEnd"""
 
     name: str = "Path-End+EdgeFilter"
 
     def _valid_ann(self, ann: "Ann", from_rel: Relationships) -> bool:  # type: ignore
         """Returns invalid if an edge AS is announcing a path longer than len 1
 
-        otherwise returns the Pathend's _valid_ann
+        otherwise returns the PathEnd's _valid_ann
         """
 
         # NOTE: you could probably use multiple inheritance here, but to save some dev

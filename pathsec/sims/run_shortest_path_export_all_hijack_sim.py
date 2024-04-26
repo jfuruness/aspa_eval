@@ -1,12 +1,12 @@
 from pathsec.policies import (
     ASPAEdge,
     EdgeFilter,
-    PathendEdge,
+    PathEndEdge,
 )
 
 from bgpy.simulation_engine import (
     ROV,
-    Pathend,
+    PathEnd,
     ASPA,
 )
 
@@ -27,8 +27,8 @@ def run_shortest_path_export_all_hijack_sim(num_attackers=1):
         EdgeFilter,
         ASPA,
         ASPAEdge,
-        Pathend,
-        PathendEdge,
+        PathEnd,
+        PathEndEdge,
         ROV,
         # See paper, the following policies overlap with other lines
         # BGPSec,  # seen in previous figure, omitted to avoid clutter sicne it sucks

@@ -167,7 +167,7 @@ def run_post_rov_motivation_sim(prob_func):
             ),
             ScenarioConfig(
                 ScenarioCls=PrefixHijack,
-                preprocess_anns_func=preprocess_anns_funcs.origin_hijack,
+                preprocess_anns_func=preprocess_anns_funcs.forged_origin_export_all_hijack,
                 AdoptPolicyCls=OriginHijackROV,
                 hardcoded_asn_cls_dict=rov_asns_dict,
             ),

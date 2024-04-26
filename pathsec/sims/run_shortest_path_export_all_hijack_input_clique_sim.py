@@ -3,7 +3,7 @@ from bgpy.enums import ASGroups
 from bgpy.simulation_engine import (
     ROV,
     BGPSec,
-    Pathend,
+    PathEnd,
     ASPA,
 )
 
@@ -26,7 +26,7 @@ def run_shortest_path_export_all_hijack_input_clique_sim():
 
     sim_classes = [
         ASPAwNeighbors,
-        Pathend,
+        PathEnd,
         BGPSec,
         ROV,
     ]

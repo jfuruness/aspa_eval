@@ -5,8 +5,8 @@ from bgpy.enums import ASNs
 from frozendict import frozendict
 from bgpy.tests.engine_tests.utils import EngineTestConfig
 
-from bgpy.simulation_engine import BGP, Pathend
-from pathsec.policies import PathendEdge
+from bgpy.simulation_engine import BGP, PathEnd
+from pathsec.policies import PathEndEdge
 from bgpy.simulation_framework import (
     ScenarioConfig,
     PrefixHijack,
@@ -54,20 +54,20 @@ as_graph_info = ASGraphInfo(
 )
 
 config_020 = EngineTestConfig(
-    name="020_origin_hijack_pathend_edge",
-    desc="Origin hijack against PathendEdge policy with multihomed and stub AS attackers",
+    name="020_forged_origin_export_all_hijack_pathend_edge",
+    desc="Origin hijack against PathEndEdge policy with multihomed and stub AS attackers",
     scenario_config=ScenarioConfig(
         ScenarioCls=PrefixHijack,
-        preprocess_anns_func=preprocess_anns_funcs.origin_hijack,
+        preprocess_anns_func=preprocess_anns_funcs.forged_origin_export_all_hijack,
         BasePolicyCls=BGP,
         override_victim_asns=frozenset({ASNs.VICTIM.value}),
         override_attacker_asns=frozenset({ASNs.ATTACKER.value, 667}),
         num_attackers=2,
         override_non_default_asn_cls_dict=frozendict(
             {
-                4: PathendEdge,
-                5: PathendEdge,
-                ASNs.VICTIM.value: Pathend,  # Origin deploys Pathend
+                4: PathEndEdge,
+                5: PathEndEdge,
+                ASNs.VICTIM.value: PathEnd,  # Origin deploys PathEnd
             }
         ),
     ),
