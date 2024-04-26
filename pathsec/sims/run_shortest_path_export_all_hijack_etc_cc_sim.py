@@ -20,7 +20,8 @@ from bgpy.simulation_framework import (
     Scenario,
 )
 from bgpy.simulation_framework.scenarios.preprocess_anns_funcs import (
-    PREPROCESS_ANNS_FUNC_TYPE, noop,
+    PREPROCESS_ANNS_FUNC_TYPE,
+    noop,
 )
 
 from .sim_kwargs import DIR, default_kwargs, run_kwargs
@@ -62,8 +63,11 @@ class CustomerConePrefixHijack(PrefixHijack):
                 ),
             )
         self._non_attacker_customer_cone_asns = set(
-            [x.asn for x in engine.as_graph
-             if x.asn not in self._attacker_customer_cone_asns]
+            [
+                x.asn
+                for x in engine.as_graph
+                if x.asn not in self._attacker_customer_cone_asns
+            ]
         )
 
     # Just returns customer cone
