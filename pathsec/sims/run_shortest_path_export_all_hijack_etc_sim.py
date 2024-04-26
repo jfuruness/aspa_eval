@@ -1,5 +1,4 @@
 from pathsec.policies import ShortestPathExportAllAttacker
-from pathsec.attacker_mod_scenario import AttackerModScenario, AttackerModScenarioConfig
 
 from bgpy.enums import ASGroups
 from bgpy.simulation_engine import (
@@ -46,8 +45,8 @@ def run_shortest_path_export_all_hijack_etc_sim():
                 for AdoptPolicyCls in sim_classes
             ]
             + [
-                AttackerModScenarioConfig(
-                    ScenarioCls=AttackerModScenario,
+                ScenarioConfig(
+                    ScenarioCls=PrefixHijack,
                     AdoptPolicyCls=ASPA,
                     preprocess_anns_func=(
                         preprocess_anns_funcs.shortest_path_export_all_hijack

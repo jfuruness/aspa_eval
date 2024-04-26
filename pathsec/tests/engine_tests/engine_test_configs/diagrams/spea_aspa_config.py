@@ -3,12 +3,15 @@ from frozendict import frozendict
 from bgpy.as_graphs import ASGraphInfo, CustomerProviderLink as CPLink
 from bgpy.enums import ASNs
 from bgpy.simulation_engine import BGP, ASPA
-from bgpy.simulation_framework import preprocess_anns_funcs
+from bgpy.simulation_framework import (
+    preprocess_anns_funcs,
+    PrefixHijack,
+    ScenarioConfig,
+)
 
 from bgpy.tests.engine_tests.utils import EngineTestConfig
 
 from pathsec.policies import ShortestPathExportAllAttacker
-from pathsec.attacker_mod_scenario import AttackerModScenario, AttackerModScenarioConfig
 
 
 as_graph_info = ASGraphInfo(
@@ -38,8 +41,8 @@ as_graph_info = ASGraphInfo(
 spea_aspa_config = EngineTestConfig(
     name="Shortest Path Export All Attack against ASPA",
     desc="",
-    scenario_config=AttackerModScenarioConfig(
-        ScenarioCls=AttackerModScenario,
+    scenario_config=ScenarioConfig(
+        ScenarioCls=PrefixHijack,
         preprocess_anns_func=preprocess_anns_funcs.shortest_path_export_all_hijack,
         BasePolicyCls=BGP,
         AdoptPolicyCls=ASPA,
