@@ -7,6 +7,7 @@ from .sims import (
     run_shortest_path_export_all_hijack_sim,  # noqa
     run_shortest_path_export_all_hijack_input_clique_sim,  # noqa
     run_shortest_path_export_all_hijack_etc_sim,  # noqa
+    run_shortest_path_export_all_hijack_etc_cc_sim,  # noqa
     run_route_leak_mh_sim,  # noqa
     run_route_leak_transit_sim,  # noqa
     run_post_rov_motivation_sim,  # noqa
@@ -24,8 +25,9 @@ def main():
         # partial(run_shortest_path_export_all_hijack_sim, num_attackers=10),
         # run_route_leak_mh_sim,
         # run_route_leak_transit_sim,
-        run_shortest_path_export_all_hijack_input_clique_sim,
+        # run_shortest_path_export_all_hijack_input_clique_sim,
         # run_shortest_path_export_all_hijack_etc_sim,
+        run_shortest_path_export_all_hijack_etc_cc_sim,
     ]
     # for prob_func in prob_funcs:
     #     post_rov_func = partial(run_post_rov_motivation_sim, prob_func)
@@ -36,7 +38,7 @@ def main():
         start = time.perf_counter()
         sim_func()  # type: ignore
         print(f"{time.perf_counter() - start}s for {getattr(sim_func, '__name__', '')}")
-
+    raise NotImplementedError("Add back")
 
 if __name__ == "__main__":
     start = time.perf_counter()
