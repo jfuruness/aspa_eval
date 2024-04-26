@@ -45,7 +45,7 @@ class CustomerConePrefixHijack(PrefixHijack):
     ):
 
         assert engine, "Need engine for customer cones"
-        self._attackers_customer_cones_asns: set[int] = set()
+        self._attacker_customer_cones_asns: set[int] = set()
         super().__init__(
             scenario_config=scenario_config,
             percent_adoption=percent_adoption,
@@ -56,7 +56,7 @@ class CustomerConePrefixHijack(PrefixHijack):
         # Stores customer cones of attacker ASNs
         # used in untrackable func and when selecting victims
         for attacker_asn in self.attacker_asns:
-            self._attackers_customer_cones_asns.update(
+            self._attacker_customer_cones_asns.update(
                 self._get_cone_size_helper(
                     engine.as_graph.as_dict[attacker_asn],
                     dict(),
@@ -66,7 +66,7 @@ class CustomerConePrefixHijack(PrefixHijack):
             [
                 x.asn
                 for x in engine.as_graph
-                if x.asn not in self._attacker_customer_cone_asns
+                if x.asn not in self._attacker_customer_cones_asns
             ]
         )
 
@@ -122,7 +122,7 @@ def run_shortest_path_export_all_hijack_etc_sim():
         **default_kwargs,  # type: ignore
     )
     new_run_kwargs = dict(run_kwargs)
-    new_run_kwargs["graph_factory_kwargs"]["y_axis_label_replacement_dict"] = {
+    new_run_kwargs["graph_factory_kwargs"]["y_axis_label_replacement_dict"] = {  # type: ignore
         "PERCENT ATTACKER SUCCESS": "Percent Attacker Success (Customer Cone Only)"
     }
     sim.run(**new_run_kwargs)  # type: ignore
