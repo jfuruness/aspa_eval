@@ -1,2 +1,2 @@
-bgpy_pkg[test]==7.0.12
+bgpy_pkg[test]==7.1.0
 rov_collector==1.1.5
