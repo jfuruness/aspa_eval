@@ -84,7 +84,7 @@ class CustomerConePrefixHijack(PrefixHijack):
         return super()._untracked_asns | self._non_attacker_customer_cone_asns
 
 
-def run_shortest_path_export_all_hijack_etc_sim():
+def run_shortest_path_export_all_hijack_etc_cc_sim():
     """Runs sim for shortest path export all"""
 
     sim_classes = [
@@ -123,6 +123,6 @@ def run_shortest_path_export_all_hijack_etc_sim():
     )
     new_run_kwargs = dict(run_kwargs)
     new_run_kwargs["graph_factory_kwargs"]["y_axis_label_replacement_dict"] = {  # type: ignore
-        "PERCENT ATTACKER SUCCESS": "Percent Attacker Success (Customer Cone Only)"
+        "PERCENT ATTACKER SUCCESS": "Percent Attacker Success (Customer Cone)"
     }
     sim.run(**new_run_kwargs)  # type: ignore
