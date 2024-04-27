@@ -1,3 +1,4 @@
+from copy import deepcopy
 from pathsec.policies import ShortestPathExportAllAttacker
 
 from bgpy.enums import ASGroups
@@ -59,4 +60,4 @@ def run_shortest_path_export_all_hijack_etc_sim():
         output_dir=DIR / "shortest_path_export_all_hijack_ETC",
         **default_kwargs,  # type: ignore
     )
-    sim.run(**run_kwargs)  # type: ignore
+    sim.run(**deepcopy(run_kwargs))  # type: ignore

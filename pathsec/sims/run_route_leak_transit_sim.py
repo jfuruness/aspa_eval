@@ -1,3 +1,4 @@
+from copy import deepcopy
 from pathsec.policies import (
     ASPAOTCEdge,
 )
@@ -41,7 +42,7 @@ def run_route_leak_transit_sim():
         output_dir=DIR / "route_leak_transit",
         **default_kwargs,  # type: ignore
     )
-    new_run_kwargs = dict(run_kwargs)
+    new_run_kwargs = dict(deepcopy(run_kwargs))
     new_run_kwargs["graph_factory_kwargs"]["label_replacement_dict"] = {  # type: ignore
         ASPAOTCEdge.name: "ASPA+OTC",
     }

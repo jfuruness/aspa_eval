@@ -1,3 +1,4 @@
+from copy import deepcopy
 from functools import partial
 import json
 from pathlib import Path
@@ -185,7 +186,7 @@ def run_post_rov_motivation_sim(prob_func):
         output_dir=DIR / "rov_deployment" / prob_func.__name__,
         **default_kwargs,  # type: ignore
     )
-    new_run_kwargs = dict(run_kwargs)
+    new_run_kwargs = dict(deepcopy(run_kwargs))
     new_run_kwargs["graph_factory_kwargs"]["x_axis_label_replacement_dict"] = {  # type: ignore
         "Percent Adoption": "Percent of Additional Adoption"
     }

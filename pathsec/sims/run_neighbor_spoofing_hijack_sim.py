@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from bgpy.simulation_engine import ROV, ASPA, PathEnd
 from bgpy.simulation_framework import (
     Simulation,
@@ -56,4 +58,4 @@ def run_neighbor_spoofing_hijack_sim():
         output_dir=DIR / "neighbor_spoofing_hijack",
         **default_kwargs,  # type: ignore
     )
-    sim.run(**run_kwargs)  # type: ignore
+    sim.run(**deepcopy(run_kwargs))  # type: ignore

@@ -1,3 +1,4 @@
+from copy import deepcopy
 from pathsec.policies import (
     EdgeFilter,
     OTCEdge,
@@ -46,4 +47,4 @@ def run_route_leak_mh_sim():
         output_dir=DIR / "route_leak_mh",
         **default_kwargs,  # type: ignore
     )
-    sim.run(**run_kwargs)  # type: ignore
+    sim.run(**deepcopy(run_kwargs))  # type: ignore

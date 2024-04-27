@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import Optional
 
 from pathsec.policies import ShortestPathExportAllAttacker
@@ -121,7 +122,7 @@ def run_shortest_path_export_all_hijack_etc_cc_sim():
         output_dir=DIR / "shortest_path_export_all_hijack_ETC_CC",
         **default_kwargs,  # type: ignore
     )
-    new_run_kwargs = dict(run_kwargs)
+    new_run_kwargs = dict(deepcopy(run_kwargs))
     new_run_kwargs["graph_factory_kwargs"]["y_axis_label_replacement_dict"] = {  # type: ignore
         "PERCENT ATTACKER SUCCESS": "Percent Attacker Success (Customer Cone)"
     }
