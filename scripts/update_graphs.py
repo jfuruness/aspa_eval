@@ -5,7 +5,7 @@ from pathlib import Path
 from graph_factory import GraphFactory  # modified version of BGPy's GraphFactory
 import shutil
 
-SIMS_DIR = Path("/Users/arvind/Downloads/aspa_sims_new")  # set sim data folder here
+SIMS_DIR = Path("./aspa_sims")  # set sim data folder here
 GRAPHS_DIR = Path("./graphs")
 OUT_DIR = Path("./results")
 
@@ -17,20 +17,40 @@ def list_directories(path: Path):
 def main():
     # rename labels in legend
     replacement_labels = {
-        "shortest_path_export_all_hijack_ETC_CC": {},
-        "shortest_path_export_all_hijack_INPUT_CLIQUE": {},
-        "neighbor_spoofing_hijack": {},
+        "shortest_path_export_all_hijack_ETC_CC": {
+            "BGPSec": "BGPsec",
+        },
+        "shortest_path_export_all_hijack_ETC_CC_W_BGP": {
+            "BGPSec": "BGPsec",
+        },
+        "shortest_path_export_all_hijack_INPUT_CLIQUE": {
+            "BGPSec": "BGPsec",
+        },
+        "neighbor_spoofing_hijack": {
+            "BGPSec": "BGPsec",
+        },
         "route_leak_transit": {
             "ASPA+OTC+EdgeFilter": "ASPA+OTC",
+            "BGPSec": "BGPsec",
         },
-        "route_leak_mh": {},
-        "shortest_path_export_all_hijack_1_attackers": {},
-        "shortest_path_export_all_hijack_ETC": {},
+        "route_leak_mh": {
+            "BGPSec": "BGPsec",
+        },
+        "shortest_path_export_all_hijack_1_attackers": {
+            "BGPSec": "BGPsec",
+        },
+        "shortest_path_export_all_hijack_ETC": {
+            "BGPSec": "BGPsec",
+        },
         "forged_origin_export_all_hijack": {
-            "Path-End": "Path-End/ASPA/PathEnd+EdgeFilter/ASPA+EdgeFilter",
-            "EdgeFilter": "EdgeFilter/BGPSec+EdgeFilter",
+            #"Path-End": "Path-End/ASPA/PathEnd+EdgeFilter/ASPA+EdgeFilter",
+            "EdgeFilter": "EdgeFilter/BGPsec+EdgeFilter",
+            "Path-End": "ASPA/Path-End",
+            "BGPSec": "BGPsec",
         },
-        "shortest_path_export_all_hijack_10_attackers": {},
+        "shortest_path_export_all_hijack_10_attackers": {
+            "BGPSec": "BGPsec",
+        },
     }
 
     # display labels in legend in specific order
@@ -93,22 +113,34 @@ def main():
     # https://matplotlib.org/stable/users/prev_whats_new/dflt_style_changes.html#id2
     # (labels must be original names)
     label_colors = {
-        # "ROV": "C0",  # blue
-        # "ASPA": "C2",  # green
-        # "OnlyToCustomers": "C1",  # orange
-        # "ASPA+OTC+EdgeFilter": "C3",  # red
+         "ROV": "C0",  # blue
+         "ROV & Forged Origin Export All Hijack": "C5",  # blue
+         "Path-End+EdgeFilter": "C1",  # 
+         "Path-End": "C1",  # 
+         "ASPA": "C2",  # green
+         "ASPA/Path-End": "C2",  # green
+         "ASPA & Neighbor Spoofing Hijack": "C2",  # green
+         "ASPA+EdgeFilter": "C3",  # red
+         "ASPA+OTC": "C3",  # red
+         "ASPAWN": "C4",  # red
+         "BGPsec": "C7",  # 
+         "Doomed ASes": "C7",  # 
+         "ASPA+OTC+EdgeFilter": "C7",  # red
+         "OnlyToCustomers": "C8",  # orange
+         "EdgeFilter": "C9",
+         "EdgeFilter/BGPsec+EdgeFilter": "C9",
     }
 
     # limit y-axis of graphs
     y_limits = {
         "shortest_path_export_all_hijack_ETC_CC": 100,
-        "shortest_path_export_all_hijack_INPUT_CLIQUE": 50,
-        "neighbor_spoofing_hijack": 80,
-        "route_leak_transit": 30,
+        "shortest_path_export_all_hijack_INPUT_CLIQUE": 100,
+        "neighbor_spoofing_hijack": 100,
+        "route_leak_transit": 40,
         "route_leak_mh": 40,
-        "shortest_path_export_all_hijack_1_attackers": 70,
-        "shortest_path_export_all_hijack_ETC": 70,
-        "forged_origin_export_all_hijack": 40,
+        "shortest_path_export_all_hijack_1_attackers": 100,
+        "shortest_path_export_all_hijack_ETC": 100,
+        "forged_origin_export_all_hijack": 60,
         "shortest_path_export_all_hijack_10_attackers": 100,
     }
 
@@ -156,7 +188,7 @@ def main():
             label_replacement_dict=replacement_labels.get(sim.name, None),
             label_color_dict=label_colors,
             ordered_labels=ordered_labels.get(sim.name, None),
-            bottom_legend=i == 8,  # foea
+            bottom_legend=i == 9,  # foea
             y_axis_label_replacement_dict={
                 "PERCENT ATTACKER SUCCESS": f"Percent Attacker Success{' (Customer Cone)' if i == 0 else ''}"  # spea_etc_cc
             },

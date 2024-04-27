@@ -199,7 +199,7 @@ class GraphFactory:
                 label=self.label_replacement_dict.get(as_cls.name, as_cls.name),
                 ls=self.line_styles[i],
                 marker=self.markers[i],
-                color=self.label_color_dict.get(as_cls.name, None),
+                color=self.label_color_dict.get(self.label_replacement_dict.get(as_cls.name, as_cls.name), None),
             )
         # Set labels
         default_y_label = f"PERCENT {metric_key.outcome.name}".replace("_", " ")
@@ -220,13 +220,14 @@ class GraphFactory:
         # This flag was added for the FOEA graph, which had a _huge_ legend. That has
         # since been changed, so we don't really need this anymore
         if self.bottom_legend:
-            ax.legend(
-                handles,
-                labels,
-                loc="upper center",
-                bbox_to_anchor=(0.5, -0.1),
-                frameon=False,
-            )
+            #ax.legend(
+            #    handles,
+            #    labels,
+            #    loc="upper center",
+            #    bbox_to_anchor=(0.5, -0.1),
+            #    frameon=False,
+            #)
+            pass
         else:
             ax.legend(handles, labels)
 
