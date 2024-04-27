@@ -32,9 +32,11 @@ def main():
         "route_leak_transit": {
             "ASPA+OTC+EdgeFilter": "ASPA+OTC",
             "BGPSec": "BGPsec",
+            "ROV": "ROV/Path-End",
         },
         "route_leak_mh": {
             "BGPSec": "BGPsec",
+            "ROV": "ROV/Path-End",
         },
         "shortest_path_export_all_hijack_1_attackers": {
             "BGPSec": "BGPsec",
@@ -114,6 +116,7 @@ def main():
     # (labels must be original names)
     label_colors = {
          "ROV": "C0",  # blue
+         "ROV/Path-End": "C0",
          "ROV & Forged Origin Export All Hijack": "C5",  # blue
          "Path-End+EdgeFilter": "C1",  # 
          "Path-End": "C1",  # 
