@@ -1,9 +1,11 @@
-from pathlib import Path
-from graph_factory import GraphFactory
-import shutil
-import sys
+#!/usr/bin/env python3
+# USAGE: python3 update_graphs.py
 
-SIMS_DIR = Path("/Users/arvind/Downloads/aspa_sims_new")
+from pathlib import Path
+from graph_factory import GraphFactory  # modified version of BGPy's GraphFactory
+import shutil
+
+SIMS_DIR = Path("/Users/arvind/Downloads/aspa_sims_new")  # set sim data folder here
 GRAPHS_DIR = Path("./graphs")
 OUT_DIR = Path("./results")
 
@@ -13,6 +15,7 @@ def list_directories(path: Path):
 
 
 def main():
+    # rename labels in legend
     replacement_labels = {
         "shortest_path_export_all_hijack_ETC_CC": {},
         "shortest_path_export_all_hijack_INPUT_CLIQUE": {},
@@ -30,6 +33,8 @@ def main():
         "shortest_path_export_all_hijack_10_attackers": {},
     }
 
+    # display labels in legend in specific order
+    # (labels must be original names)
     ordered_labels = {
         "shortest_path_export_all_hijack_ETC_CC": (
             "ROV",
@@ -83,6 +88,18 @@ def main():
         ),
     }
 
+    # any label that is not specified will have a color automatically selected from
+    # the color cycle, beginning with blue. colors are from matplotlib site:
+    # https://matplotlib.org/stable/users/prev_whats_new/dflt_style_changes.html#id2
+    # (labels must be original names)
+    label_colors = {
+        # "ROV": "C0",  # blue
+        # "ASPA": "C2",  # green
+        # "OnlyToCustomers": "C1",  # orange
+        # "ASPA+OTC+EdgeFilter": "C3",  # red
+    }
+
+    # limit y-axis of graphs
     y_limits = {
         "shortest_path_export_all_hijack_ETC_CC": 100,
         "shortest_path_export_all_hijack_INPUT_CLIQUE": 50,
@@ -95,16 +112,20 @@ def main():
         "shortest_path_export_all_hijack_10_attackers": 100,
     }
 
+    # iterate over each folder in aspa_sims folder
     for i, sim in enumerate(list_directories(SIMS_DIR)):
-        # ROV Deployments graphs
+        # rov deployments graphs
         if i == 4:
-            for j, sub_sim in enumerate(list_directories(sim)):
-                print(i, j, sub_sim)
+            # iterate over each folder in rov_deployment folder
+            for j, rov_sim in enumerate(list_directories(sim)):
+                print(i, j, rov_sim)
+
+                # create graph
                 GraphFactory(
-                    pickle_path=sub_sim / "data.pickle",
-                    graph_dir=GRAPHS_DIR / sub_sim.name,
-                    label_replacement_dict=replacement_labels.get(sub_sim.name, None),
-                    y_limit=y_limits.get(sub_sim.name, 100),
+                    pickle_path=rov_sim / "data.pickle",
+                    graph_dir=GRAPHS_DIR / rov_sim.name,
+                    label_replacement_dict=replacement_labels.get(rov_sim.name, None),
+                    label_color_dict=label_colors,
                     ordered_labels=ordered_labels.get(sim.name, None),
                     x_axis_label_replacement_dict={
                         "Percent Adoption": "Percent of Additional Adoption"
@@ -112,32 +133,37 @@ def main():
                     y_axis_label_replacement_dict={
                         "PERCENT ATTACKER SUCCESS": "Percent Attacker Success"
                     },
+                    y_limit=y_limits.get(rov_sim.name, 100),
                 ).generate_graphs()
 
+                # copy adopting_is_any/ATTACKER_SUCCESS graph to results/rov_deployment
+                # folder
                 dest_dir = OUT_DIR / sim.name
                 dest_dir.mkdir(parents=True, exist_ok=True)
                 shutil.copy(
-                    list_directories(GRAPHS_DIR / sub_sim.name)[0]
+                    list_directories(GRAPHS_DIR / rov_sim.name)[0]
                     / "all_wout_ixps/adopting_is_Any/DATA/ATTACKER_SUCCESS.png",
-                    dest_dir / f"{sub_sim.name}.png",
+                    dest_dir / f"{rov_sim.name}.png",
                 )
             continue
 
         print(i, sim)
 
-        # Create graph
+        # create graph
         GraphFactory(
             pickle_path=sim / "data.pickle",
             graph_dir=GRAPHS_DIR / sim.name,
             label_replacement_dict=replacement_labels.get(sim.name, None),
-            y_limit=y_limits.get(sim.name, 100),
+            label_color_dict=label_colors,
             ordered_labels=ordered_labels.get(sim.name, None),
+            bottom_legend=i == 8,  # foea
             y_axis_label_replacement_dict={
-                "PERCENT ATTACKER SUCCESS": f"Percent Attacker Success{' (Customer Cone)' if i == 0 else ''}"
+                "PERCENT ATTACKER SUCCESS": f"Percent Attacker Success{' (Customer Cone)' if i == 0 else ''}"  # spea_etc_cc
             },
+            y_limit=y_limits.get(sim.name, 100),
         ).generate_graphs()
 
-        # Move adopting_is_any/ATTACKER_SUCCESS graph to results folders
+        # copy adopting_is_any/ATTACKER_SUCCESS graph to results folder
         OUT_DIR.mkdir(parents=True, exist_ok=True)
         shutil.copy(
             list_directories(GRAPHS_DIR / sim.name)[0]
