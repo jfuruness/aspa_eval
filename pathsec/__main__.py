@@ -12,6 +12,7 @@ from .sims import (
     run_route_leak_transit_sim,  # noqa
     run_post_rov_motivation_sim,  # noqa
     prob_funcs,  # noqa
+    run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim,
 )
 
 
@@ -19,6 +20,7 @@ def main():
     """Runs the defaults"""
 
     sim_funcs = [
+        run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim,
         run_neighbor_spoofing_hijack_sim,
         run_forged_origin_export_all_hijack_sim,
         run_shortest_path_export_all_hijack_sim,

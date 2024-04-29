@@ -19,6 +19,10 @@ from .run_post_rov_motivation_sim import run_post_rov_motivation_sim, prob_funcs
 from .run_shortest_path_export_all_hijack_etc_cc_sim import (
     run_shortest_path_export_all_hijack_etc_cc_sim,
 )
+from .run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim import (
+    run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim,
+)
+
 
 __all__ = [
     "run_forged_origin_export_all_hijack_sim",
@@ -31,4 +35,5 @@ __all__ = [
     "run_post_rov_motivation_sim",
     "prob_funcs",
     "run_shortest_path_export_all_hijack_etc_cc_sim",
+    "run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim",
 ]

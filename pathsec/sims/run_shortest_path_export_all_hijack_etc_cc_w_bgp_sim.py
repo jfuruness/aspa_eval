@@ -8,6 +8,7 @@ from bgpy.enums import ASGroups, SpecialPercentAdoptions
 from bgpy.simulation_engine import (
     BaseSimulationEngine,
     ROV,
+    BGP,
     BGPSec,
     PathEnd,
     ASPA,
@@ -16,6 +17,7 @@ from bgpy.simulation_engine import (
 from bgpy.simulation_framework import (
     DependentSimulation,
     PrefixHijack,
+    ValidPrefix,
     preprocess_anns_funcs,
     ScenarioConfig,
     Scenario,
@@ -48,9 +50,56 @@ if TYPE_CHECKING:
 class ValidPrefixKinda(ValidPrefix):
     _get_attacker_asns = Scenario._get_attacker_asns
 
-    __init__ = CustomerConePrefixHijack.__init__
+    def __init__(
+        self,
+        *,
+        scenario_config: ScenarioConfig,
+        percent_adoption: float | SpecialPercentAdoptions = 0,
+        engine: Optional["BaseSimulationEngine"] = None,
+        prev_scenario: Optional["Scenario"] = None,
+        preprocess_anns_func: PREPROCESS_ANNS_FUNC_TYPE = noop,
+    ):
+
+        assert engine, "Need engine for customer cones"
+        self._attacker_customer_cones_asns: set[int] = set()
+        super().__init__(
+            scenario_config=scenario_config,
+            percent_adoption=percent_adoption,
+            engine=engine,
+            prev_scenario=prev_scenario,
+            preprocess_anns_func=preprocess_anns_func,
+        )
+        # Stores customer cones of attacker ASNs
+        # used in untrackable func and when selecting victims
+        for attacker_asn in self.attacker_asns:
+            self._attacker_customer_cones_asns.update(
+                self._get_cone_size_helper(
+                    engine.as_graph.as_dict[attacker_asn],
+                    dict(),
+                ),
+            )
+        self._non_attacker_customer_cone_asns = set(
+            [
+                x.asn
+                for x in engine.as_graph
+                if x.asn not in self._attacker_customer_cones_asns
+            ]
+        )
+
+    # Just returns customer cone
     _get_cone_size_helper = _get_cone_size_helper
-    _untracked_asns = CustomerConePrefixHijack._untracked_asns
+
+    @property
+    def _untracked_asns(self) -> frozenset[int]:
+        """Returns ASNs that shouldn't be tracked by the metric tracker
+
+        By default just the default adopters and non adopters
+        We extend to exclude all ASes not in customer cone
+        """
+
+        return super()._untracked_asns | self._non_attacker_customer_cone_asns
+
+
 
 
 class BGPSpecial(BGP):
