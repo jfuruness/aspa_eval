@@ -42,6 +42,7 @@ class PrefixHijackVictimRandom(PrefixHijack):
         """Nils paper has victim's adopting randomly"""
         return frozenset()
 
+
 class AccidentalRouteLeakVictimRandomAnyLeaker(AccidentalRouteLeak):
     @property
     def _default_adopters(self) -> frozenset[int]:
@@ -55,7 +56,6 @@ class AccidentalRouteLeakVictimRandomAnyLeaker(AccidentalRouteLeak):
         So we suppress warnings that would normally come up from leaking from stubs
         """
         return frozenset()
-
 
 
 def run_origin_hijack_nils_comparison_sim():
@@ -74,9 +74,6 @@ def run_origin_hijack_nils_comparison_sim():
         **default_kwargs,  # type: ignore
     )
     sim.run()
-
-
-class AccidentalRouteLeakAnyLeaker(AccidentalRouteLeak):
 
 
 def run_route_leak_nils_comparison_sim():
