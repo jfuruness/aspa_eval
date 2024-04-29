@@ -6,7 +6,7 @@ from pathsec.policies import ShortestPathExportAllAttacker
 from bgpy.as_graphs.base.as_graph.customer_cone_funcs import _get_cone_size_helper
 from bgpy.enums import ASGroups, SpecialPercentAdoptions
 from bgpy.simulation_engine import (
-    BaseSimulationEngine,
+    BaseDependentSimulationEngine,
     ROV,
     BGPSec,
     PathEnd,
@@ -14,7 +14,7 @@ from bgpy.simulation_engine import (
 )
 
 from bgpy.simulation_framework import (
-    Simulation,
+    DependentSimulation,
     PrefixHijack,
     preprocess_anns_funcs,
     ScenarioConfig,
@@ -40,7 +40,7 @@ class CustomerConePrefixHijack(PrefixHijack):
         *,
         scenario_config: ScenarioConfig,
         percent_adoption: float | SpecialPercentAdoptions = 0,
-        engine: Optional["BaseSimulationEngine"] = None,
+        engine: Optional["BaseDependentSimulationEngine"] = None,
         prev_scenario: Optional["Scenario"] = None,
         preprocess_anns_func: PREPROCESS_ANNS_FUNC_TYPE = noop,
     ):
@@ -94,7 +94,7 @@ def run_shortest_path_export_all_hijack_etc_cc_sim():
         BGPSec,
         ROV,
     ]
-    sim = Simulation(
+    sim = DependentSimulation(
         scenario_configs=tuple(
             [
                 ScenarioConfig(

@@ -13,7 +13,7 @@ from bgpy.simulation_engine import (
     OnlyToCustomers,
 )
 from bgpy.simulation_framework import (
-    Simulation,
+    DependentSimulation,
     AccidentalRouteLeak,
     ScenarioConfig,
 )
@@ -32,7 +32,7 @@ def run_route_leak_mh_sim():
         OnlyToCustomers,
         ROV,
     ]
-    sim = Simulation(
+    sim = DependentSimulation(
         scenario_configs=tuple(
             [
                 ScenarioConfig(
