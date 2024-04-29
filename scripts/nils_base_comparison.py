@@ -36,13 +36,35 @@ nils_comparison_kwargs = {
 }
 
 
+class PrefixHijackVictimRandom(PrefixHijack):
+    @property
+    def _default_adopters(self) -> frozenset[int]:
+        """Nils paper has victim's adopting randomly"""
+        return frozenset()
+
+class AccidentalRouteLeakVictimRandomAnyLeaker(AccidentalRouteLeak):
+    @property
+    def _default_adopters(self) -> frozenset[int]:
+        """Nils paper has victim's adopting randomly"""
+        return frozenset()
+
+    @property
+    def warning_as_groups(self) -> frozenset[str]:
+        """Nils paper allows leakers from everywhere
+
+        So we suppress warnings that would normally come up from leaking from stubs
+        """
+        return frozenset()
+
+
+
 def run_origin_hijack_nils_comparison_sim():
     """Runs sim for an origin hijack that is directly comparable to Nils paper"""
 
     sim = DependentSimulation(
         scenario_configs=[
             ScenarioConfig(
-                ScenarioCls=PrefixHijack,
+                ScenarioCls=PrefixHijackVictimRandom,
                 AdoptPolicyCls=Cls,
                 preprocess_anns_func=preprocess_anns_funcs.origin_hijack,
                 **nils_comparison_kwargs,
@@ -55,14 +77,6 @@ def run_origin_hijack_nils_comparison_sim():
 
 
 class AccidentalRouteLeakAnyLeaker(AccidentalRouteLeak):
-    """Nils paper allows leakers from everywhere
-
-    So we suppress warnings that would normally come up from leaking from stubs
-    """
-
-    @property
-    def warning_as_groups(self) -> frozenset[str]:
-        return frozenset()
 
 
 def run_route_leak_nils_comparison_sim():
@@ -71,7 +85,7 @@ def run_route_leak_nils_comparison_sim():
     sim = DependentSimulation(
         scenario_configs=[
             ScenarioConfig(
-                ScenarioCls=AccidentalRouteLeakAnyLeaker,
+                ScenarioCls=AccidentalRouteLeakVictimRandomAnyLeaker,
                 AdoptPolicyCls=Cls,
                 propagation_rounds=2,
                 **nils_comparison_kwargs,
