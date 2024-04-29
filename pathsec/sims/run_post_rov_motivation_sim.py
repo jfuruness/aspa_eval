@@ -12,7 +12,7 @@ from frozendict import frozendict
 from bgpy.simulation_engine import ROVSimplePolicy
 
 from bgpy.simulation_framework import (
-    Simulation,
+    DependentSimulation,
     PrefixHijack,
     SubprefixHijack,
     ScenarioConfig,
@@ -157,15 +157,15 @@ def run_post_rov_motivation_sim(prob_func):
 
     rov_asns_dict = get_real_world_rov_asn_cls_dict(prob_func=prob_func)
 
-    # Simulation for the paper
-    sim = Simulation(
+    # DependentSimulation for the paper
+    sim = DependentSimulation(
         scenario_configs=(
-            ScenarioConfig(
-                ScenarioCls=PrefixHijack,
-                preprocess_anns_func=preprocess_anns_funcs.neighbor_spoofing_hijack,
-                AdoptPolicyCls=NeighborSpoofingHijackROV,
-                hardcoded_asn_cls_dict=rov_asns_dict,
-            ),
+            # ScenarioConfig(
+            #     ScenarioCls=PrefixHijack,
+            #     preprocess_anns_func=preprocess_anns_funcs.neighbor_spoofing_hijack,
+            #     AdoptPolicyCls=NeighborSpoofingHijackROV,
+            #     hardcoded_asn_cls_dict=rov_asns_dict,
+            # ),
             ScenarioConfig(
                 ScenarioCls=PrefixHijack,
                 preprocess_anns_func=preprocess_anns_funcs.forged_origin_export_all_hijack,

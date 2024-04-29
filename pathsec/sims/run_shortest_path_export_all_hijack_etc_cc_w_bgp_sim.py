@@ -8,6 +8,7 @@ from bgpy.enums import ASGroups, SpecialPercentAdoptions
 from bgpy.simulation_engine import (
     BaseSimulationEngine,
     ROV,
+    BGP,
     BGPSec,
     PathEnd,
     ASPA,
@@ -16,6 +17,7 @@ from bgpy.simulation_engine import (
 from bgpy.simulation_framework import (
     DependentSimulation,
     PrefixHijack,
+    ValidPrefix,
     preprocess_anns_funcs,
     ScenarioConfig,
     Scenario,
@@ -26,14 +28,27 @@ from bgpy.simulation_framework.scenarios.preprocess_anns_funcs import (
 )
 
 from .sim_kwargs import DIR, default_kwargs, run_kwargs
+from .run_shortest_path_export_all_hijack_etc_cc_sim import ASPAwNeighbors, CustomerConePrefixHijack
 
 
-class ASPAwNeighbors(ASPA):
-    name = "ASPAWN"
+from typing import Optional, TYPE_CHECKING
+
+from bgpy.simulation_framework.scenarios.scenario import Scenario
+from bgpy.simulation_framework.scenarios.roa_info import ROAInfo
+from bgpy.enums import Prefixes
+from bgpy.enums import Relationships
+from bgpy.enums import Timestamps
 
 
-class CustomerConePrefixHijack(PrefixHijack):
-    """PrefixHijack that only tracks customer cone"""
+from bgpy.as_graphs.base.as_graph.customer_cone_funcs import _get_cone_size_helper
+
+if TYPE_CHECKING:
+    from bgpy.simulation_engine import Announcement as Ann
+    from bgpy.simulation_engine import BaseSimulationEngine
+
+
+class ValidPrefixKinda(ValidPrefix):
+    _get_attacker_asns = Scenario._get_attacker_asns
 
     def __init__(
         self,
@@ -85,7 +100,13 @@ class CustomerConePrefixHijack(PrefixHijack):
         return super()._untracked_asns | self._non_attacker_customer_cone_asns
 
 
-def run_shortest_path_export_all_hijack_etc_cc_sim():
+
+
+class BGPSpecial(BGP):
+    name = "Doomed ASes"
+
+
+def run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim():
     """Runs sim for shortest path export all"""
 
     sim_classes = [
@@ -117,9 +138,15 @@ def run_shortest_path_export_all_hijack_etc_cc_sim():
                     attacker_subcategory_attr=ASGroups.ETC.value,
                     AttackerBasePolicyCls=ShortestPathExportAllAttacker,
                 )
+            ] + [
+                ScenarioConfig(
+                    ScenarioCls=ValidPrefixKinda,
+                    AdoptPolicyCls=BGPSpecial,
+                    attacker_subcategory_attr=ASGroups.ETC.value,
+                )
             ]
         ),
-        output_dir=DIR / "shortest_path_export_all_hijack_ETC_CC",
+        output_dir=DIR / "shortest_path_export_all_hijack_ETC_CC_W_BGP",
         **default_kwargs,  # type: ignore
     )
     new_run_kwargs = dict(deepcopy(run_kwargs))

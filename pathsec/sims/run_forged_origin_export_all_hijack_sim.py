@@ -10,7 +10,7 @@ from bgpy.simulation_engine import (
 )
 
 from bgpy.simulation_framework import (
-    Simulation,
+    DependentSimulation,
     PrefixHijack,
     preprocess_anns_funcs,
     ScenarioConfig,
@@ -33,7 +33,7 @@ def run_forged_origin_export_all_hijack_sim():
         # PathEndEdge,  # overlaps with pathend
         # ASPAEdge,  # overlaps with pathend
     ]
-    sim = Simulation(
+    sim = DependentSimulation(
         scenario_configs=tuple(
             [
                 ScenarioConfig(
@@ -48,8 +48,8 @@ def run_forged_origin_export_all_hijack_sim():
         **default_kwargs,  # type: ignore
     )
     new_run_kwargs = dict(deepcopy(run_kwargs))
-    new_run_kwargs["graph_factory_kwargs"]["label_replacement_dict"] = {  # type: ignore
-        PathEnd.name: "Path-End/ASPA/PathEnd+EdgeFilter/ASPA+EdgeFilter",
-        EdgeFilter.name: "EdgeFilter/BGPSec+EdgeFilter",
-    }
+    # new_run_kwargs["graph_factory_kwargs"]["label_replacement_dict"] = {  # type: ignore
+    #     PathEnd.name: "Path-End/ASPA/PathEnd+EdgeFilter/ASPA+EdgeFilter",
+    #     EdgeFilter.name: "EdgeFilter/BGPSec+EdgeFilter",
+    # }
     sim.run(**new_run_kwargs)  # type: ignore
