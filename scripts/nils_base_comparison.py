@@ -3,11 +3,11 @@ from pathlib import Path
 import sys
 import time
 
-from bgpy.enums import ASGroups
-from bgpy.simulation_engine import ROV
+from bgpy.enums import ASGroups, SpecialPercentAdoptions
+from bgpy.simulation_engine import ROV, ASPA
 
 from bgpy.simulation_framework import (
-    Simulation,
+    DependentSimulation,
     AccidentalRouteLeak,
     PrefixHijack,
     preprocess_anns_funcs,
@@ -17,7 +17,14 @@ from bgpy.simulation_framework import (
 DIR = Path.home() / "Desktop" / "aspa_comparison_sims"
 
 default_kwargs = {
-    "percent_adoptions": (0.1,),
+    "percent_adoptions": (
+            SpecialPercentAdoptions.ONLY_ONE,
+            0.1,
+            0.2,
+            0.5,
+            0.8,
+            0.99,
+    ),
     "num_trials": 1 if "quick" in str(sys.argv) else 1000,
     "parse_cpus": cpu_count() - 2,
 }
@@ -32,15 +39,15 @@ nils_comparison_kwargs = {
 def run_origin_hijack_nils_comparison_sim():
     """Runs sim for an origin hijack that is directly comparable to Nils paper"""
 
-    sim = Simulation(
-        scenario_configs=(
+    sim = DependentSimulation(
+        scenario_configs=[
             ScenarioConfig(
                 ScenarioCls=PrefixHijack,
-                AdoptPolicyCls=ROV,
+                AdoptPolicyCls=Cls,
                 preprocess_anns_func=preprocess_anns_funcs.origin_hijack,
                 **nils_comparison_kwargs,
-            ),
-        ),
+            ) for Cls in (ROV, ASPA)
+        ],
         output_dir=DIR / "origin_hijack_nils",
         **default_kwargs,  # type: ignore
     )
@@ -61,15 +68,15 @@ class AccidentalRouteLeakAnyLeaker(AccidentalRouteLeak):
 def run_route_leak_nils_comparison_sim():
     """Runs sim for a route leak that is directly comparable to Nils paper"""
 
-    sim = Simulation(
-        scenario_configs=(
+    sim = DependentSimulation(
+        scenario_configs=[
             ScenarioConfig(
                 ScenarioCls=AccidentalRouteLeakAnyLeaker,
-                AdoptPolicyCls=ROV,
+                AdoptPolicyCls=Cls,
                 propagation_rounds=2,
                 **nils_comparison_kwargs,
-            ),
-        ),
+            ) for Cls in (ROV, ASPA)
+        ],
         output_dir=DIR / "route_leak_nils",
         **default_kwargs,  # type: ignore
     )
@@ -90,7 +97,7 @@ def main():
 
 
 if __name__ == "__main__":
-    print("On Justin's machine this took ~11m")
+    print("On Justin's machine this took ~11m using pypy3 -O")
     start = time.perf_counter()
     main()
     print(f"{time.perf_counter() - start}s for all sims")
