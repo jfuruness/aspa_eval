@@ -3,6 +3,7 @@ import time
 
 from .sims import (
     run_forged_origin_export_all_hijack_sim,  # noqa
+    run_forged_origin_export_all_hijack_transit_sim,  # noqa
     run_neighbor_spoofing_hijack_sim,  # noqa
     run_shortest_path_export_all_hijack_sim,  # noqa
     run_shortest_path_export_all_hijack_input_clique_sim,  # noqa
@@ -20,6 +21,7 @@ def main():
     """Runs the defaults"""
 
     sim_funcs = [
+        run_forged_origin_export_all_hijack_transit_sim,
         run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim,
         run_neighbor_spoofing_hijack_sim,
         run_forged_origin_export_all_hijack_sim,
@@ -36,7 +38,7 @@ def main():
         post_rov_func.__name__ = prob_func.__name__  # type: ignore
         sim_funcs.append(post_rov_func)
 
-    for sim_func in sim_funcs:
+    for sim_func in [sim_funcs[0]]:
         start = time.perf_counter()
         sim_func()  # type: ignore
         print(f"{time.perf_counter() - start}s for {getattr(sim_func, '__name__', '')}")

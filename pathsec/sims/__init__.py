@@ -1,6 +1,10 @@
 from .run_forged_origin_export_all_hijack_sim import (
     run_forged_origin_export_all_hijack_sim,
 )
+from .run_forged_origin_export_all_hijack_transit_sim import (
+    run_forged_origin_export_all_hijack_transit_sim,
+)
+
 from .run_neighbor_spoofing_hijack_sim import run_neighbor_spoofing_hijack_sim
 from .run_shortest_path_export_all_hijack_sim import (
     run_shortest_path_export_all_hijack_sim,
@@ -26,6 +30,7 @@ from .run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim import (
 
 __all__ = [
     "run_forged_origin_export_all_hijack_sim",
+    "run_forged_origin_export_all_hijack_transit_sim",
     "run_neighbor_spoofing_hijack_sim",
     "run_shortest_path_export_all_hijack_sim",
     "run_shortest_path_export_all_hijack_input_clique_sim",
