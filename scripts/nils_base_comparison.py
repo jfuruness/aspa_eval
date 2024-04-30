@@ -108,7 +108,7 @@ def main():
 
 
 if __name__ == "__main__":
-    print("On Justin's machine this took ~11m using pypy3 -O")
+    print("Initially it took only 11m, with DependentSimulation class it takes a lot longer for some reason - some performance issues there...")
     start = time.perf_counter()
     main()
     print(f"{time.perf_counter() - start}s for all sims")
