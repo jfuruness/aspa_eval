@@ -19,6 +19,8 @@ from bgpy.simulation_framework import (
     ScenarioConfig,
 )
 
+from bgpy.enums import SpecialPercentAdoptions
+
 from pathsec.sims.sim_kwargs import DIR, default_kwargs, run_kwargs
 from preprocess_anns_funcs import aspa_hijack
 
@@ -30,6 +32,15 @@ class SPEAASPA(ASPA):
 
 def run_aspa_hijack_sim(num_attackers=1):
 
+    kwargs = dict(deepcopy(default_kwargs))
+    kwargs["percent_adoptions"] = (
+            SpecialPercentAdoptions.ONLY_ONE,
+            0.1,
+            0.2,
+            0.3,
+            0.4,
+            0.5,
+    )
     sim_classes = [
         SPEAASPA,
         PathEnd,
@@ -57,7 +68,7 @@ def run_aspa_hijack_sim(num_attackers=1):
             ]
         ),
         output_dir=DIR / f"new_aspa_hijack_{num_attackers}_attackers",
-        **default_kwargs,  # type: ignore
+        **kwargs,  # type: ignore
     )
     sim.run(**deepcopy(run_kwargs))  # type: ignore
 

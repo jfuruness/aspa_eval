@@ -1,5 +1,6 @@
 from typing import Optional, TYPE_CHECKING
 
+from bgpy.enums import ASGroups
 from bgpy.simulation_engine import ASPA
 from bgpy.simulation_framework.scenarios.preprocess_anns_funcs import (
     _get_valid_by_roa_ann,
@@ -33,9 +34,18 @@ def aspa_hijack(
     for ann in unprocessed_anns:
         # If the announcement is from the attacker
         if ann.invalid_by_roa:
-
+            input_clique = engine.as_graph.as_groups[ASGroups.INPUT_CLIQUE.value]
+            def get_policy(as_: "AS") -> type["Policy"]:
+                return self_scenario.non_default_asn_cls_dict.get(  # type: ignore
+                    as_.asn, self_scenario.scenario_config.BasePolicyCls
+                )
+            adopting_input_clique = [x for x in input_clique if issubclass(get_policy(x), ASPA)]
+            if len(adopting_input_clique) * 2 > len(input_clique):
+                input_clique_mostly_adopting = True
+            else:
+                input_clique_mostly_adopting = False
             # Forged-origin hijack when attacker can get to input clique
-            if _zero_adopter_path_to_input_clique(ann.origin, self_scenario, engine):
+            if (_zero_adopter_path_to_input_clique(ann.origin, self_scenario, engine) and not input_clique_mostly_adopting):
                 # Make the AS path be just the victim
                 processed_ann = ann.copy(
                     {
