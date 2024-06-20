@@ -47,9 +47,11 @@ def aspa_hijack(
                     }
                 )
                 processed_anns.append(processed_ann)
-                print("HERE!!!!!!")
+                print("AAA!!!!!!")
             # Default to SP-EA attack
             else:
+
+                print("BBBBB!!!!!!")
                 shortest_as_path = _find_shortest_non_adopting_path_general(
                     valid_ann.origin, self_scenario, engine
                 )
@@ -80,7 +82,6 @@ def aspa_hijack(
         else:
             processed_anns.append(ann)
 
-    raise NotImplementedError("Check that this works and is also better than SP-EA and forged origin, and compare to pathend and ASPAWN as well...")
     return tuple(processed_anns)
 
 
@@ -133,7 +134,7 @@ def _zero_adopter_path_to_input_clique(
 
         # Recursive loop
         for as_ in root_as.providers:
-            if helper(root_as):
+            if helper(as_):
                 return True
 
         # We've gone all the way up on all of the providers, none work
