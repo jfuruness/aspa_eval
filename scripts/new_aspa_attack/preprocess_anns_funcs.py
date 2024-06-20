@@ -57,11 +57,9 @@ def aspa_hijack(
                     }
                 )
                 processed_anns.append(processed_ann)
-                print("AAA!!!!!!")
             # Default to SP-EA attack
             else:
 
-                print("BBBBB!!!!!!")
                 shortest_as_path = _find_shortest_non_adopting_path_general(
                     valid_ann.origin, self_scenario, engine
                 )
