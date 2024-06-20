@@ -18,8 +18,8 @@ from bgpy.simulation_framework import (
     ScenarioConfig,
 )
 
-from .sim_kwargs import DIR, default_kwargs, run_kwargs
-from .preprocess_anns_funcs import aspa_hijack
+from pathsec.sims.sim_kwargs import DIR, default_kwargs, run_kwargs
+from preprocess_anns_funcs import aspa_hijack
 
 def run_aspa_hijack_sim(num_attackers=1):
 

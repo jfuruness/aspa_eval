@@ -1,12 +1,9 @@
-from collections import deque
-from typing import Callable, Optional, TYPE_CHECKING
-import warnings
+from typing import Optional, TYPE_CHECKING
 
-from bgpy.simulation_engine import BGPFull, ASPA, Pathend, PathEnd
+from bgpy.simulation_engine import ASPA
 from bgpy.simulation_framework.scenarios.preprocess_anns_funcs import (
-    PREPROCESS_ANNS_FUNC_TYPE,
-    _get_valid_roa_by_ann,
-    _find_shortest_non_adopting_path_general
+    _get_valid_by_roa_ann,
+    _find_shortest_non_adopting_path_general,
     forged_origin_export_all_hijack
 )
 
@@ -37,9 +34,8 @@ def aspa_hijack(
         # If the announcement is from the attacker
         if ann.invalid_by_roa:
 
-            valid_paths_to_input_clique = False
             # Forged-origin hijack when attacker can get to input clique
-            if zero_adopter_path_to_input_clique(ann.origin, self_scenario, engine):
+            if _zero_adopter_path_to_input_clique(ann.origin, self_scenario, engine):
                 # Make the AS path be just the victim
                 processed_ann = ann.copy(
                     {
@@ -111,8 +107,6 @@ def _zero_adopter_path_to_input_clique(
     assert engine, "mypy"
     root_as = engine.as_graph.as_dict[root_asn]
 
-    paths = list()
-
     def success(as_) -> bool:
         """Returns True if AS is input clique and not deploying ASPA"""
 
@@ -123,11 +117,11 @@ def _zero_adopter_path_to_input_clique(
         # End conditions
 
         # We're adopting, so this path doesn't work
-        if issubclass(get_policy(as_), AdoptPolicyCls):
+        if issubclass(get_policy(root_as), AdoptPolicyCls):
             return False
         # We're not adopting, and input clique:
         elif success(root_as):
-            assert not issubclass(get_policy(as_), AdoptPolicyCls), "should never happen"
+            assert not issubclass(get_policy(root_as), AdoptPolicyCls), "should never happen"
             return True
         # If any peers are input clique and not adopting
         elif any(success(peer_as) for peer_as in root_as.peers):
