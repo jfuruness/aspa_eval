@@ -1,3 +1,5 @@
+
+from __future__ import print_function
 import random
 from bgpy.as_graphs.base.links import CustomerProviderLink as CPLink
 from bgpy.as_graphs import CAIDAASGraphConstructor, AS
@@ -38,11 +40,67 @@ def get_cone_helper(
 
 def main():
     bgp_dag = CAIDAASGraphConstructor(tsv_path=None).run()
-    edge_ases = bgp_dag.as_groups[ASGroups.MULTIHOMED.name.lower()]
+    edge_ases = bgp_dag.as_groups[ASGroups.MULTIHOMED.value]
+    edge_ases = bgp_dag.as_groups[ASGroups.STUBS_OR_MH.value]
     provider_cone_dict = get_cone(
         bgp_dag, rel_attr=Relationships.PROVIDERS.name.lower()
     )
+    provider_cone_dict = {k: frozenset(v) for k, v in provider_cone_dict.items()}
+    #from sys import getsizeof
+    #total = 0
+    #for cone in provider_cone_dict.values():
+    #    input(getsizeof(cone))
+    #    total += getsizeof(cone)
+
+    from sys import getsizeof, stderr
+    from itertools import chain
+    from collections import deque
+    try:
+        from reprlib import repr
+    except ImportError:
+        pass
+
+    def total_size(o, handlers={}, verbose=False):
+        """ Returns the approximate memory footprint an object and all of its contents.
+
+        Automatically finds the contents of the following builtin containers and
+        their subclasses:  tuple, list, deque, dict, set and frozenset.
+        To search other containers, add handlers to iterate over their contents:
+
+            handlers = {SomeContainerClass: iter,
+                        OtherContainerClass: OtherContainerClass.get_elements}
+
+        """
+        dict_handler = lambda d: chain.from_iterable(d.items())
+        all_handlers = {tuple: iter,
+                        list: iter,
+                        deque: iter,
+                        dict: dict_handler,
+                        set: iter,
+                        frozenset: iter,
+                       }
+        all_handlers.update(handlers)     # user handlers take precedence
+        seen = set()                      # track which object id's have already been seen
+        default_size = getsizeof(0)       # estimate sizeof object without __sizeof__
+
+        def sizeof(o):
+            if id(o) in seen:       # do not double count the same object
+                return 0
+            seen.add(id(o))
+            s = getsizeof(o, default_size)
+
+            if verbose:
+                print(s, type(o), repr(o), file=stderr)
+
+            for typ, handler in all_handlers.items():
+                if isinstance(o, typ):
+                    s += sum(map(sizeof, handler(o)))
+                    break
+            return s
+
+        return sizeof(o)
     from pprint import pprint
+    input(total_size(provider_cone_dict))
     for asn, cone in provider_cone_dict.items():
         break
         print(asn)
