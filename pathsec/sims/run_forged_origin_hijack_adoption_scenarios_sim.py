@@ -4,7 +4,7 @@ from frozendict import frozendict
 
 from bgpy.as_graphs import CAIDAASGraphConstructor
 from bgpy.enums import ASGroups
-from bgpy.simulation_engine import ASPA
+from bgpy.simulation_engine import ASPA, ROV
 from bgpy.simulation_framework import (
     DependentSimulation,
     PrefixHijack,
@@ -45,6 +45,13 @@ def run_forged_origin_hijack_adoption_scenarios_sim():
     sim = DependentSimulation(
         scenario_configs=tuple(
             [
+                 ScenarioConfig(
+                    ScenarioCls=PrefixHijack,
+                    AdoptPolicyCls=ROV,
+                    preprocess_anns_func=(
+                        preprocess_anns_funcs.forged_origin_export_all_hijack
+                    ),
+                ),
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
                     AdoptPolicyCls=RandomAdoption,
