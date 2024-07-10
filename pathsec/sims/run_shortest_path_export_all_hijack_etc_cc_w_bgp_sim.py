@@ -16,7 +16,6 @@ from bgpy.simulation_engine import (
 
 from bgpy.simulation_framework import (
     DependentSimulation,
-    PrefixHijack,
     ValidPrefix,
     preprocess_anns_funcs,
     ScenarioConfig,
@@ -28,23 +27,10 @@ from bgpy.simulation_framework.scenarios.preprocess_anns_funcs import (
 )
 
 from .sim_kwargs import DIR, default_kwargs, run_kwargs
-from .run_shortest_path_export_all_hijack_etc_cc_sim import ASPAwNeighbors, CustomerConePrefixHijack
-
-
-from typing import Optional, TYPE_CHECKING
-
-from bgpy.simulation_framework.scenarios.scenario import Scenario
-from bgpy.simulation_framework.scenarios.roa_info import ROAInfo
-from bgpy.enums import Prefixes
-from bgpy.enums import Relationships
-from bgpy.enums import Timestamps
-
-
-from bgpy.as_graphs.base.as_graph.customer_cone_funcs import _get_cone_size_helper
-
-if TYPE_CHECKING:
-    from bgpy.simulation_engine import Announcement as Ann
-    from bgpy.simulation_engine import BaseSimulationEngine
+from .run_shortest_path_export_all_hijack_etc_cc_sim import (
+    ASPAwNeighbors,
+    CustomerConePrefixHijack,
+)
 
 
 class ValidPrefixKinda(ValidPrefix):
@@ -59,7 +45,6 @@ class ValidPrefixKinda(ValidPrefix):
         prev_scenario: Optional["Scenario"] = None,
         preprocess_anns_func: PREPROCESS_ANNS_FUNC_TYPE = noop,
     ):
-
         assert engine, "Need engine for customer cones"
         self._attacker_customer_cones_asns: set[int] = set()
         super().__init__(
@@ -100,8 +85,6 @@ class ValidPrefixKinda(ValidPrefix):
         return super()._untracked_asns | self._non_attacker_customer_cone_asns
 
 
-
-
 class BGPSpecial(BGP):
     name = "Doomed ASes"
 
@@ -138,7 +121,8 @@ def run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim():
                     attacker_subcategory_attr=ASGroups.ETC.value,
                     AttackerBasePolicyCls=ShortestPathExportAllAttacker,
                 )
-            ] + [
+            ]
+            + [
                 ScenarioConfig(
                     ScenarioCls=ValidPrefixKinda,
                     AdoptPolicyCls=BGPSpecial,
@@ -150,7 +134,6 @@ def run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim():
         **default_kwargs,  # type: ignore
     )
     new_run_kwargs = dict(deepcopy(run_kwargs))
-    new_run_kwargs["graph_factory_kwargs"]["y_axis_label_replacement_dict"] = {  # type: ignore
-        "PERCENT ATTACKER SUCCESS": "Percent Attacker Success (Customer Cone)"
-    }
+    dct = {"PERCENT ATTACKER SUCCESS": "Percent Attacker Success (Customer Cone)"}
+    new_run_kwargs["graph_factory_kwargs"]["y_axis_label_replacement_dict"] = dct  # type: ignore
     sim.run(**new_run_kwargs)  # type: ignore

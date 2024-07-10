@@ -84,9 +84,7 @@ def run_shortest_path_export_all_hijack_adoption_scenarios_sim():
                         preprocess_anns_funcs.shortest_path_export_all_hijack
                     ),
                     # Removed the input clique and etcfrom this list
-                    adoption_subcategory_attrs=(
-                        ASGroups.STUBS_OR_MH.value,
-                    ),
+                    adoption_subcategory_attrs=(ASGroups.STUBS_OR_MH.value,),
                 ),
             ]
         ),

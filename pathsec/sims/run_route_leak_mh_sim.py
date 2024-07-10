@@ -22,7 +22,6 @@ from .sim_kwargs import DIR, default_kwargs, run_kwargs
 
 
 def run_route_leak_mh_sim():
-
     sim_classes = [
         EdgeFilter,
         OTCEdge,

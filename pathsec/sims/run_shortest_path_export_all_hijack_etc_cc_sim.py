@@ -44,7 +44,6 @@ class CustomerConePrefixHijack(PrefixHijack):
         prev_scenario: Optional["Scenario"] = None,
         preprocess_anns_func: PREPROCESS_ANNS_FUNC_TYPE = noop,
     ):
-
         assert engine, "Need engine for customer cones"
         self._attacker_customer_cones_asns: set[int] = set()
         super().__init__(
