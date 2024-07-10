@@ -40,7 +40,7 @@ def main():
         post_rov_func.__name__ = prob_func.__name__  # type: ignore
         sim_funcs.append(post_rov_func)
 
-    for sim_func in [sim_funcs[0]]:
+    for sim_func in sim_funcs:
         start = time.perf_counter()
         sim_func()  # type: ignore
         print(f"{time.perf_counter() - start}s for {getattr(sim_func, '__name__', '')}")
