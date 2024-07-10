@@ -35,7 +35,7 @@ class ForcedASPA(ASPA):
     name = "hardcoded_aspa"
 
 
-def run_shortest_path_export_all_hijack_adoption_scenarios_sim():
+def run_forged_origin_hijack_adoption_scenarios_sim():
     """Runs sim for shortest path export all"""
 
     bgp_dag = CAIDAASGraphConstructor(tsv_path=None).run()
@@ -49,14 +49,14 @@ def run_shortest_path_export_all_hijack_adoption_scenarios_sim():
                     ScenarioCls=PrefixHijack,
                     AdoptPolicyCls=RandomAdoption,
                     preprocess_anns_func=(
-                        preprocess_anns_funcs.shortest_path_export_all_hijack
+                        preprocess_anns_funcs.forged_origin_export_all_hijack
                     ),
                 ),
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
                     AdoptPolicyCls=Tier1ASesAdoptFirst,
                     preprocess_anns_func=(
-                        preprocess_anns_funcs.shortest_path_export_all_hijack
+                        preprocess_anns_funcs.forged_origin_export_all_hijack
                     ),
                     hardcoded_asn_cls_dict=hardcoded_asn_cls_dict,
                     # Removed the input clique from this list
@@ -69,7 +69,7 @@ def run_shortest_path_export_all_hijack_adoption_scenarios_sim():
                     ScenarioCls=PrefixHijack,
                     AdoptPolicyCls=NoTier1ASes,
                     preprocess_anns_func=(
-                        preprocess_anns_funcs.shortest_path_export_all_hijack
+                        preprocess_anns_funcs.forged_origin_export_all_hijack
                     ),
                     # Removed the input clique from this list
                     adoption_subcategory_attrs=(
@@ -81,14 +81,14 @@ def run_shortest_path_export_all_hijack_adoption_scenarios_sim():
                     ScenarioCls=PrefixHijack,
                     AdoptPolicyCls=OnlyEdgeASes,
                     preprocess_anns_func=(
-                        preprocess_anns_funcs.shortest_path_export_all_hijack
+                        preprocess_anns_funcs.forged_origin_export_all_hijack
                     ),
                     # Removed the input clique and etcfrom this list
                     adoption_subcategory_attrs=(ASGroups.STUBS_OR_MH.value,),
                 ),
             ]
         ),
-        output_dir=DIR / "shortest_path_export_all_hijack_adoption_scenarios",
+        output_dir=DIR / "forged_origin_export_all_hijack_adoption_scenarios",
         **default_kwargs,  # type: ignore
     )
     sim.run(**deepcopy(run_kwargs))  # type: ignore
