@@ -98,4 +98,6 @@ def run_forged_origin_hijack_adoption_scenarios_sim():
         output_dir=DIR / "forged_origin_export_all_hijack_adoption_scenarios",
         **default_kwargs,  # type: ignore
     )
-    sim.run(**deepcopy(run_kwargs))  # type: ignore
+    new_run_kwargs = deepcopy(run_kwargs)
+    new_run_kwargs["graph_factory_kwargs"]["y_limit"] = 60
+    sim.run(**new_run_kwargs)  # type: ignore
