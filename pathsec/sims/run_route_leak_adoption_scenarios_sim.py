@@ -8,7 +8,6 @@ from bgpy.simulation_engine import ASPA, ROV
 from bgpy.simulation_framework import (
     DependentSimulation,
     AccidentalRouteLeak,
-    preprocess_anns_funcs,
     ScenarioConfig,
 )
 
@@ -45,7 +44,7 @@ def run_route_leak_adoption_scenarios_sim():
     sim = DependentSimulation(
         scenario_configs=tuple(
             [
-                 ScenarioConfig(
+                ScenarioConfig(
                     ScenarioCls=AccidentalRouteLeak,
                     AdoptPolicyCls=ROV,
                     attacker_subcategory_attr=ASGroups.MULTIHOMED.value,

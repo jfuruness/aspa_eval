@@ -45,7 +45,7 @@ def run_forged_origin_hijack_adoption_scenarios_sim():
     sim = DependentSimulation(
         scenario_configs=tuple(
             [
-                 ScenarioConfig(
+                ScenarioConfig(
                     ScenarioCls=PrefixHijack,
                     AdoptPolicyCls=ROV,
                     preprocess_anns_func=(

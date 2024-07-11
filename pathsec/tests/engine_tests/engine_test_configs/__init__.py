@@ -9,8 +9,8 @@ from .config_008 import config_008
 from .config_009 import config_009
 from .config_010 import config_010
 from .config_011 import config_011
-from .config_012 import config_012
-from .config_013 import config_013
+from .config_012 import config_012  # noqa
+from .config_013 import config_013  # noqa
 from .config_014 import config_014
 from .config_015 import config_015
 from .config_016 import config_016
