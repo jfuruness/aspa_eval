@@ -7,7 +7,7 @@ from bgpy.enums import ASGroups
 from bgpy.simulation_engine import ASPA, ROV
 from bgpy.simulation_framework import (
     DependentSimulation,
-    PrefixHijack,
+    AccidentalRouteLeak,
     preprocess_anns_funcs,
     ScenarioConfig,
 )
@@ -35,7 +35,7 @@ class ForcedASPA(ASPA):
     name = "hardcoded_aspa"
 
 
-def run_forged_origin_hijack_adoption_scenarios_sim():
+def run_route_leak_adoption_scenarios_sim():
     """Runs sim for shortest path export all"""
 
     bgp_dag = CAIDAASGraphConstructor(tsv_path=None).run()
@@ -46,56 +46,51 @@ def run_forged_origin_hijack_adoption_scenarios_sim():
         scenario_configs=tuple(
             [
                  ScenarioConfig(
-                    ScenarioCls=PrefixHijack,
+                    ScenarioCls=AccidentalRouteLeak,
                     AdoptPolicyCls=ROV,
-                    preprocess_anns_func=(
-                        preprocess_anns_funcs.forged_origin_export_all_hijack
-                    ),
+                    attacker_subcategory_attr=ASGroups.MULTIHOMED.value,
+                    propagation_rounds=2,
                 ),
                 ScenarioConfig(
-                    ScenarioCls=PrefixHijack,
+                    ScenarioCls=AccidentalRouteLeak,
                     AdoptPolicyCls=RandomAdoption,
-                    preprocess_anns_func=(
-                        preprocess_anns_funcs.forged_origin_export_all_hijack
-                    ),
+                    attacker_subcategory_attr=ASGroups.MULTIHOMED.value,
+                    propagation_rounds=2,
                 ),
                 ScenarioConfig(
-                    ScenarioCls=PrefixHijack,
+                    ScenarioCls=AccidentalRouteLeak,
                     AdoptPolicyCls=Tier1ASesAdoptFirst,
-                    preprocess_anns_func=(
-                        preprocess_anns_funcs.forged_origin_export_all_hijack
-                    ),
                     hardcoded_asn_cls_dict=hardcoded_asn_cls_dict,
                     # Removed the input clique from this list
                     adoption_subcategory_attrs=(
                         ASGroups.STUBS_OR_MH.value,
                         ASGroups.ETC.value,
                     ),
+                    attacker_subcategory_attr=ASGroups.MULTIHOMED.value,
+                    propagation_rounds=2,
                 ),
                 ScenarioConfig(
-                    ScenarioCls=PrefixHijack,
+                    ScenarioCls=AccidentalRouteLeak,
                     AdoptPolicyCls=NoTier1ASes,
-                    preprocess_anns_func=(
-                        preprocess_anns_funcs.forged_origin_export_all_hijack
-                    ),
                     # Removed the input clique from this list
                     adoption_subcategory_attrs=(
                         ASGroups.STUBS_OR_MH.value,
                         ASGroups.ETC.value,
                     ),
+                    attacker_subcategory_attr=ASGroups.MULTIHOMED.value,
+                    propagation_rounds=2,
                 ),
                 ScenarioConfig(
-                    ScenarioCls=PrefixHijack,
+                    ScenarioCls=AccidentalRouteLeak,
                     AdoptPolicyCls=OnlyEdgeASes,
-                    preprocess_anns_func=(
-                        preprocess_anns_funcs.forged_origin_export_all_hijack
-                    ),
                     # Removed the input clique and etcfrom this list
                     adoption_subcategory_attrs=(ASGroups.STUBS_OR_MH.value,),
+                    attacker_subcategory_attr=ASGroups.MULTIHOMED.value,
+                    propagation_rounds=2,
                 ),
             ]
         ),
-        output_dir=DIR / "forged_origin_export_all_hijack_adoption_scenarios",
+        output_dir=DIR / "accidental_route_leak_adoption_scenarios_mh",
         **default_kwargs,  # type: ignore
     )
     new_run_kwargs = deepcopy(run_kwargs)
