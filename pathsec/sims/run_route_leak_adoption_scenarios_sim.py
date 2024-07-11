@@ -93,5 +93,5 @@ def run_route_leak_adoption_scenarios_sim():
         **default_kwargs,  # type: ignore
     )
     new_run_kwargs = deepcopy(run_kwargs)
-    new_run_kwargs["graph_factory_kwargs"]["y_limit"] = 60
+    new_run_kwargs["graph_factory_kwargs"]["y_limit"] = 40
     sim.run(**new_run_kwargs)  # type: ignore
