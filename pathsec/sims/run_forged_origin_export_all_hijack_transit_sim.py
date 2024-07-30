@@ -14,7 +14,7 @@ from bgpy.simulation_engine import (
 )
 
 from bgpy.simulation_framework import (
-    DependentSimulation,
+    Simulation,
     PrefixHijack,
     preprocess_anns_funcs,
     ScenarioConfig,
@@ -37,7 +37,7 @@ def run_forged_origin_export_all_hijack_transit_sim():
         PathEndEdge,  # overlaps with pathend
         ASPAEdge,  # overlaps with pathend
     ]
-    sim = DependentSimulation(
+    sim = Simulation(
         scenario_configs=tuple(
             [
                 ScenarioConfig(

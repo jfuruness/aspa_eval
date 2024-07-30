@@ -14,7 +14,7 @@ from bgpy.simulation_engine import (
 )
 
 from bgpy.simulation_framework import (
-    DependentSimulation,
+    Simulation,
     PrefixHijack,
     preprocess_anns_funcs,
     ScenarioConfig,
@@ -93,7 +93,7 @@ def run_shortest_path_export_all_hijack_etc_cc_sim():
         BGPSec,
         ROV,
     ]
-    sim = DependentSimulation(
+    sim = Simulation(
         scenario_configs=tuple(
             [
                 ScenarioConfig(

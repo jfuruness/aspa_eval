@@ -2,7 +2,7 @@ from copy import deepcopy
 
 from bgpy.simulation_engine import ROV, ASPA, PathEnd
 from bgpy.simulation_framework import (
-    DependentSimulation,
+    Simulation,
     PrefixHijack,
     preprocess_anns_funcs,
     ScenarioConfig,
@@ -30,7 +30,7 @@ class PathEndWNeighborSpoofingHijack(PathEnd):
 def run_neighbor_spoofing_hijack_sim():
     """Runs sim for an neighbor spoofing hijack"""
 
-    sim = DependentSimulation(
+    sim = Simulation(
         scenario_configs=tuple(
             [
                 ScenarioConfig(

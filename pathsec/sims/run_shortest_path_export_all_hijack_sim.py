@@ -12,7 +12,7 @@ from bgpy.simulation_engine import (
 )
 
 from bgpy.simulation_framework import (
-    DependentSimulation,
+    Simulation,
     PrefixHijack,
     preprocess_anns_funcs,
     ScenarioConfig,
@@ -35,7 +35,7 @@ def run_shortest_path_export_all_hijack_sim(num_attackers=1):
         # BGPSec,  # seen in previous figure, omitted to avoid clutter sicne it sucks
         # BGPSecEdge,  # overlaps with edge, also seen in prev figure
     ]
-    sim = DependentSimulation(
+    sim = Simulation(
         scenario_configs=tuple(
             [
                 ScenarioConfig(

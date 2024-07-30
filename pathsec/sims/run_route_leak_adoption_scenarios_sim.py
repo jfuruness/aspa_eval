@@ -6,7 +6,7 @@ from bgpy.as_graphs import CAIDAASGraphConstructor
 from bgpy.enums import ASGroups
 from bgpy.simulation_engine import ASPA, ROV
 from bgpy.simulation_framework import (
-    DependentSimulation,
+    Simulation,
     AccidentalRouteLeak,
     ScenarioConfig,
 )
@@ -41,7 +41,7 @@ def run_route_leak_adoption_scenarios_sim():
     tier_1_ases = bgp_dag.as_groups[ASGroups.INPUT_CLIQUE.value]
     hardcoded_asn_cls_dict = frozendict({x.asn: ForcedASPA for x in tier_1_ases})
 
-    sim = DependentSimulation(
+    sim = Simulation(
         scenario_configs=tuple(
             [
                 ScenarioConfig(

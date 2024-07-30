@@ -12,7 +12,7 @@ from frozendict import frozendict
 from bgpy.simulation_engine import ROVSimplePolicy
 
 from bgpy.simulation_framework import (
-    DependentSimulation,
+    Simulation,
     PrefixHijack,
     SubprefixHijack,
     ScenarioConfig,
@@ -157,8 +157,8 @@ def run_post_rov_motivation_sim(prob_func):
 
     rov_asns_dict = get_real_world_rov_asn_cls_dict(prob_func=prob_func)
 
-    # DependentSimulation for the paper
-    sim = DependentSimulation(
+    # Simulation for the paper
+    sim = Simulation(
         scenario_configs=(
             # ScenarioConfig(
             #     ScenarioCls=PrefixHijack,
