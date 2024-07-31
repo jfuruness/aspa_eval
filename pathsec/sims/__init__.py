@@ -34,6 +34,7 @@ from .run_shortest_path_export_all_hijack_etc_cc_sim import (
 from .run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim import (
     run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim,
 )
+from .run_strongest_attack_sim import run_strongest_attack_sim
 
 
 __all__ = [
@@ -51,4 +52,5 @@ __all__ = [
     "prob_funcs",
     "run_shortest_path_export_all_hijack_etc_cc_sim",
     "run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim",
+    "run_strongest_attack_sim",
 ]

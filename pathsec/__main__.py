@@ -16,6 +16,7 @@ from .sims import (
     run_post_rov_motivation_sim,  # noqa
     prob_funcs,  # noqa
     run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim,
+    run_strongest_attack_sim,
 )
 
 
@@ -23,13 +24,14 @@ def main():
     """Runs the defaults"""
 
     sim_funcs = [
+        run_strongest_attack_sim,
+        run_forged_origin_export_all_hijack_sim,
+        run_shortest_path_export_all_hijack_sim,
         run_route_leak_adoption_scenarios_sim,
         run_forged_origin_hijack_adoption_scenarios_sim,
         run_forged_origin_export_all_hijack_transit_sim,
         run_shortest_path_export_all_hijack_etc_cc_w_bgp_sim,
         run_neighbor_spoofing_hijack_sim,
-        run_forged_origin_export_all_hijack_sim,
-        run_shortest_path_export_all_hijack_sim,
         partial(run_shortest_path_export_all_hijack_sim, num_attackers=10),
         run_route_leak_mh_sim,
         run_route_leak_transit_sim,
