@@ -25,7 +25,7 @@ def main():
 
     sim_funcs = [
         run_strongest_attack_sim,
-        run_forged_origin_export_all_hijack_sim,
+        run_forged_origin_export_all_hijack_sim,  # before was <3m, now it's 13
         run_shortest_path_export_all_hijack_sim,
         run_route_leak_adoption_scenarios_sim,
         run_forged_origin_hijack_adoption_scenarios_sim,
