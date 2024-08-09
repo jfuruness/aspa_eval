@@ -12,7 +12,7 @@ authors = [
     {name = "Justin Furuness", email = "jfuruness@gmail.com"},
     {name = "Cameron Morris", email = "cameron.morris@uconn.edu"},
     {name = "Reynaldo Morillo", email = "reynaldo.morillo@uconn.edu"},
-    {name = "Arvind Kasiliya", "email" = "arvind.kasiliya@uconn.edu"}
+    {name = "Arvind Kasiliya", email = "arvind.kasiliya@uconn.edu"}
 ]
 maintainers = [
   {name = "Justin Furuness", email = "jfuruness@gmail.com"}
@@ -46,8 +46,8 @@ classifiers = [
     "Intended Audience :: Developers"
 ]
 dependencies = [
-    "bgpy_pkg==9.0.0",
-    "rov_collector==1.1.5",
+    "bgpy_pkg@git+https://github.com/jfuruness/bgpy_pkg.git@old_dont_use",
+    "rov_collector==1.1.8",
 ]
 
 [project.urls]

@@ -1,2 +1,2 @@
-bgpy_pkg==9.0.0
-rov_collector==1.1.5
+bgpy_pkg@git+https://github.com/jfuruness/bgpy_pkg.git@old_dont_use
+rov_collector==1.1.8

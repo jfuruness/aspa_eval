@@ -100,7 +100,7 @@ def main():
 
         return sizeof(o)
     from pprint import pprint
-    input(total_size(provider_cone_dict))
+    # input(total_size(provider_cone_dict))
     for asn, cone in provider_cone_dict.items():
         break
         print(asn)
