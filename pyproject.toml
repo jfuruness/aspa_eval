@@ -59,7 +59,7 @@ pathsec = "pathsec.__main__:main"
 
 [project.optional-dependencies]
 test = [
-    "bgpy_pkg[test]==9.0.0"
+    "rov_collector[test]==1.1.8",
 ]
 
 [tool.setuptools]
