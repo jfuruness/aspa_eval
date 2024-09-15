@@ -21,11 +21,11 @@ desc = (
 )
 
 config_006 = EngineTestConfig(
-    name="006_shortest_path_export_all_pathend_edge",
+    name="006_shortest_path_pathend_edge",
     desc=desc,
     scenario_config=ScenarioConfig(
         ScenarioCls=PrefixHijack,
-        preprocess_anns_func=preprocess_anns_funcs.shortest_path_export_all_hijack,
+        preprocess_anns_func=preprocess_anns_funcs.shortest_path_hijack,
         BasePolicyCls=BGP,
         override_attacker_asns=frozenset({ASNs.ATTACKER.value}),
         override_victim_asns=frozenset({ASNs.VICTIM.value}),

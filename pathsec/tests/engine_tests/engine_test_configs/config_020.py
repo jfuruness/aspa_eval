@@ -54,11 +54,11 @@ as_graph_info = ASGraphInfo(
 )
 
 config_020 = EngineTestConfig(
-    name="020_forged_origin_export_all_hijack_pathend_edge",
+    name="020_forged_origin_hijack_pathend_edge",
     desc="Origin hijack against PathEndEdge policy with multihomed and stub AS attackers",
     scenario_config=ScenarioConfig(
         ScenarioCls=PrefixHijack,
-        preprocess_anns_func=preprocess_anns_funcs.forged_origin_export_all_hijack,
+        preprocess_anns_func=preprocess_anns_funcs.forged_origin_hijack,
         BasePolicyCls=BGP,
         override_victim_asns=frozenset({ASNs.VICTIM.value}),
         override_attacker_asns=frozenset({ASNs.ATTACKER.value, 667}),

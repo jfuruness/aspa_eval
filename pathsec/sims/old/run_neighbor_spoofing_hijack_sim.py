@@ -36,7 +36,7 @@ def run_neighbor_spoofing_hijack_sim():
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,
                     AdoptPolicyCls=ROVWOriginHijack,
-                    preprocess_anns_func=preprocess_anns_funcs.forged_origin_export_all_hijack,
+                    preprocess_anns_func=preprocess_anns_funcs.forged_origin_hijack,
                 ),
                 ScenarioConfig(
                     ScenarioCls=PrefixHijack,

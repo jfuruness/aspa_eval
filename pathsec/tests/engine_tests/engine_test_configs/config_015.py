@@ -20,11 +20,11 @@ desc = (
 )
 
 config_015 = EngineTestConfig(
-    name="015_shortest_path_export_all_aspa_otc_edge_customer",
+    name="015_shortest_path_aspa_otc_edge_customer",
     desc=desc,
     scenario_config=ScenarioConfig(
         ScenarioCls=PrefixHijack,
-        preprocess_anns_func=preprocess_anns_funcs.shortest_path_export_all_hijack,
+        preprocess_anns_func=preprocess_anns_funcs.shortest_path_hijack,
         BasePolicyCls=BGP,
         AdoptPolicyCls=ASPAOTCEdge,
         override_attacker_asns=frozenset({ASNs.ATTACKER.value}),
