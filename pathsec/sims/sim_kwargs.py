@@ -3,7 +3,7 @@ from multiprocessing import cpu_count
 from pathlib import Path
 
 from frozendict import frozendict
-from bgpy.enums import SpecialPercentAdoptions
+from bgpy.shared.enums import SpecialPercentAdoptions
 from bgpy.simulation_framework import GraphFactory
 
 # Set up argparse to handle command line arguments

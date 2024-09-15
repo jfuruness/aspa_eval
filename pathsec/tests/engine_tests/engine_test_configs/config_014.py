@@ -1,5 +1,5 @@
 from frozendict import frozendict
-from bgpy.enums import ASNs
+from bgpy.shared.enums import ASNs
 from bgpy.tests.engine_tests.engine_test_configs.examples.as_graph_info_000 import (
     as_graph_info_000,
 )

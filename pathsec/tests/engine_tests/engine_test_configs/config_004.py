@@ -1,6 +1,6 @@
 from bgpy.as_graphs import ASGraphInfo
 from bgpy.as_graphs import PeerLink, CustomerProviderLink as CPLink
-from bgpy.enums import ASNs
+from bgpy.shared.enums import ASNs
 
 from frozendict import frozendict
 from bgpy.tests.engine_tests.utils import EngineTestConfig

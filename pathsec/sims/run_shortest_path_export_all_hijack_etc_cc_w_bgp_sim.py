@@ -4,7 +4,7 @@ from typing import Optional
 from pathsec.policies import ShortestPathExportAllAttacker
 
 from bgpy.as_graphs.base.as_graph.customer_cone_funcs import _get_cone_size_helper
-from bgpy.enums import ASGroups, SpecialPercentAdoptions
+from bgpy.shared.enums import ASGroups, SpecialPercentAdoptions
 from bgpy.simulation_engine import (
     BaseSimulationEngine,
     ROV,

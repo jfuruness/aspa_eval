@@ -6,7 +6,7 @@ from pathsec.policies import (
     ASPAOTCEdge,
 )
 
-from bgpy.enums import ASGroups
+from bgpy.shared.enums import ASGroups
 from bgpy.simulation_engine import (
     ROV,
     ASPA,

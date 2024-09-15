@@ -1,6 +1,6 @@
 from frozendict import frozendict
 
-from bgpy.enums import ASNs
+from bgpy.shared.enums import ASNs
 from bgpy.simulation_engine import BGP, PathEnd
 from bgpy.simulation_framework import (
     preprocess_anns_funcs,

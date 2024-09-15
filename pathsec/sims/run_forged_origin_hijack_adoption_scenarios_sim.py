@@ -3,7 +3,7 @@ from copy import deepcopy
 from frozendict import frozendict
 
 from bgpy.as_graphs import CAIDAASGraphConstructor
-from bgpy.enums import ASGroups
+from bgpy.shared.enums import ASGroups
 from bgpy.simulation_engine import ASPA, ROV
 from bgpy.simulation_framework import (
     Simulation,

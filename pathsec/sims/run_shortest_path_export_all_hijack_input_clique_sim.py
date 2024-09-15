@@ -1,6 +1,6 @@
 from copy import deepcopy
 from pathsec.policies import ShortestPathExportAllAttacker
-from bgpy.enums import ASGroups
+from bgpy.shared.enums import ASGroups
 from bgpy.simulation_engine import (
     ROV,
     BGPSec,
