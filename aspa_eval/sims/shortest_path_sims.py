@@ -5,6 +5,7 @@ from bgpy.simulation_engine import BGP
 from bgpy.simulation_framework import ScenarioConfig, ShortestPathPrefixHijack
 
 from aspa_eval.scenarios import (
+    PaperShortestPathPrefixHijack,
     ShortestPathCustomerConeHijack,
     VictimsPrefixCustomerConeHijack,
 )
@@ -14,7 +15,7 @@ from .utils import CLASSES_TO_RUN, ASPASim
 shortest_path_hijack_confs = [
     ScenarioConfig(
         AdoptPolicyCls=AdoptPolicyCls,
-        ScenarioCls=ShortestPathPrefixHijack,
+        ScenarioCls=PaperShortestPathPrefixHijack,
     )
     for AdoptPolicyCls in CLASSES_TO_RUN
 ]
