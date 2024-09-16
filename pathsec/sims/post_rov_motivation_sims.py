@@ -69,7 +69,7 @@ def get_real_world_rov_asn_cls_dict(
         data = json.load(f)
         hardcoded_dict = dict()
         if prob_func == mean_prob_func:
-            print(
+            print(  # noqa: T201
                 "Method isn't realistic since most data "
                 "sources only have a few ASes, use mean_when_measured instead"
             )

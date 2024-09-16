@@ -46,7 +46,7 @@ as_graph_info = ASGraphInfo(
 
 config_001 = EngineTestConfig(
     name="001_forged_origin_hijack_edge_filter",
-    desc="Origin hijack against EdgeFilter policy with multihomed and stub AS attackers",
+    desc="Origin hijack against EdgeFilter with multihomed and stub AS attackers",
     scenario_config=ScenarioConfig(
         ScenarioCls=PrefixHijack,
         preprocess_anns_func=preprocess_anns_funcs.forged_origin_hijack,

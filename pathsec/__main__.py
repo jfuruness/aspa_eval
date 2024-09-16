@@ -9,12 +9,12 @@ def main():
     for sim in SIMS_TO_RUN:
         start = time.perf_counter()
         sim.run()
-        print(f"{time.perf_counter() - start}s for {sim.sim_name}")
+        print(f"{time.perf_counter() - start}s for {sim.sim_name}")  # noqa: T201
 
     for prob_func in prob_funcs:
         start = time.perf_counter()
         run_post_rov_motivation_sim(prob_func)
-        print(
+        print(  # noqa: T201
             f"{time.perf_counter() - start}s for {getattr(prob_func, '__name__', '')}"
         )
 
@@ -22,4 +22,4 @@ def main():
 if __name__ == "__main__":
     start = time.perf_counter()
     main()
-    print(f"{time.perf_counter() - start}s for all sims")
+    print(f"{time.perf_counter() - start}s for all sims")  # noqa: T201

@@ -54,7 +54,7 @@ as_graph_info = ASGraphInfo(
 )
 
 desc = (
-    "Accidental route leak against ASPAOTCEdge policy with an attacker with a customer\n"
+    "Accidental route leak against ASPAOTCEdge policy with an attacker with customer\n"
     "as well as a multihomed attacker. AS 6 cannot prevent the attack if it does not\n"
     "have edge filter functionality."
 )
