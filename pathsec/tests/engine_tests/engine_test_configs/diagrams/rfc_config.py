@@ -1,15 +1,14 @@
-from frozendict import frozendict
-
-from bgpy.as_graphs import ASGraphInfo, PeerLink, CustomerProviderLink as CPLink
+from bgpy.as_graphs import ASGraphInfo, PeerLink
+from bgpy.as_graphs import CustomerProviderLink as CPLink
 from bgpy.shared.enums import ASNs
-from bgpy.simulation_engine import BGP, ASPA
+from bgpy.simulation_engine import ASPA, BGP
 from bgpy.simulation_framework import (
     PrefixHijack,
     ScenarioConfig,
     preprocess_anns_funcs,
 )
 from bgpy.tests.engine_tests.utils import EngineTestConfig
-
+from frozendict import frozendict
 
 r"""Graph to test ASPA RFC section 12
 

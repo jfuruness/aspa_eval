@@ -1,3 +1,8 @@
+from dataclasses import replace
+
+from frozendict import frozendict
+
+from bgpy.shared.constants import SINGLE_DAY_CACHE_DIR
 from bgpy.shared.enums import ASGroups
 from bgpy.simulation_engine import BGP
 from bgpy.simulation_framework import ScenarioConfig, ShortestPathPrefixHijack
@@ -56,7 +61,7 @@ shortest_path_etc_cc_sim = ASPASim(
             attacker_subcategory_attr=ASGroups.ETC.value,
             scenario_label="Doomed ASes"
         ),
-    )
+    ),
     as_graph_constructor_kwargs=frozendict(
         {
             "as_graph_collector_kwargs": frozendict(

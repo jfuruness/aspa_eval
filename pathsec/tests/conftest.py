@@ -3,7 +3,6 @@ import sys
 from pathlib import Path
 
 import pytest
-
 from bgpy.as_graphs import CAIDAASGraphCollector
 from bgpy.shared.constants import bgpy_logger
 from bgpy.tests.engine_tests import DiagramAggregator

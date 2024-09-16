@@ -34,7 +34,7 @@ class ASPASim(Simulation):
         """Removes confs that aren't applicable for this run for speed"""
 
         filtered_confs = list()
-        for conf in :
+        for conf in scenario_configs:
             # Only run OTC with route leaks
             if conf.ScenarioCls != AccidentalRouteLeak and "OTC" in conf.AdoptPolicyCls.name:
                 continue

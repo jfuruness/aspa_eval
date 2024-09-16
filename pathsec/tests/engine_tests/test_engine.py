@@ -1,9 +1,7 @@
 from pathlib import Path
 
 import pytest
-
-from bgpy.tests import EngineTester
-from bgpy.tests import EngineTestConfig
+from bgpy.tests import EngineTestConfig, EngineTester
 
 from .engine_test_configs import engine_test_configs
 

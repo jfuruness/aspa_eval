@@ -1,12 +1,19 @@
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from bgpy.shared.enums import SpecialPercentAdoptions
+    from bgpy.simulation_engine import BaseSimulationEngine
+    from bgpy.simulation_framework import ScenarioConfig
+
 class AttackerCustomerConeTrackingMixin:
     """Mixin that tracks customer cones"""
 
     def __init__(
         self,
         *,
-        scenario_config: ScenarioConfig,
-        percent_adoption: float | SpecialPercentAdoptions = 0,
-        engine: BaseSimulationEngine | None = None,
+        scenario_config: "ScenarioConfig",
+        percent_adoption: float | "SpecialPercentAdoptions" = 0,
+        engine: "BaseSimulationEngine" | None = None,
         attacker_asns: frozenset[int] | None = None,
         victim_asns: frozenset[int] | None = None,
         adopting_asns: frozenset[int] | None = None,

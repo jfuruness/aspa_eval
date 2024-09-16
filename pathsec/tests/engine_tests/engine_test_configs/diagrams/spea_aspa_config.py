@@ -1,18 +1,16 @@
-from frozendict import frozendict
-
-from bgpy.as_graphs import ASGraphInfo, CustomerProviderLink as CPLink
+from bgpy.as_graphs import ASGraphInfo
+from bgpy.as_graphs import CustomerProviderLink as CPLink
 from bgpy.shared.enums import ASNs
-from bgpy.simulation_engine import BGP, ASPA
+from bgpy.simulation_engine import ASPA, BGP
 from bgpy.simulation_framework import (
-    preprocess_anns_funcs,
     PrefixHijack,
     ScenarioConfig,
+    preprocess_anns_funcs,
 )
-
 from bgpy.tests.engine_tests.utils import EngineTestConfig
+from frozendict import frozendict
 
 from pathsec.policies import ShortestPathExportAllAttacker
-
 
 as_graph_info = ASGraphInfo(
     customer_provider_links=frozenset(

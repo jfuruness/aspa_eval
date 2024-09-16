@@ -1,8 +1,9 @@
+from dataclasses import replace
+
 from bgpy.shared.enums import ASGroups
-from bgpy.simulation_framework import ScenarioConfig, ForgedOriginPrefixHijack
+from bgpy.simulation_framework import ForgedOriginPrefixHijack, ScenarioConfig
 
-from .utils import ASPASim, CLASSES_TO_RUN
-
+from .utils import CLASSES_TO_RUN, ASPASim
 
 forged_origin_hijack_confs = [
     ScenarioConfig(AdoptPolicyCls=AdoptPolicyCls, ScenarioCls=ForgedOriginPrefixHijack)

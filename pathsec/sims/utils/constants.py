@@ -1,12 +1,14 @@
 from bgpy.simulation_engine import (
     ASPA,
-    ASPAwN,
     ROV,
-    BGPSec,
+    ASPAwN,
     BGPiSec,
+    BGPSec,
     PathEnd,
-    ROVEdgeFilter
+    ROVEdgeFilter,
+    OnlyToCustomers,
 )
+from pathsec.policies import ASPAOTCEdge, ASPAEdge, OTCEdge, PathEndEdge, BGPSecEdge
 
 CLASSES_TO_RUN = [
     PathEnd,

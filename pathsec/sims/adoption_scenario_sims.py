@@ -4,6 +4,7 @@ from bgpy.as_graphs import CAIDAASGraphConstructor
 from bgpy.shared.enums import ASGroups
 from bgpy.simulation_engine import ASPA, ROV
 from bgpy.simulation_framework import (
+    Scenario,
     ScenarioConfig,
     ForgedOriginPrefixHijack,
     AccidentalRouteLeak,
@@ -32,7 +33,7 @@ def get_adoption_scenario_confs(
         ScenarioConfig(
             scenario_label="Random Adoption",
             AdoptPolicyCls=ASPA,
-            ScenarioCls=ScenarioCls
+            ScenarioCls=ScenarioCls,
             attacker_subcategory_attr=attacker_subcategory_attr,
         ),
         ScenarioConfig(

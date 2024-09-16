@@ -1,18 +1,17 @@
-from frozendict import frozendict
 from bgpy.shared.enums import ASNs
+from bgpy.simulation_engine import BGP
+from bgpy.simulation_framework import (
+    AccidentalRouteLeak,
+    ScenarioConfig,
+    preprocess_anns_funcs,
+)
 from bgpy.tests.engine_tests.engine_test_configs.examples.as_graph_info_000 import (
     as_graph_info_000,
 )
 from bgpy.tests.engine_tests.utils import EngineTestConfig
+from frozendict import frozendict
 
-from bgpy.simulation_engine import BGP
 from pathsec.policies import OTCEdge
-from bgpy.simulation_framework import (
-    ScenarioConfig,
-    AccidentalRouteLeak,
-    preprocess_anns_funcs,
-)
-
 
 desc = (
     "accidental route leak against OTCEdge\n"

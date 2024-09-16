@@ -1,16 +1,14 @@
-from frozendict import frozendict
-
 from bgpy.shared.enums import ASNs
 from bgpy.simulation_engine import BGP, PathEnd
 from bgpy.simulation_framework import (
-    preprocess_anns_funcs,
-    ScenarioConfig,
     PrefixHijack,
+    ScenarioConfig,
+    preprocess_anns_funcs,
 )
 from bgpy.tests.engine_tests.utils import EngineTestConfig
+from frozendict import frozendict
 
 from .spoofing_aspa_config import as_graph_info
-
 
 spoofing_pathend_config = EngineTestConfig(
     name="spoofing Attack against PathEnd",

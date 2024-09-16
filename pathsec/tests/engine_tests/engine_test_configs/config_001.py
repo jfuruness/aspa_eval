@@ -1,17 +1,16 @@
-from bgpy.as_graphs import ASGraphInfo
-from bgpy.as_graphs import PeerLink, CustomerProviderLink as CPLink
+from bgpy.as_graphs import ASGraphInfo, PeerLink
+from bgpy.as_graphs import CustomerProviderLink as CPLink
 from bgpy.shared.enums import ASNs
-
-from frozendict import frozendict
-from bgpy.tests.engine_tests.utils import EngineTestConfig
-
 from bgpy.simulation_engine import BGP
-from pathsec.policies import EdgeFilter
 from bgpy.simulation_framework import (
-    ScenarioConfig,
     PrefixHijack,
+    ScenarioConfig,
     preprocess_anns_funcs,
 )
+from bgpy.tests.engine_tests.utils import EngineTestConfig
+from frozendict import frozendict
+
+from pathsec.policies import EdgeFilter
 
 r"""
           2

@@ -14,7 +14,7 @@ def main():
     for prob_func in prob_funcs:
         start = time.perf_counter()
         run_post_rov_motivation_sim(prob_func)
-        print(f"{time.perf_counter() - start}s for {getattr(sim_func, '__name__', '')}")
+        print(f"{time.perf_counter() - start}s for {getattr(prob_func, '__name__', '')}")
 
 if __name__ == "__main__":
     start = time.perf_counter()

@@ -1,27 +1,26 @@
+import json
+import os
+import random
 from copy import deepcopy
 from functools import partial
-import json
 from pathlib import Path
-import random
-import os
 from statistics import mean
 from typing import Optional
 
-from frozendict import frozendict
-
+from bgpy.shared.constants import DIR
 from bgpy.simulation_engine import ROV
-
 from bgpy.simulation_framework import (
-    Simulation,
     ForgedOriginPrefixHijack,
     PrefixHijack,
-    SubprefixHijack,
     ScenarioConfig,
+    Simulation,
+    SubprefixHijack,
 )
+from frozendict import frozendict
+from rov_collector import Source as ROVSource
+from rov_collector import rov_collector_classes
 
-
-from rov_collector import rov_collector_classes, Source as ROVSource
-
+from .utils import ASPASim
 
 
 def max_prob_func(
