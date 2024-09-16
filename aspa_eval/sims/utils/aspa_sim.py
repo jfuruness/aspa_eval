@@ -1,5 +1,7 @@
+from pathlib import Path
 from typing import TYPE_CHECKING
 
+from bgpy.shared.constants import DIRS
 from bgpy.shared.enums import ASGroups
 from bgpy.simulation_framework import AccidentalRouteLeak, ScenarioConfig, Simulation
 
@@ -16,16 +18,15 @@ class ASPASim(Simulation):
 
     @property
     def default_sim_name(self) -> str:
-        return "aspa_sims"
+        return (
+            f"{self.scenario_configs[0].ScenarioCls.__name__.lower()}_"
+            f"{self.scenario_configs[0].attacker_subcategory_attr}_"
+            f"{self.scenario_configs[0].num_attackers}_attackers"
+        )
 
     @property
-    def default_output_dir(self) -> "Path":
-        return (
-            super().default_output_dir
-            / self.scenario_configs[0].ScenarioCls.__name__.lower()
-            / self.scenario_configs[0].attacker_subcategory_attr
-            / f"{self.scenario_configs[0].num_attackers}_attackers"
-        )
+    def default_output_dir(self) -> Path:
+        return Path(DIRS.user_desktop_dir) / "sims" / "aspa_sims" / self.sim_name
 
     def _get_filtered_scenario_configs(
         self, scenario_configs: tuple["ScenarioConfig", ...]
