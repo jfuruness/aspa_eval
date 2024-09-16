@@ -23,6 +23,17 @@ shortest_path_edge_sim = ASPASim(
     ]),
 )
 
+shortest_path_edge_10_attackers_sim = ASPASim(
+    scenario_configs=tuple([
+        replace(
+            conf,
+            attacker_subcategory_attr=ASGroups.STUB_OR_MH.value,
+            num_attackers=10,
+        )
+        for conf in shortest_path_hijack_confs
+    ]),
+)
+
 shortest_path_etc_sim = ASPASim(
     scenario_configs=tuple([
         replace(conf, attacker_subcategory_attr=ASGroups.ETC.value)

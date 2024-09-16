@@ -9,41 +9,19 @@ from typing import Optional
 
 from frozendict import frozendict
 
-from bgpy.simulation_engine import ROVSimplePolicy
+from bgpy.simulation_engine import ROV
 
 from bgpy.simulation_framework import (
     Simulation,
+    ForgedOriginPrefixHijack,
     PrefixHijack,
     SubprefixHijack,
     ScenarioConfig,
-    preprocess_anns_funcs,
 )
 
 
 from rov_collector import rov_collector_classes, Source as ROVSource
 
-
-from .sim_kwargs import DIR, default_kwargs, run_kwargs
-
-
-class RealROVSimplePolicy(ROVSimplePolicy):
-    name = "RealROV"
-
-
-class PrefixHijackROV(ROVSimplePolicy):
-    name = "Prefix Hijack (ROV)"
-
-
-class SubprefixHijackROV(ROVSimplePolicy):
-    name = "Subprefix Hijack (ROV)"
-
-
-class OriginHijackROV(ROVSimplePolicy):
-    name = "Origin Hijack (ROV)"
-
-
-class NeighborSpoofingHijackROV(ROVSimplePolicy):
-    name = "Neighbor Spoofing Hijack (ROV)"
 
 
 def max_prob_func(
@@ -77,7 +55,7 @@ def get_real_world_rov_asn_cls_dict(
     json_path: Path = Path.home() / "Desktop" / "rov_info.json",
     requests_cache_db_path: Optional[Path] = None,
     prob_func=max_prob_func,
-) -> frozendict[int, type[RealROVSimplePolicy]]:
+) -> frozendict[int, type[ROV]]:
     if not json_path.exists():
         for CollectorCls in rov_collector_classes:
             CollectorCls(
@@ -101,7 +79,7 @@ def get_real_world_rov_asn_cls_dict(
             )
         for asn, info_list in data.items():
             if random.random() * 100 < prob_func(asn, info_list):
-                hardcoded_dict[int(asn)] = RealROVSimplePolicy
+                hardcoded_dict[int(asn)] = ROV
 
     return frozendict(hardcoded_dict)
 
@@ -158,36 +136,27 @@ def run_post_rov_motivation_sim(prob_func):
     rov_asns_dict = get_real_world_rov_asn_cls_dict(prob_func=prob_func)
 
     # Simulation for the paper
-    sim = Simulation(
+    sim = ASPASim(
         scenario_configs=(
-            # ScenarioConfig(
-            #     ScenarioCls=PrefixHijack,
-            #     preprocess_anns_func=preprocess_anns_funcs.neighbor_spoofing_hijack,
-            #     AdoptPolicyCls=NeighborSpoofingHijackROV,
-            #     hardcoded_asn_cls_dict=rov_asns_dict,
-            # ),
             ScenarioConfig(
-                ScenarioCls=PrefixHijack,
-                preprocess_anns_func=preprocess_anns_funcs.forged_origin_hijack,
-                AdoptPolicyCls=OriginHijackROV,
+                ScenarioCls=ForgedOriginPrefixHijack,
+                AdoptPolicyCls=ROV,
                 hardcoded_asn_cls_dict=rov_asns_dict,
+                scenario_label="ROV (Forged-Origin Export-All Hijack)",
             ),
             ScenarioConfig(
                 ScenarioCls=SubprefixHijack,
-                AdoptPolicyCls=SubprefixHijackROV,
+                AdoptPolicyCls=ROV,
                 hardcoded_asn_cls_dict=rov_asns_dict,
+                scenario_label="ROV (Subprefix Hijack)",
             ),
             ScenarioConfig(
                 ScenarioCls=PrefixHijack,
-                AdoptPolicyCls=PrefixHijackROV,
+                AdoptPolicyCls=ROV,
                 hardcoded_asn_cls_dict=rov_asns_dict,
+                scenario_label="ROV (Prefix Hijack)",
             ),
         ),
         output_dir=DIR / "rov_deployment" / prob_func.__name__,
-        **default_kwargs,  # type: ignore
     )
-    new_run_kwargs = dict(deepcopy(run_kwargs))
-    new_run_kwargs["graph_factory_kwargs"]["x_axis_label_replacement_dict"] = {  # type: ignore
-        "Percent Adoption": "Percent of Additional Adoption"
-    }
-    sim.run(**new_run_kwargs)  # type: ignore
+    sim.run()

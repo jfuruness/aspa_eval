@@ -16,6 +16,17 @@ forged_origin_edge_sim = ASPASim(
     ]),
 )
 
+forged_origin_edge_10_attackers_sim = ASPASim(
+    scenario_configs=tuple([
+        replace(
+            conf,
+            attacker_subcategory_attr=ASGroups.STUB_OR_MH.value,
+            num_attackers=10,
+        )
+        for conf in forged_origin_hijack_confs
+    ]),
+)
+
 forged_origin_etc_sim = ASPASim(
     scenario_configs=tuple([
         replace(conf, attacker_subcategory_attr=ASGroups.ETC.value)

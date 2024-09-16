@@ -11,7 +11,7 @@ route_leak_confs = [
     ) for AdoptPolicyCls in standard_hijack_classes
 ]
 
-route_leak_edge_sim = ASPASim(
+route_leak_mh_sim = ASPASim(
     run_sim,
     confs=[
         replace(conf, attacker_subcategory_attr=ASGroups.MULTIHOMED.value)
