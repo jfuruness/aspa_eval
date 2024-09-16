@@ -39,7 +39,7 @@ class ASPASim(Simulation):
                 ),
                 "tsv_path": None,  # Path.home() / "Desktop" / "caida.tsv",
             }
-        ),
+        )
         super().__init__(*args, **kwargs)
 
     @property
