@@ -1,4 +1,5 @@
 from bgpy.shared.enums import ASGroups
+from bgpy.simulation_engine import BGP
 from bgpy.simulation_framework import ScenarioConfig, ShortestPathPrefixHijack
 
 from pathsec.scenarios import (
@@ -39,7 +40,7 @@ shortest_path_etc_cc_sim = ASPASim(
         for AdoptPolicyCls in CLASSES_TO_RUN
     ]) + (
         ScenarioConfig(
-            AdoptPolicyCls="BGP",
+            AdoptPolicyCls=BGP,
             ScenarioCls=VictimsPrefixCustomerConeHijack,
             attacker_subcategory_attr=ASGroups.ETC.value,
             scenario_label="Doomed ASes"
