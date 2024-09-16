@@ -14,8 +14,8 @@ from pathsec.policies import ASPAOTCEdge
 r"""
             2
         /      \
- 777 - 3        5 
-       |  \     | 
+ 777 - 3        5
+       |  \     |
        4   8    6
        |    \/  |
        |   /  \ |

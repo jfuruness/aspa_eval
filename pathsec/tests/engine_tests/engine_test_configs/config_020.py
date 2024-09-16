@@ -15,8 +15,8 @@ from pathsec.policies import PathEndEdge
 r"""
           2
         /   \
- 777 - 3     5 
-       |     | 
+ 777 - 3     5
+       |     |
        4     6 - 7
        |     |  /
        666   667

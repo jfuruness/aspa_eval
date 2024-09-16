@@ -1,18 +1,17 @@
 from dataclasses import replace
 
-from frozendict import frozendict
-
 from bgpy.shared.constants import SINGLE_DAY_CACHE_DIR
 from bgpy.shared.enums import ASGroups
 from bgpy.simulation_engine import BGP
 from bgpy.simulation_framework import ScenarioConfig, ShortestPathPrefixHijack
+from frozendict import frozendict
 
 from pathsec.scenarios import (
     ShortestPathCustomerConeHijack,
     VictimsPrefixCustomerConeHijack,
 )
-from .utils import ASPASim, CLASSES_TO_RUN
 
+from .utils import CLASSES_TO_RUN, ASPASim
 
 shortest_path_hijack_confs = [
     ScenarioConfig(
@@ -54,17 +53,17 @@ shortest_path_etc_sim = ASPASim(
 )
 
 shortest_path_etc_cc_sim = ASPASim(
-    scenario_configs=tuple(
-        [
-            ScenarioConfig(
-                AdoptPolicyCls=AdoptPolicyCls,
-                ScenarioCls=ShortestPathCustomerConeHijack,
-                attacker_subcategory_attr=ASGroups.ETC.value,
-            )
-            for AdoptPolicyCls in CLASSES_TO_RUN
-        ]
-    )
-    + (
+    scenario_configs=(
+        *tuple(
+            [
+                ScenarioConfig(
+                    AdoptPolicyCls=AdoptPolicyCls,
+                    ScenarioCls=ShortestPathCustomerConeHijack,
+                    attacker_subcategory_attr=ASGroups.ETC.value,
+                )
+                for AdoptPolicyCls in CLASSES_TO_RUN
+            ]
+        ),
         ScenarioConfig(
             AdoptPolicyCls=BGP,
             ScenarioCls=VictimsPrefixCustomerConeHijack,

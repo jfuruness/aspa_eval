@@ -245,6 +245,9 @@ ignore = [
     "SIM105",
     # Combines if statements in such a way that makes them unreadable imo
     "SIM103",
+    # Combines multiple if statements if they return the same
+    # imo makes it way less radable in a lot of cases
+    "SIM114",
     # Combines multiple with statements. Imo makes it less readable
     "SIM117",
     # Concatenates multiple strings into one if they are on the same line

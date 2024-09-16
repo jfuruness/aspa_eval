@@ -1,11 +1,10 @@
 from typing import TYPE_CHECKING
 
 from bgpy.shared.enums import ASGroups
-from bgpy.simulation_framework import Simulation, AccidentalRouteLeak
+from bgpy.simulation_framework import AccidentalRouteLeak, ScenarioConfig, Simulation
 
 if TYPE_CHECKING:
     from pathlib import Path
-    from bgpy.simulation_framework import ScenarioConfig
 
 
 class ASPASim(Simulation):

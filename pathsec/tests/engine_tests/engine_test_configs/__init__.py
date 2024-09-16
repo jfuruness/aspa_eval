@@ -22,7 +22,7 @@ from .diagrams import diagram_configs
 from .internals import internal_configs
 
 engine_test_configs = (
-    (
+    (  # noqa: RUF005
         config_001,
         config_002,
         config_003,

@@ -14,7 +14,7 @@ class ASPAOTCEdge(ASPA):
 
     # NOTE: you could probably use multiple inheritance here, but to save some dev
     # time, I'm just going to use mixins instead
-    _policy_propagate = OnlyToCustomers._policy_propagate
+    _policy_propagate = OnlyToCustomers._policy_propagate  # noqa: SLF001
 
     def _valid_ann(self, ann: "Ann", from_rel: Relationships) -> bool:
         """Returns invalid if an edge AS is announcing a path longer than len 1
@@ -24,9 +24,9 @@ class ASPAOTCEdge(ASPA):
 
         # NOTE: you could probably use multiple inheritance here, but to save some dev
         # time, I'm just going to use mixins instead
-        if EdgeFilter._valid_edge_ann(self, ann, from_rel) and self._valid_ann_otc(
-            ann, from_rel
-        ):
+        if EdgeFilter._valid_edge_ann(  # noqa: SLF001
+            self, ann, from_rel
+        ) and self._valid_ann_otc(ann, from_rel):
             return super()._valid_ann(ann, from_rel)
         else:
             return False

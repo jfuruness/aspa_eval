@@ -13,8 +13,8 @@ class AttackerCustomerConeTrackingMixin:
         self,
         *,
         scenario_config: "ScenarioConfig",
-        percent_adoption: float | "SpecialPercentAdoptions" = 0,
-        engine: "BaseSimulationEngine" | None = None,
+        percent_adoption: "float | SpecialPercentAdoptions" = 0,
+        engine: "BaseSimulationEngine | None" = None,
         attacker_asns: frozenset[int] | None = None,
         victim_asns: frozenset[int] | None = None,
         adopting_asns: frozenset[int] | None = None,
@@ -37,13 +37,11 @@ class AttackerCustomerConeTrackingMixin:
             )
 
         # These are the ASNs we want to avoid tracking
-        self._non_attacker_customer_cone_asns: set[int] = set(
-            [
-                x.asn
-                for x in engine.as_graph
-                if x.asn not in self._attacker_customer_cones_asns
-            ]
-        )
+        self._non_attacker_customer_cone_asns: set[int] = {
+            x.asn
+            for x in engine.as_graph
+            if x.asn not in self._attacker_customer_cones_asns
+        }
 
     @property
     def _untracked_asns(self) -> frozenset[int]:

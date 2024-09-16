@@ -1,16 +1,15 @@
-from frozendict import frozendict
-
 from bgpy.as_graphs import CAIDAASGraphConstructor
 from bgpy.shared.enums import ASGroups
 from bgpy.simulation_engine import ASPA, ROV
 from bgpy.simulation_framework import (
+    AccidentalRouteLeak,
+    ForgedOriginPrefixHijack,
     Scenario,
     ScenarioConfig,
-    ForgedOriginPrefixHijack,
-    AccidentalRouteLeak,
 )
+from frozendict import frozendict
 
-from .utils import ASPASim, CLASSES_TO_RUN
+from .utils import ASPASim
 
 
 def get_adoption_scenario_confs(

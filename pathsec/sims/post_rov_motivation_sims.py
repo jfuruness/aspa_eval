@@ -1,11 +1,9 @@
 import json
 import os
 import random
-from copy import deepcopy
 from functools import partial
 from pathlib import Path
 from statistics import mean
-from typing import Optional
 
 from bgpy.shared.constants import DIR
 from bgpy.simulation_engine import ROV
@@ -13,7 +11,6 @@ from bgpy.simulation_framework import (
     ForgedOriginPrefixHijack,
     PrefixHijack,
     ScenarioConfig,
-    Simulation,
     SubprefixHijack,
 )
 from frozendict import frozendict
@@ -52,7 +49,7 @@ def mean_when_measured_prob_func(asn, info_list) -> float:
 
 def get_real_world_rov_asn_cls_dict(
     json_path: Path = Path.home() / "Desktop" / "rov_info.json",
-    requests_cache_db_path: Optional[Path] = None,
+    requests_cache_db_path: Path | None = None,
     prob_func=max_prob_func,
 ) -> frozendict[int, type[ROV]]:
     if not json_path.exists():
@@ -64,7 +61,7 @@ def get_real_world_rov_asn_cls_dict(
 
     python_hash_seed = os.environ.get("PYTHONHASHSEED")
     if str(python_hash_seed) != "0":
-        raise Exception("Set PYTHONHASHSEED to 0 for reproducibility")
+        raise RuntimeError("Set PYTHONHASHSEED to 0 for reproducibility")
     if python_hash_seed:
         random.seed(int(python_hash_seed))
 
@@ -77,7 +74,7 @@ def get_real_world_rov_asn_cls_dict(
                 "sources only have a few ASes, use mean_when_measured instead"
             )
         for asn, info_list in data.items():
-            if random.random() * 100 < prob_func(asn, info_list):
+            if random.random() * 100 < prob_func(asn, info_list):  # noqa: S311
                 hardcoded_dict[int(asn)] = ROV
 
     return frozendict(hardcoded_dict)
@@ -96,9 +93,11 @@ prob_funcs = list()
 def max_when_hayas_paper(asn, info_list, valid_categories=frozenset([2, 3, 6, 7])):
     prob_to_adopt: float = 0
     for info in info_list:
-        if info["source"] == ROVSource.FRIENDS.value:
-            if int(info["metadata"]["category"]) in valid_categories:
-                prob_to_adopt = max(prob_to_adopt, float(info["percent"]))
+        if (
+            info["source"] == ROVSource.FRIENDS.value
+            and int(info["metadata"]["category"]) in valid_categories
+        ):
+            prob_to_adopt = max(prob_to_adopt, float(info["percent"]))
     return prob_to_adopt
 
 

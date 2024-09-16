@@ -14,8 +14,8 @@ from pathsec.policies import ASPAEdge
 r"""
             2
         /      \
- 777 - 3        5 
-       |  \     | 
+ 777 - 3        5
+       |  \     |
        4   8    6
        |    \/  |
        |   /  \ |

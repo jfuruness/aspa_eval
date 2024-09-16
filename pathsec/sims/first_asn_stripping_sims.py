@@ -1,13 +1,11 @@
-from bgpy.shared.enums import ASGroups
-from bgpy.simulation_engine import ROV, ASPA, PathEnd, ROVEnforceFirstAS
+from bgpy.simulation_engine import ASPA, ROV, PathEnd, ROVEnforceFirstAS
 from bgpy.simulation_framework import (
-    ScenarioConfig,
-    ForgedOriginPrefixHijack,
     FirstASNStrippingPrefixHijack,
+    ForgedOriginPrefixHijack,
+    ScenarioConfig,
 )
 
 from .utils import ASPASim
-
 
 first_asn_stripping_sim = ASPASim(
     scenario_configs=tuple(

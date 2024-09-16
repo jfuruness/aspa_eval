@@ -20,7 +20,7 @@ class ASPAEdge(ASPA):
 
         # NOTE: you could probably use multiple inheritance here, but to save some dev
         # time, I'm just going to use mixins instead
-        if EdgeFilter._valid_edge_ann(self, ann, from_rel):
+        if EdgeFilter._valid_edge_ann(self, ann, from_rel):  # noqa: SLF001
             return super()._valid_ann(ann, from_rel)
         else:
             return False
