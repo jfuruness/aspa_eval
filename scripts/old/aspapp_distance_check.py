@@ -1,10 +1,10 @@
 from collections import defaultdict
 from pprint import pprint
 from statistics import mean
-from tqdm import tqdm
 
 from bgpy.as_graphs import CAIDAASGraphConstructor
 from bgpy.enums import ASGroups
+from tqdm import tqdm
 
 # This is also a placeholder for when there is no route
 MAX_DIST = 1000000
@@ -28,8 +28,7 @@ def main():
                 helper(provider.asn, input_clique_asn)
                 provider_dist = distances[input_clique_asn][provider.asn]
 
-            if provider_dist < min_provider_dist:
-                min_provider_dist = provider_dist
+            min_provider_dist = min(provider_dist, min_provider_dist)
         distances[input_clique_asn][asn] = min_provider_dist + 1
 
     for input_clique_as in tqdm(input_clique_ases, total=len(input_clique_ases)):

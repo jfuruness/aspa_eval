@@ -1,11 +1,6 @@
+
+from bgpy.as_graphs import CAIDAASGraphConstructor
 from tqdm import tqdm
-
-import random
-from bgpy.as_graphs.base.links import CustomerProviderLink as CPLink
-from bgpy.as_graphs import CAIDAASGraphConstructor, AS
-from bgpy.as_graphs import ASGraphInfo, CAIDAASGraph
-from bgpy.enums import ASGroups, Relationships
-
 
 
 class ProviderConeComputation:

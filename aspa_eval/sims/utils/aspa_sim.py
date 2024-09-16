@@ -1,15 +1,9 @@
 from pathlib import Path
-from typing import TYPE_CHECKING
 
-from frozendict import frozendict
-
-from bgpy.shared.constants import SINGLE_DAY_CACHE_DIR
-from bgpy.shared.constants import DIRS
+from bgpy.shared.constants import DIRS, SINGLE_DAY_CACHE_DIR
 from bgpy.shared.enums import ASGroups
 from bgpy.simulation_framework import AccidentalRouteLeak, ScenarioConfig, Simulation
-
-if TYPE_CHECKING:
-    from pathlib import Path
+from frozendict import frozendict
 
 
 class ASPASim(Simulation):

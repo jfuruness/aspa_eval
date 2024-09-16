@@ -1,17 +1,16 @@
-from multiprocessing import cpu_count
-from pathlib import Path
 import sys
 import time
+from multiprocessing import cpu_count
+from pathlib import Path
 
 from bgpy.enums import ASGroups, SpecialPercentAdoptions
-from bgpy.simulation_engine import ROV, ASPA
-
+from bgpy.simulation_engine import ASPA, ROV
 from bgpy.simulation_framework import (
-    DependentSimulation,
     AccidentalRouteLeak,
+    DependentSimulation,
     PrefixHijack,
-    preprocess_anns_funcs,
     ScenarioConfig,
+    preprocess_anns_funcs,
 )
 
 DIR = Path.home() / "Desktop" / "aspa_comparison_sims"

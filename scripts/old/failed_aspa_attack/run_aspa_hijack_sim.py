@@ -1,28 +1,22 @@
-from copy import deepcopy
 import time
-from aspa_eval.policies import (
-    ASPAEdge,
-    EdgeFilter,
-    PathEndEdge,
-)
+from copy import deepcopy
 
+from bgpy.enums import SpecialPercentAdoptions
 from bgpy.simulation_engine import (
+    ASPA,
     ROV,
     PathEnd,
-    ASPA,
 )
-
 from bgpy.simulation_framework import (
     DependentSimulation,
     PrefixHijack,
-    preprocess_anns_funcs,
     ScenarioConfig,
+    preprocess_anns_funcs,
 )
-
-from bgpy.enums import SpecialPercentAdoptions
+from preprocess_anns_funcs import aspa_hijack
 
 from aspa_eval.sims.sim_kwargs import DIR, default_kwargs, run_kwargs
-from preprocess_anns_funcs import aspa_hijack
+
 
 class NewASPAHijack(ASPA):
     name = "ASPA (against new hijack)"

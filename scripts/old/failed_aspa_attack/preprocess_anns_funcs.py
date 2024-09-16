@@ -1,18 +1,18 @@
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from bgpy.enums import ASGroups
 from bgpy.simulation_engine import ASPA
 from bgpy.simulation_framework.scenarios.preprocess_anns_funcs import (
-    _get_valid_by_roa_ann,
     _find_shortest_non_adopting_path_general,
-    forged_origin_export_all_hijack
+    _get_valid_by_roa_ann,
+    forged_origin_export_all_hijack,
 )
 
 if TYPE_CHECKING:
     from bgpy.as_graphs import AS
+    from bgpy.simulation_engine import Announcement as Ann
+    from bgpy.simulation_engine import BaseSimulationEngine, Policy
     from bgpy.simulation_framework.scenario import Scenario
-    from bgpy.simulation_engine import Announcement as Ann, BaseSimulationEngine
-    from bgpy.simulation_engine import Policy
 
 
 def aspa_hijack(
@@ -97,7 +97,7 @@ def _zero_adopter_path_to_input_clique(
     root_asn: int,
     self_scenario: "Scenario",
     engine: Optional["BaseSimulationEngine"],
-) -> Optional[tuple[int, ...]]:
+) -> tuple[int, ...] | None:
     """Finds the shortest non adopting path from the root asn
 
     Announcements from customers > peers > providers, since

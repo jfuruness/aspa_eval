@@ -1,22 +1,21 @@
-from pathlib import Path
 import time
+from pathlib import Path
 
 from bgpy.enums import ASGroups
-from bgpy.simulation_engine import ROV, ASPA, OnlyToCustomers
-
+from bgpy.simulation_engine import ASPA, ROV, OnlyToCustomers
 from bgpy.simulation_framework import (
-    Simulation,
     AccidentalRouteLeak,
     ScenarioConfig,
+    Simulation,
 )
+
 from aspa_eval.policies import (
-    EdgeFilter,
-    OTCEdge,
     ASPAEdge,
     ASPAOTCEdge,
+    EdgeFilter,
+    OTCEdge,
 )
 from aspa_eval.sims.sim_kwargs import default_kwargs
-
 
 DIR = Path.home() / "Desktop" / "aspa_route_leak_w_attacker_adopting"
 

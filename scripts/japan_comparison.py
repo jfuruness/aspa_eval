@@ -1,22 +1,18 @@
-from copy import deepcopy
 import time
-from aspa_eval.policies import (
-    EdgeFilter,
-)
-from bgpy.enums import ASGroups
+from copy import deepcopy
 
+from bgpy.enums import ASGroups
 from bgpy.simulation_engine import (
+    ASPA,
     ROV,
     BGPSec,
     PathEnd,
-    ASPA,
 )
-
 from bgpy.simulation_framework import (
     DependentSimulation,
     PrefixHijack,
-    preprocess_anns_funcs,
     ScenarioConfig,
+    preprocess_anns_funcs,
 )
 
 from aspa_eval.sims.sim_kwargs import DIR, default_kwargs, run_kwargs

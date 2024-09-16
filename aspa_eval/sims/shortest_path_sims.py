@@ -2,7 +2,7 @@ from dataclasses import replace
 
 from bgpy.shared.enums import ASGroups
 from bgpy.simulation_engine import BGP
-from bgpy.simulation_framework import ScenarioConfig, ShortestPathPrefixHijack
+from bgpy.simulation_framework import ScenarioConfig
 
 from aspa_eval.scenarios import (
     PaperShortestPathPrefixHijack,
