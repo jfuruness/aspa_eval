@@ -12,9 +12,7 @@ class ShortestPathCustomerConeHijack(
     pass
 
 
-class VictimsPrefixCustomerConeHijack(
-    AttackerCustomerConeTrackingMixin, VictimsPrefix
-):
+class VictimsPrefixCustomerConeHijack(AttackerCustomerConeTrackingMixin, VictimsPrefix):
     """passive attack that only tracks customer cones of the attackers"""
 
     pass

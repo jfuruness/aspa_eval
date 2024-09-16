@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from bgpy.simulation_engine import EdgeFilter, BGPSec
+from bgpy.simulation_engine import BGPSec, EdgeFilter
 
 if TYPE_CHECKING:
     from bgpy.shared.enums import Relationships
