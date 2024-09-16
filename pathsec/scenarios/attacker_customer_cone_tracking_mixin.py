@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from bgpy.simulation_engine import BaseSimulationEngine
     from bgpy.simulation_framework import ScenarioConfig
 
+
 class AttackerCustomerConeTrackingMixin:
     """Mixin that tracks customer cones"""
 

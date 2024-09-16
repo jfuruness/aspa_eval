@@ -5,16 +5,16 @@ from .paper_shortest_path_prefix_hijack import PaperShortestPathPrefixHijack
 
 
 class ShortestPathCustomerConeHijack(
-    AttackerCustomerConeTrackingMixin,
-    PaperShortestPathPrefixHijack
+    AttackerCustomerConeTrackingMixin, PaperShortestPathPrefixHijack
 ):
     """SP-EA attack that only tracks customer cones of the attackers"""
+
     pass
 
 
 class VictimsPrefixCustomerConeHijack(
-    AttackerCustomerConeTrackingMixin,
-    VictimsPrefixHijack
+    AttackerCustomerConeTrackingMixin, VictimsPrefixHijack
 ):
     """passive attack that only tracks customer cones of the attackers"""
+
     pass

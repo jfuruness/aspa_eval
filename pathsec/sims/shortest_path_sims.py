@@ -18,48 +18,58 @@ shortest_path_hijack_confs = [
     ScenarioConfig(
         AdoptPolicyCls=AdoptPolicyCls,
         ScenarioCls=ShortestPathPrefixHijack,
-    ) for AdoptPolicyCls in CLASSES_TO_RUN
+    )
+    for AdoptPolicyCls in CLASSES_TO_RUN
 ]
 
 shortest_path_edge_sim = ASPASim(
-    scenario_configs=tuple([
-        replace(conf, attacker_subcategory_attr=ASGroups.STUB_OR_MH.value)
-        for conf in shortest_path_hijack_confs
-    ]),
+    scenario_configs=tuple(
+        [
+            replace(conf, attacker_subcategory_attr=ASGroups.STUB_OR_MH.value)
+            for conf in shortest_path_hijack_confs
+        ]
+    ),
 )
 
 shortest_path_edge_10_attackers_sim = ASPASim(
-    scenario_configs=tuple([
-        replace(
-            conf,
-            attacker_subcategory_attr=ASGroups.STUB_OR_MH.value,
-            num_attackers=10,
-        )
-        for conf in shortest_path_hijack_confs
-    ]),
+    scenario_configs=tuple(
+        [
+            replace(
+                conf,
+                attacker_subcategory_attr=ASGroups.STUB_OR_MH.value,
+                num_attackers=10,
+            )
+            for conf in shortest_path_hijack_confs
+        ]
+    ),
 )
 
 shortest_path_etc_sim = ASPASim(
-    scenario_configs=tuple([
-        replace(conf, attacker_subcategory_attr=ASGroups.ETC.value)
-        for conf in shortest_path_hijack_confs
-    ])
+    scenario_configs=tuple(
+        [
+            replace(conf, attacker_subcategory_attr=ASGroups.ETC.value)
+            for conf in shortest_path_hijack_confs
+        ]
+    )
 )
 
 shortest_path_etc_cc_sim = ASPASim(
-    scenario_configs=tuple([
-        ScenarioConfig(
-            AdoptPolicyCls=AdoptPolicyCls,
-            ScenarioCls=ShortestPathCustomerConeHijack,
-            attacker_subcategory_attr=ASGroups.ETC.value,
-        )
-        for AdoptPolicyCls in CLASSES_TO_RUN
-    ]) + (
+    scenario_configs=tuple(
+        [
+            ScenarioConfig(
+                AdoptPolicyCls=AdoptPolicyCls,
+                ScenarioCls=ShortestPathCustomerConeHijack,
+                attacker_subcategory_attr=ASGroups.ETC.value,
+            )
+            for AdoptPolicyCls in CLASSES_TO_RUN
+        ]
+    )
+    + (
         ScenarioConfig(
             AdoptPolicyCls=BGP,
             ScenarioCls=VictimsPrefixCustomerConeHijack,
             attacker_subcategory_attr=ASGroups.ETC.value,
-            scenario_label="Doomed ASes"
+            scenario_label="Doomed ASes",
         ),
     ),
     as_graph_constructor_kwargs=frozendict(

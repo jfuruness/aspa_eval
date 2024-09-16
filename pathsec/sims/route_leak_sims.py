@@ -9,19 +9,24 @@ route_leak_confs = [
     ScenarioConfig(
         AdoptPolicyCls=AdoptPolicyCls,
         ScenarioCls=AccidentalRouteLeak,
-    ) for AdoptPolicyCls in CLASSES_TO_RUN
+    )
+    for AdoptPolicyCls in CLASSES_TO_RUN
 ]
 
 route_leak_mh_sim = ASPASim(
-    scenario_configs=tuple([
-        replace(conf, attacker_subcategory_attr=ASGroups.MULTIHOMED.value)
-        for conf in route_leak_confs
-    ]),
+    scenario_configs=tuple(
+        [
+            replace(conf, attacker_subcategory_attr=ASGroups.MULTIHOMED.value)
+            for conf in route_leak_confs
+        ]
+    ),
 )
 
 route_leak_transit_sim = ASPASim(
-    scenario_configs=tuple([
-        replace(conf, attacker_subcategory_attr=ASGroups.TRANSIT.value)
-        for conf in route_leak_confs
-    ])
+    scenario_configs=tuple(
+        [
+            replace(conf, attacker_subcategory_attr=ASGroups.TRANSIT.value)
+            for conf in route_leak_confs
+        ]
+    )
 )
