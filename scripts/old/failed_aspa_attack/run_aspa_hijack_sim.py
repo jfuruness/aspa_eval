@@ -1,6 +1,6 @@
 from copy import deepcopy
 import time
-from pathsec.policies import (
+from aspa_eval.policies import (
     ASPAEdge,
     EdgeFilter,
     PathEndEdge,
@@ -21,7 +21,7 @@ from bgpy.simulation_framework import (
 
 from bgpy.enums import SpecialPercentAdoptions
 
-from pathsec.sims.sim_kwargs import DIR, default_kwargs, run_kwargs
+from aspa_eval.sims.sim_kwargs import DIR, default_kwargs, run_kwargs
 from preprocess_anns_funcs import aspa_hijack
 
 class NewASPAHijack(ASPA):

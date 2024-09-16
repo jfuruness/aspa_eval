@@ -6,7 +6,7 @@ from bgpy.simulation_engine import BGP
 from bgpy.simulation_framework import ScenarioConfig, ShortestPathPrefixHijack
 from frozendict import frozendict
 
-from pathsec.scenarios import (
+from aspa_eval.scenarios import (
     ShortestPathCustomerConeHijack,
     VictimsPrefixCustomerConeHijack,
 )

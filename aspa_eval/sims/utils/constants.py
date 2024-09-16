@@ -9,7 +9,7 @@ from bgpy.simulation_engine import (
     ROVEdgeFilter,
 )
 
-from pathsec.policies import ASPAEdge, ASPAOTCEdge, BGPSecEdge, OTCEdge, PathEndEdge
+from aspa_eval.policies import ASPAEdge, ASPAOTCEdge, BGPSecEdge, OTCEdge, PathEndEdge
 
 CLASSES_TO_RUN = [
     PathEnd,

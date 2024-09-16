@@ -3,7 +3,7 @@ requires = ["setuptools>=69.0.3", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pathsec"
+name = "aspa_eval"
 version = "0.0.0"
 requires-python = ">=3.10"
 description = "Simulates Path security policies"
@@ -20,9 +20,9 @@ maintainers = [
 license = {file = "LICENSE.txt"}
 keywords = [
     "BGPy",
-    "pathsec",
+    "aspa_eval",
     "bgpc",
-    "pathsec",
+    "aspa_eval",
     "BGP",
     "Caida",
     "CAIDA",
@@ -61,10 +61,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/jfuruness/pathsec"
+Homepage = "https://github.com/jfuruness/aspa_eval"
 
 [project.scripts]
-pathsec = "pathsec.__main__:main"
+aspa_eval = "aspa_eval.__main__:main"
 
 [project.optional-dependencies]
 test = [
@@ -76,7 +76,7 @@ include-package-data = true
 
 # https://stackoverflow.com/a/76214408/8903959
 [tool.setuptools.package-data]
-pathsec = ["py.typed"]
+aspa_eval = ["py.typed"]
 
 # https://stackoverflow.com/a/76214408/8903959
 [tool.setuptools.packages.find]
@@ -264,7 +264,7 @@ unfixable = []
 "**/tests/**/*.py" = ["SLF001"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["pathsec"]
+known-first-party = ["aspa_eval"]
 
 [tool.ruff.lint.flake8-bugbear]
 # Allow default arguments like, e.g., `data: frozendict[str, str] = frozendict()

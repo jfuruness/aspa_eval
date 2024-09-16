@@ -9,13 +9,13 @@ from bgpy.simulation_framework import (
     AccidentalRouteLeak,
     ScenarioConfig,
 )
-from pathsec.policies import (
+from aspa_eval.policies import (
     EdgeFilter,
     OTCEdge,
     ASPAEdge,
     ASPAOTCEdge,
 )
-from pathsec.sims.sim_kwargs import default_kwargs
+from aspa_eval.sims.sim_kwargs import default_kwargs
 
 
 DIR = Path.home() / "Desktop" / "aspa_route_leak_w_attacker_adopting"

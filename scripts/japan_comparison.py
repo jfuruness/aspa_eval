@@ -1,6 +1,6 @@
 from copy import deepcopy
 import time
-from pathsec.policies import (
+from aspa_eval.policies import (
     EdgeFilter,
 )
 from bgpy.enums import ASGroups
@@ -19,7 +19,7 @@ from bgpy.simulation_framework import (
     ScenarioConfig,
 )
 
-from pathsec.sims.sim_kwargs import DIR, default_kwargs, run_kwargs
+from aspa_eval.sims.sim_kwargs import DIR, default_kwargs, run_kwargs
 
 
 def run_forged_origin_export_all_hijack_sim():

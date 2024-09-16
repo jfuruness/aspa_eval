@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING
 
 from bgpy.simulation_framework import ShortestPathPrefixHijack
 
-from .pathsec.policies import ASPAEdge, ASPAOTCEdge, PathEndEdge
+from .aspa_eval.policies import ASPAEdge, ASPAOTCEdge, PathEndEdge
 
 if TYPE_CHECKING:
     from bgpy.simulation_engine import Policy
