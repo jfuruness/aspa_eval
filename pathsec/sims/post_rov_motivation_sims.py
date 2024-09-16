@@ -5,7 +5,6 @@ from functools import partial
 from pathlib import Path
 from statistics import mean
 
-from bgpy.shared.constants import DIR
 from bgpy.simulation_engine import ROV
 from bgpy.simulation_framework import (
     ForgedOriginPrefixHijack,
@@ -57,7 +56,7 @@ def get_real_world_rov_asn_cls_dict(
             CollectorCls(
                 json_path=json_path,
                 requests_cache_db_path=requests_cache_db_path,
-            ).run()  # type: ignore
+            ).run()
 
     python_hash_seed = os.environ.get("PYTHONHASHSEED")
     if str(python_hash_seed) != "0":
@@ -155,6 +154,6 @@ def run_post_rov_motivation_sim(prob_func):
                 scenario_label="ROV (Prefix Hijack)",
             ),
         ),
-        output_dir=DIR / "rov_deployment" / prob_func.__name__,
+        sim_name=f"rov_deployment_{prob_func.__name__}",
     )
     sim.run()

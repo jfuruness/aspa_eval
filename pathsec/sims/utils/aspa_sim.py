@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 class ASPASim(Simulation):
     """SimulationClass customized for ASPA sims"""
 
-    def __init__(self, *args, **kwargs) -> None:  # type: ignore
+    def __init__(self, *args, **kwargs) -> None:
         kwargs["python_hash_seed"] = 0
-        super().__init__(*args, **kwargs)  # type: ignore
+        super().__init__(*args, **kwargs)
 
     @property
     def default_sim_name(self) -> str:

@@ -13,7 +13,7 @@ from .utils import ASPASim
 
 
 def get_adoption_scenario_confs(
-    ScenarioCls: Scenario,
+    ScenarioCls: type[Scenario],
     attacker_subcategory_attr: str,
 ) -> tuple[ScenarioConfig, ...]:
     """Runs sim for shortest path export all"""

@@ -1,12 +1,14 @@
 from typing import TYPE_CHECKING
 
+from bgpy.simulation_framework import Scenario
+
 if TYPE_CHECKING:
     from bgpy.shared.enums import SpecialPercentAdoptions
     from bgpy.simulation_engine import BaseSimulationEngine
     from bgpy.simulation_framework import ScenarioConfig
 
 
-class AttackerCustomerConeTrackingMixin:
+class AttackerCustomerConeTrackingMixin(Scenario):
     """Mixin that tracks customer cones"""
 
     def __init__(
@@ -29,10 +31,10 @@ class AttackerCustomerConeTrackingMixin:
             adopting_asns=adopting_asns,
         )
 
-        self._attacker_customer_cones_asns: set[int] = set()
+        self._attacker_customer_cone_asns: set[int] = set()
         for attacker_asn in self.attacker_asns:
             assert isinstance(attacker_asn.customer_cone_asns, frozenset), "setting!"
-            self._attackers_customer_cone_asns.update(
+            self._attacker_customer_cone_asns.update(
                 engine[attacker_asn].customer_cone_asns
             )
 
@@ -40,15 +42,15 @@ class AttackerCustomerConeTrackingMixin:
         self._non_attacker_customer_cone_asns: set[int] = {
             x.asn
             for x in engine.as_graph
-            if x.asn not in self._attacker_customer_cones_asns
+            if x.asn not in self._attacker_customer_cone_asns
         }
 
     @property
-    def _untracked_asns(self) -> frozenset[int]:
+    def untracked_asns(self) -> frozenset[int]:
         """Returns ASNs that shouldn't be tracked by the metric tracker
 
         By default just the default adopters and non adopters
         We extend to exclude all ASes not in customer cone
         """
 
-        return super()._untracked_asns | self._non_attacker_customer_cone_asns
+        return super().untracked_asns | self._non_attacker_customer_cone_asns
