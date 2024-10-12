@@ -1,4 +1,4 @@
-from bgpy.simulation_engine import ASPA, ROV, PathEnd, ROVEnforceFirstAS
+from bgpy.simulation_engine import ASPA, ROV, PathEnd, ROVEnforceFirstAS, BGPiSec
 from bgpy.simulation_framework import (
     FirstASNStrippingPrefixHijack,
     ForgedOriginPrefixHijack,
@@ -25,7 +25,7 @@ first_asn_stripping_sim = ASPASim(
                 AdoptPolicyCls=AdoptPolicyCls,
                 scenario_label=f"{AdoptPolicyCls.name} (First-ASN-Stripping)",
             )
-            for AdoptPolicyCls in [ROV, ASPA, PathEnd]
+            for AdoptPolicyCls in [ROV, ASPA, PathEnd, BGPiSec]
         ]
     ),
     sim_name="FirstASNStripping_edge",
