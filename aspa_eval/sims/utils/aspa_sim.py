@@ -1,3 +1,4 @@
+from multiprocessing import cpu_count
 from pathlib import Path
 
 from bgpy.shared.constants import DIRS, SINGLE_DAY_CACHE_DIR
@@ -34,6 +35,10 @@ class ASPASim(Simulation):
                 "tsv_path": None,  # Path.home() / "Desktop" / "caida.tsv",
             }
         )
+        total_cpus = cpu_count()
+        MAX_CPUS = 100
+        if total_cpus > MAX_CPUS:
+            kwargs["parse_cpus"] = min(kwargs.get("parse_cpus", total_cpus), MAX_CPUS)
         super().__init__(*args, **kwargs)
 
     @property
