@@ -20,16 +20,16 @@ from .shortest_path_sims import (
 )
 
 SIMS_TO_RUN = (
+    forged_origin_hijack_adoption_scenarios_sim,
+    forged_origin_edge_sim,
+    forged_origin_edge_10_attackers_sim,
+    forged_origin_etc_sim,
     shortest_path_etc_cc_sim,
     shortest_path_edge_sim,
     # shortest_path_edge_10_attackers_sim,
     shortest_path_etc_sim,
     first_asn_stripping_sim,
-    forged_origin_edge_sim,
-    forged_origin_edge_10_attackers_sim,
-    forged_origin_etc_sim,
     route_leak_mh_sim,
     route_leak_transit_sim,
-    forged_origin_hijack_adoption_scenarios_sim,
     route_leak_adoption_scenarios_sim,
 )

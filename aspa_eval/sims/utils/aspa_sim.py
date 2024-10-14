@@ -1,3 +1,4 @@
+
 from multiprocessing import cpu_count
 from pathlib import Path
 
@@ -17,6 +18,7 @@ class ASPASim(Simulation):
                 "as_graph_collector_kwargs": frozendict(
                     {
                         "cache_dir": SINGLE_DAY_CACHE_DIR,
+                        "dl_time": datetime(2024, 4, 5, 15, 3),
                     }
                 ),
                 "as_graph_kwargs": frozendict(

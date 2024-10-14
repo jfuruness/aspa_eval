@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 class BGPSecEdge(BGPSec):
     """Prevents edge ASes from paths longer than 1, and BGPSec"""
 
-    name: str = "BGPSec + EdgeFilter"
+    name: str = "BGPsec+EdgeFilter"
 
     def _valid_ann(self, ann: "Ann", from_rel: "Relationships") -> bool:
         """Returns invalid if an edge AS is announcing a path longer than len 1

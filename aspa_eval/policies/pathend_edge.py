@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 class PathEndEdge(PathEnd):
     """Prevents edge ASes from paths longer than 1, and PathEnd"""
 
-    name: str = "Path-End + EdgeFilter"
+    name: str = "Path-End+EdgeFilter"
 
     def _valid_ann(self, ann: "Ann", from_rel: "Relationships") -> bool:
         """Returns invalid if an edge AS is announcing a path longer than len 1

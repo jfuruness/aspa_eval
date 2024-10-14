@@ -4,6 +4,8 @@ from pathlib import Path
 import pickle
 import shutil
 
+from frozendict import frozendict
+
 from bgpy.simulation_framework import GraphFactory, LineInfo
 
 BASE_PATH = Path("/home/anon/aspa_sims_2024_10_14")
@@ -44,11 +46,131 @@ for label in (
     "No Tier-1",
     "Only Edge",
     "Tier-1 Adopts First",
+    # Mixed Deployment
+    "Origin Hijack (ROV)",
+    "Subprefix Hijack (ROV)",
+    "Prefix Hijack (ROV)",
 ):
     line_info_dict[label] = LineInfo(label=label)
 
 edge_filter_line_info = LineInfo(label="EdgeFilter")
 line_info_dict["ROV + EdgeFilter"] = edge_filter_line_info
+
+########################
+# ROV Mixed Deployment #
+########################
+
+x_axis_label_replacement_dict = frozendict(
+    {
+        "Percent Adoption": "Percent of Additional Adoption"
+    }
+)
+GraphFactory(
+    line_info_dict=line_info_dict,
+    x_axis_label_replacement_dict=x_axis_label_replacement_dict,
+    **path_kwargs("rov_deployment_isbgpsafeyet")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    x_axis_label_replacement_dict=x_axis_label_replacement_dict,
+    **path_kwargs("rov_deployment_ROVISTA")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    x_axis_label_replacement_dict=x_axis_label_replacement_dict,
+    **path_kwargs("rov_deployment_friends_367")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    x_axis_label_replacement_dict=x_axis_label_replacement_dict,
+    **path_kwargs("rov_deployment_APNIC")
+).generate_graphs()
+
+#################
+# Forged-Origin #
+#################
+
+GraphFactory(
+    line_info_dict={
+        **line_info_dict,
+        **{
+            "ROV + EdgeFilter": replace(
+                edge_filter_line_info,
+                label="EdgeFilter/BGPSec + EdgeFilter"
+            ),
+            "ASPA": replace(
+                line_info_dict["ASPA"],
+                label="ASPA/Path-End"
+            )
+           }
+    },
+    labels_to_remove=frozenset(
+        {
+            "Path-End",
+            "ASPAwN",
+            "Path-End + EdgeFilter",
+            "ASPA + EdgeFilter",
+            "OnlyToCustomers",
+            "OTC + EdgeFilter",
+            "ASPA + OTC + EdgeFilter",
+            "BGPSec + EdgeFilter",
+            "ASRA",
+        }
+    ),
+    **path_kwargs("forgedoriginprefixhijack_stub_or_multihomed_1_attackers")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    **path_kwargs("ForgedOriginPrefixHijack_adoption_scenarios")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("forgedoriginprefixhijack_etc_1_attackers")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("forgedoriginprefixhijack_stub_or_multihomed_10_attackers")
+).generate_graphs()
+
+#################
+# Shortest-Path #
+#################
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("papershortestpathprefixhijack_etc_1_attackers")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("ShortestPathPrefixHijack_etc_cc")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("papershortestpathprefixhijack_stub_or_multihomed_1_attackers")
+).generate_graphs()
+
+#######################
+# First-ASN Stripping #
+#######################
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("FirstASNStripping_edge")
+).generate_graphs()
 
 ##########################
 # Accidental Route Leaks #
@@ -122,103 +244,6 @@ GraphFactory(
 ).generate_graphs()
 
 
-
-GraphFactory(
-    line_info_dict={
-        **line_info_dict,
-        **{
-            "ROV + EdgeFilter": replace(
-                edge_filter_line_info,
-                label="EdgeFilter/BGPSec + EdgeFilter"
-            ),
-            "ASPA": replace(
-                line_info_dict["ASPA"],
-                label="ASPA/Path-End"
-            )
-           }
-    },
-    labels_to_remove=frozenset(
-        {
-            "Path-End",
-            "ASPAwN",
-            "Path-End + EdgeFilter",
-            "ASPA + EdgeFilter",
-            "OnlyToCustomers",
-            "OTC + EdgeFilter",
-            "ASPA + OTC + EdgeFilter",
-            "BGPSec + EdgeFilter",
-            "ASRA",
-        }
-    ),
-    **path_kwargs("forgedoriginprefixhijack_stub_or_multihomed_1_attackers")
-).generate_graphs()
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("ForgedOriginPrefixHijack_adoption_scenarios")
-).generate_graphs()
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("papershortestpathprefixhijack_etc_1_attackers")
-).generate_graphs()
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("rov_deployment_isbgpsafeyet")
-).generate_graphs()
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("forgedoriginprefixhijack_etc_1_attackers")
-).generate_graphs()
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("rov_deployment_ROVISTA")
-).generate_graphs()
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("rov_deployment_friends_367")
-).generate_graphs()
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("ShortestPathPrefixHijack_etc_cc")
-).generate_graphs()
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("rov_deployment_APNIC")
-).generate_graphs()
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("forgedoriginprefixhijack_stub_or_multihomed_10_attackers")
-).generate_graphs()
-
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("FirstASNStripping_edge")
-).generate_graphs()
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("papershortestpathprefixhijack_stub_or_multihomed_1_attackers")
-).generate_graphs()
 
 
 
