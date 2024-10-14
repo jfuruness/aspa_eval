@@ -1,12 +1,13 @@
 from copy import deepcopy
 from dataclasses import replace
 from pathlib import Path
+import pickle
 
 from bgpy.simulation_framework import GraphFactory, LineInfo
 
-BASE_PATH = Path("/home/anon/Desktop/aspa_sims")
+BASE_PATH = Path("/home/anon/aspa_sims_2024_10_13")
 
-GRAPH_DIR = Path("/home/anon/aspa_sims_formatted")
+GRAPH_DIR = Path("/home/anon/Desktop/aspa_sims_formatted")
 GRAPH_DIR.mkdir(exist_ok=True, parents=True)
 
 def path_kwargs(dir_name: str) -> dict[str, Path]:
@@ -24,32 +25,34 @@ line_info_dict = {
     "forged_origin_export_all_hijack (ASPA)": LineInfo("Forged-Origin (ASPA)"),
 }
 
-for label in ("BGPSec", "EdgeFilter", "Path-End"):
+for label in ("BGPSec", "EdgeFilter", "Path-End", "BGP-iSec"):
     line_info_dict[label] = LineInfo(label=label)
 
-strongest_attacker_line_info_dict = deepcopy(line_info_dict)
-strongest_attacker_line_info_dict["Prior works strongest attacker"] = LineInfo(
-    "Prior works strongest attacker",
-    hardcoded_xs=(0, 10, 20, 50, 80, 99),
-    hardcoded_ys=(10.71, 10.71, 10.71, 0.7 * 10.71, 0.4 * 10.71, 0),
-    hardcoded_yerrs=(0, 0, 0, 0, 0, 0),
-)
-GraphFactory(
-    line_info_dict=strongest_attacker_line_info_dict,
-    strongest_attacker_labels=(
-        "shortest_path_export_all_hijack (ASPA)",
-        "forged_origin_export_all_hijack (ASPA)",
-    ),
-    strongest_attacker_legend_label="Strongest Attacker",
-    **path_kwargs("strongest_attack")
-).generate_graphs()
+for folder_path in BASE_PATH.iterdir():
+    GraphFactory(
+        line_info_dict=line_info_dict,
+        **path_kwargs(folder_path)
+    ).generate_graphs()
 
-GraphFactory(
-    line_info_dict=line_info_dict,
-    **path_kwargs("accidental_route_leak_adoption_scenarios_mh")
-).generate_graphs()
 
-GraphFactory(
-    line_info_dict=line_info_dict,
-    **path_kwargs("forged_origin_export_all_hijack")
-).generate_graphs()
+
+
+
+
+# strongest_attacker_line_info_dict = deepcopy(line_info_dict)
+# strongest_attacker_line_info_dict["Prior works strongest attacker"] = LineInfo(
+#     "Prior works strongest attacker",
+#     hardcoded_xs=(0, 10, 20, 50, 80, 99),
+#     hardcoded_ys=(10.71, 10.71, 10.71, 0.7 * 10.71, 0.4 * 10.71, 0),
+#     hardcoded_yerrs=(0, 0, 0, 0, 0, 0),
+# )
+# GraphFactory(
+#     line_info_dict=strongest_attacker_line_info_dict,
+#     strongest_attacker_labels=(
+#         "shortest_path_export_all_hijack (ASPA)",
+#         "forged_origin_export_all_hijack (ASPA)",
+#     ),
+#     strongest_attacker_legend_label="Strongest Attacker",
+#     **path_kwargs("strongest_attack")
+# ).generate_graphs()
+
