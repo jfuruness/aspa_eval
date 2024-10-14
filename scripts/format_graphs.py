@@ -26,19 +26,207 @@ line_info_dict = {
     "ROV": rov_line_info,
 }
 
-for label in ("BGPSec", "EdgeFilter", "Path-End", "BGP-iSec"):
+for label in (
+    "Path-End",
+    "BGPSec",
+    "ASPA",
+    "ASPAwN",
+    "BGP-iSec",
+    "Path-End + EdgeFilter",
+    "ASPA + EdgeFilter",
+    "OnlyToCustomers",
+    "OTC + EdgeFilter",
+    "ASPA + OTC + EdgeFilter",
+    "BGPSec + EdgeFilter",
+    "ASRA",
+    # Adoption Scenarios
+    "Random Adoption",
+    "No Tier-1",
+    "Only Edge",
+    "Tier-1 Adopts First",
+):
     line_info_dict[label] = LineInfo(label=label)
 
+edge_filter_line_info = LineInfo(label="EdgeFilter")
+line_info_dict["ROV + EdgeFilter"] = edge_filter_line_info
+
+##########################
+# Accidental Route Leaks #
+##########################
+
+ACCIDENTAL_ROUTE_LEAKS_Y_LIMIT = 25
+
+GraphFactory(
+    line_info_dict={
+        **line_info_dict,
+        **{
+            "ROV": replace(
+                rov_line_info,
+                label="ROV/Path-End"
+            ),
+            "ASPA": replace(
+                line_info_dict["ASPA"],
+                label="ASPA/OTC/ASPA+OTC",
+            ),
+            "ASPA + EdgeFilter": replace(
+                line_info_dict["ASPA + EdgeFilter"],
+                label="ASPA+Edge/OTC+Edge/ASPA+OTC+Edge",
+            ),
+
+           },
+    },
+    labels_to_remove=frozenset(
+        {
+            "ASPAwN",
+            "OnlyToCustomers",
+            "ASPA + OTC + EdgeFilter",
+            "OTC + EdgeFilter",
+        }
+    ),
+    y_limit=ACCIDENTAL_ROUTE_LEAKS_Y_LIMIT,
+    **path_kwargs("accidentalrouteleak_multihomed_1_attackers")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict={
+        **line_info_dict,
+        **{
+            "ROV": replace(
+                rov_line_info,
+                label="ROV/Path-End"
+            ),
+            "ASPA": replace(
+                line_info_dict["ASPA"],
+                label="ASPA/OTC/BGP-iSec/ASPA+OTC",
+            )
+           },
+    },
+    labels_to_remove=frozenset({"ASPAwN", "OnlyToCustomers", "BGP-iSec", "ASPA + OTC"}),
+    y_limit=ACCIDENTAL_ROUTE_LEAKS_Y_LIMIT,
+    **path_kwargs("accidentalrouteleak_transit_1_attackers")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict={
+        **line_info_dict,
+        **{
+            "No Tier-1": replace(
+                line_info_dict["No Tier-1"],
+                label="Random/No Tier-1/Only Edge"
+            ),
+           },
+    },
+    labels_to_remove=frozenset({"Random Adoption", "Only Edge"}),
+    y_limit=ACCIDENTAL_ROUTE_LEAKS_Y_LIMIT,
+    **path_kwargs("AccidentalRouteLeak_adoption_scenarios")
+).generate_graphs()
+
+
+
+GraphFactory(
+    line_info_dict={
+        **line_info_dict,
+        **{
+            "ROV + EdgeFilter": replace(
+                edge_filter_line_info,
+                label="EdgeFilter/BGPSec + EdgeFilter"
+            ),
+            "ASPA": replace(
+                line_info_dict["ASPA"],
+                label="ASPA/Path-End"
+            )
+           }
+    },
+    labels_to_remove=frozenset(
+        {
+            "Path-End",
+            "ASPAwN",
+            "Path-End + EdgeFilter",
+            "ASPA + EdgeFilter",
+            "OnlyToCustomers",
+            "OTC + EdgeFilter",
+            "ASPA + OTC + EdgeFilter",
+            "BGPSec + EdgeFilter",
+            "ASRA",
+        }
+    ),
+    **path_kwargs("forgedoriginprefixhijack_stub_or_multihomed_1_attackers")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("ForgedOriginPrefixHijack_adoption_scenarios")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("papershortestpathprefixhijack_etc_1_attackers")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("rov_deployment_isbgpsafeyet")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("forgedoriginprefixhijack_etc_1_attackers")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("rov_deployment_ROVISTA")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("rov_deployment_friends_367")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("ShortestPathPrefixHijack_etc_cc")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("rov_deployment_APNIC")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("forgedoriginprefixhijack_stub_or_multihomed_10_attackers")
+).generate_graphs()
+
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("FirstASNStripping_edge")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("papershortestpathprefixhijack_stub_or_multihomed_1_attackers")
+).generate_graphs()
+
+
+
 for folder_path in BASE_PATH.iterdir():
-    # Generate formatted graph
-    GraphFactory(
-        line_info_dict=line_info_dict,
-        **path_kwargs(folder_path.name)
-    ).generate_graphs()
     # Copy the attacker success graph to a new location
     atk_success_path = (
-        folder_path
-        / "graphs"
+        GRAPH_DIR
+        / folder_path.name
         / "all_wout_ixps"
         / "in_adopting_asns_is_Any"
         / "DATA"
