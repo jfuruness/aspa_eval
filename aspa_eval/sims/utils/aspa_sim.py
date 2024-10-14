@@ -25,7 +25,7 @@ class ASPASim(Simulation):
                         # When one set of cones is stored, 1.6gb/core
                         # When both sets of cones are stored, 2.3gb/core
                         # Unfortunately, we need both, since we use BGP-iSec
-                        # and also use customer cones for ASPAwN
+                        # and also use customer cones for ASRA
                         "store_customer_cone_size": True,
                         "store_customer_cone_asns": True,
                         "store_provider_cone_size": True,
