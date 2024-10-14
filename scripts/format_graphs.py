@@ -30,16 +30,15 @@ line_info_dict = {
 
 for label in (
     "Path-End",
-    "BGPSec",
+    "BGPsec",
     "ASPA",
-    "ASPAwN",
     "BGP-iSec",
-    "Path-End + EdgeFilter",
-    "ASPA + EdgeFilter",
+    "Path-End+EdgeFilter",
+    "ASPA+EdgeFilter",
     "OnlyToCustomers",
-    "OTC + EdgeFilter",
-    "ASPA + OTC + EdgeFilter",
-    "BGPSec + EdgeFilter",
+    "OTC+EdgeFilter",
+    "ASPA+OTC+EdgeFilter",
+    "BGPsec+EdgeFilter",
     "ASRA",
     # Adoption Scenarios
     "Random Adoption",
@@ -54,7 +53,8 @@ for label in (
     line_info_dict[label] = LineInfo(label=label)
 
 edge_filter_line_info = LineInfo(label="EdgeFilter")
-line_info_dict["ROV + EdgeFilter"] = edge_filter_line_info
+line_info_dict["ROV+EdgeFilter"] = edge_filter_line_info
+line_info_dict["ASRA"] = LineInfo(label="ASPAwN")
 
 ########################
 # ROV Mixed Deployment #
@@ -110,7 +110,7 @@ GraphFactory(
     labels_to_remove=frozenset(
         {
             "Path-End",
-            "ASPAwN",
+            "ASRA",
             "Path-End + EdgeFilter",
             "ASPA + EdgeFilter",
             "OnlyToCustomers",
@@ -199,7 +199,7 @@ GraphFactory(
     },
     labels_to_remove=frozenset(
         {
-            "ASPAwN",
+            "ASRA",
             "OnlyToCustomers",
             "ASPA + OTC + EdgeFilter",
             "OTC + EdgeFilter",
@@ -223,7 +223,7 @@ GraphFactory(
             )
            },
     },
-    labels_to_remove=frozenset({"ASPAwN", "OnlyToCustomers", "BGP-iSec", "ASPA + OTC"}),
+    labels_to_remove=frozenset({"ASRA", "OnlyToCustomers", "BGP-iSec", "ASPA + OTC"}),
     y_limit=ACCIDENTAL_ROUTE_LEAKS_Y_LIMIT,
     **path_kwargs("accidentalrouteleak_transit_1_attackers")
 ).generate_graphs()
@@ -234,11 +234,11 @@ GraphFactory(
         **{
             "No Tier-1": replace(
                 line_info_dict["No Tier-1"],
-                label="Random/No Tier-1/Only Edge"
+                label="No Tier-1/Only Edge"
             ),
            },
     },
-    labels_to_remove=frozenset({"Random Adoption", "Only Edge"}),
+    labels_to_remove=frozenset({"Only Edge"}),
     y_limit=ACCIDENTAL_ROUTE_LEAKS_Y_LIMIT,
     **path_kwargs("AccidentalRouteLeak_adoption_scenarios")
 ).generate_graphs()
