@@ -6,10 +6,7 @@ import pickle
 from bgpy.simulation_engine import ASRA
 from bgpy.simulation_framework import GraphFactory, LineInfo
 
-BASE_PATH = Path("/home/anon/aspa_sims_2024_10_13")
-
-GRAPH_DIR = Path("/home/anon/Desktop/aspa_sims_formatted")
-GRAPH_DIR.mkdir(exist_ok=True, parents=True)
+BASE_PATH = Path("/home/anon/aspa_sims_2024_10_14_raw")
 
 # Custom Unpickler class to handle missing modules/classes
 class CustomUnpickler(pickle.Unpickler):
