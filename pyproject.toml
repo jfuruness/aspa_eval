@@ -56,7 +56,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "bgpy_pkg~=9.0",
+    "bgpy_pkg~=10.0",
     "rov_collector==1.1.11",
 ]
 
@@ -68,7 +68,7 @@ aspa_eval = "aspa_eval.__main__:main"
 
 [project.optional-dependencies]
 test = [
-    "bgpy_pkg[test]~=9.0"
+    "bgpy_pkg[test]~=10.0"
 ]
 
 [tool.setuptools]

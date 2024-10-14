@@ -1,7 +1,7 @@
 from bgpy.simulation_engine import (
     ASPA,
     ROV,
-    ASPAwN,
+    ASRA,
     BGPiSec,
     BGPSec,
     OnlyToCustomers,
@@ -16,7 +16,7 @@ CLASSES_TO_RUN = [
     BGPSec,
     ROV,
     ASPA,
-    ASPAwN,
+    ASRA,
     BGPiSec,
     # Edge
     BGPSecEdge,
