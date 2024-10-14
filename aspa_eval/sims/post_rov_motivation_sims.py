@@ -101,10 +101,10 @@ def max_when_hayas_paper(asn, info_list, valid_categories=frozenset([2, 3, 6, 7]
 
 
 for valid_categories_subset in [
-    frozenset([2, 3, 6, 7]),
+    # frozenset([2, 3, 6, 7]),  # Don't need for paper
     frozenset([3, 6, 7]),
-    frozenset([6, 7]),
-    frozenset([7]),
+    # frozenset([6, 7]),  # Don't need for paper
+    # frozenset([7]),  # Don't need for paper
 ]:
     new_func = partial(max_when_hayas_paper, valid_categories=valid_categories_subset)
     cat_str = "".join(str(x) for x in sorted(valid_categories_subset))
@@ -115,7 +115,8 @@ for valid_categories_subset in [
 # Funcs from other papers #
 ###########################
 
-for Src in [x for x in ROVSource if x != ROVSource.FRIENDS]:
+not_in_paper = (ROVSource.TMA, ROVSource.ROV_RPKI_NET)
+for Src in [x for x in ROVSource if x not in (ROVSource.FRIENDS, *not_in_paper)]:
     new_func = partial(max_prob_func, allowed_sources=frozenset([Src.value]))
     new_func.__name__ = Src.value  # type: ignore
     prob_funcs.append(new_func)
@@ -124,7 +125,7 @@ for Src in [x for x in ROVSource if x != ROVSource.FRIENDS]:
 # Agg funcs #
 #############
 
-prob_funcs.extend([max_prob_func, mean_prob_func, mean_when_measured_prob_func])  # type: ignore
+# prob_funcs.extend([max_prob_func, mean_prob_func, mean_when_measured_prob_func])  # Don't need for paper  # type: ignore
 
 
 def run_post_rov_motivation_sim(prob_func):
