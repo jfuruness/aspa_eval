@@ -33,9 +33,9 @@ class AttackerCustomerConeTrackingMixin(Scenario):
 
         self._attacker_customer_cone_asns: set[int] = set()
         for attacker_asn in self.attacker_asns:
-            assert isinstance(engine[attacker_asn].customer_cone_asns, frozenset), "setting!"
+            assert isinstance(engine.as_graph.as_dict[attacker_asn].customer_cone_asns, frozenset), "setting!"
             self._attacker_customer_cone_asns.update(
-                engine[attacker_asn].customer_cone_asns
+                engine.as_graph.as_dict[attacker_asn].customer_cone_asns
             )
 
         # These are the ASNs we want to avoid tracking
