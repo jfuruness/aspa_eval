@@ -38,7 +38,7 @@ class ASPASim(Simulation):
             }
         )
         total_cpus = cpu_count()
-        MAX_CPUS = 100
+        MAX_CPUS = 80
         if total_cpus > MAX_CPUS:
             kwargs["parse_cpus"] = min(kwargs.get("parse_cpus", total_cpus), MAX_CPUS)
         super().__init__(*args, **kwargs)
