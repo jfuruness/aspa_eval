@@ -22,7 +22,7 @@ from .shortest_path_sims import (
 SIMS_TO_RUN = (
     shortest_path_etc_cc_sim,
     shortest_path_edge_sim,
-    shortest_path_edge_10_attackers_sim,
+    # shortest_path_edge_10_attackers_sim,
     shortest_path_etc_sim,
     first_asn_stripping_sim,
     forged_origin_edge_sim,
