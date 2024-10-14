@@ -10,6 +10,7 @@ def main():
         start = time.perf_counter()
         sim.run()
         print(f"{time.perf_counter() - start}s for {sim.sim_name}")  # noqa: T201
+        raise NotImplementedError("JUST GETTING THE CC SIM!!!!!")
 
     for prob_func in prob_funcs:
         start = time.perf_counter()

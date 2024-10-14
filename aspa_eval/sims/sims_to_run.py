@@ -13,12 +13,14 @@ from .route_leak_sims import (
     route_leak_transit_sim,
 )
 from .shortest_path_sims import (
+    shortest_path_etc_cc_sim,
     shortest_path_edge_10_attackers_sim,
     shortest_path_edge_sim,
     shortest_path_etc_sim,
 )
 
 SIMS_TO_RUN = (
+    shortest_path_etc_cc_sim,
     shortest_path_edge_sim,
     shortest_path_edge_10_attackers_sim,
     shortest_path_etc_sim,
