@@ -93,6 +93,8 @@ GraphFactory(
 # Forged-Origin #
 #################
 
+FORGED_ORIGIN_Y_LIMIT = 60
+
 GraphFactory(
     line_info_dict={
         **line_info_dict,
@@ -101,9 +103,9 @@ GraphFactory(
                 edge_filter_line_info,
                 label="EdgeFilter/BGPsec+EdgeFilter"
             ),
-            "ASPA": replace(
-                line_info_dict["ASPA"],
-                label="ASPA/Path-End"
+            "BGP-iSec": replace(
+                line_info_dict["BGP-iSec"],
+                label="BGP-iSec/Path-End"
             )
            }
     },
@@ -120,17 +122,34 @@ GraphFactory(
             "ASRA",
         }
     ),
+    y_limit=FORGED_ORIGIN_Y_LIMIT,
     **path_kwargs("forgedoriginprefixhijack_stub_or_multihomed_1_attackers")
 ).generate_graphs()
 
 GraphFactory(
     line_info_dict=line_info_dict,
+    y_limit=FORGED_ORIGIN_Y_LIMIT,
     **path_kwargs("ForgedOriginPrefixHijack_adoption_scenarios")
 ).generate_graphs()
 
 GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
+    line_info_dict={
+        **line_info_dict,
+        **{
+            "BGP-iSec": replace(
+                line_info_dict["BGP-iSec"],
+                label="BGP-iSec/Path-End"
+            )
+           }
+    },
+    y_limit=FORGED_ORIGIN_Y_LIMIT,
+    labels_to_remove=frozenset(
+        {
+            "OnlyToCustomers",
+            "ASRA",
+            "Path-End",
+        }
+    ),
     **path_kwargs("forgedoriginprefixhijack_etc_1_attackers")
 ).generate_graphs()
 
