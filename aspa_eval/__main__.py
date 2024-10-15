@@ -20,8 +20,8 @@ def main():
 
 
 if __name__ == "__main__":
-    print("47m for 100 trials using 100 CPUs")
-    print("278m (~4.6hrs) for 100 trials using 100 CPUs")
+    print("43m for 100 trials using 80 CPUs")
+    print("261m (~4.3hrs) for 1000 trials using 80 CPUs")
     start = time.perf_counter()
     main()
     print(f"{time.perf_counter() - start}s for all sims")  # noqa: T201
