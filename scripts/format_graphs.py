@@ -1,12 +1,18 @@
 from copy import deepcopy
 from dataclasses import replace
+import os
 from pathlib import Path
 import pickle
+import random
 import shutil
 
 from frozendict import frozendict
 
 from bgpy.simulation_framework import GraphFactory, LineInfo
+
+if os.environ["PYTHONHASHSEED"] != "0":
+    raise ValueError("Set PYTHONHASHSEED=0 for same colors")
+random.seed(0)
 
 BASE_PATH = Path("/home/anon/aspa_sims_2024_10_15_final")
 
@@ -224,7 +230,11 @@ GraphFactory(
 
 GraphFactory(
     line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
+    labels_to_remove=frozenset(
+        {
+            "ROV + Enforce-First-AS (Forged-Origin Export-All)"
+        }
+    ),
     **path_kwargs("FirstASNStripping_edge")
 ).generate_graphs()
 
