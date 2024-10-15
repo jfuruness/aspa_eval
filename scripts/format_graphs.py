@@ -159,27 +159,64 @@ GraphFactory(
 
 GraphFactory(
     line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("papershortestpathprefixhijack_etc_1_attackers")
-).generate_graphs()
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("ShortestPathPrefixHijack_etc_cc")
-).generate_graphs()
-
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
+    labels_to_remove=frozenset(
+        {
+            "OnlyToCustomers",
+            "BGPsec+EdgeFilter",
+            "ASRA",
+            "BGPsec",
+        }
+    ),
     **path_kwargs("papershortestpathprefixhijack_stub_or_multihomed_1_attackers")
 ).generate_graphs()
 
 GraphFactory(
     line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
+    labels_to_remove=frozenset(
+        {
+            "OnlyToCustomers",
+            "BGPsec+EdgeFilter",
+            "ASRA",
+            "BGPsec",
+        }
+    ),
+    add_legend=False,
     **path_kwargs("papershortestpathprefixhijack_stub_or_multihomed_10_attackers")
 ).generate_graphs()
+
+GraphFactory(
+    line_info_dict={
+        **line_info_dict,
+        **{
+            "ASPA": replace(
+                line_info_dict["ASPA"],
+                label="ASPA/ASPAwN"
+            )
+           }
+    },
+    labels_to_remove=frozenset(
+        {
+            "OnlyToCustomers",
+            "BGPsec+EdgeFilter",
+            "BGPsec",
+            "ASRA",
+        }
+    ),
+    **path_kwargs("papershortestpathprefixhijack_etc_1_attackers")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset(
+        {
+            "OnlyToCustomers",
+            "BGPsec+EdgeFilter",
+            "BGPsec",
+        }
+    ),
+    **path_kwargs("ShortestPathPrefixHijack_etc_cc")
+).generate_graphs()
+
 
 #######################
 # First-ASN Stripping #
