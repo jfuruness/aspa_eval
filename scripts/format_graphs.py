@@ -8,7 +8,7 @@ from frozendict import frozendict
 
 from bgpy.simulation_framework import GraphFactory, LineInfo
 
-BASE_PATH = Path("/home/anon/aspa_sims_2024_10_14")
+BASE_PATH = Path("/home/anon/aspa_sims_2024_10_15")
 
 GRAPH_DIR = Path("/home/anon/Desktop/aspa_sims_formatted")
 GRAPH_DIR.mkdir(exist_ok=True, parents=True)
@@ -97,9 +97,9 @@ GraphFactory(
     line_info_dict={
         **line_info_dict,
         **{
-            "ROV + EdgeFilter": replace(
+            "ROV+EdgeFilter": replace(
                 edge_filter_line_info,
-                label="EdgeFilter/BGPSec + EdgeFilter"
+                label="EdgeFilter/BGPsec+EdgeFilter"
             ),
             "ASPA": replace(
                 line_info_dict["ASPA"],
@@ -111,12 +111,12 @@ GraphFactory(
         {
             "Path-End",
             "ASRA",
-            "Path-End + EdgeFilter",
-            "ASPA + EdgeFilter",
+            "Path-End+EdgeFilter",
+            "ASPA+EdgeFilter",
             "OnlyToCustomers",
-            "OTC + EdgeFilter",
-            "ASPA + OTC + EdgeFilter",
-            "BGPSec + EdgeFilter",
+            "OTC+EdgeFilter",
+            "ASPA+OTC+EdgeFilter",
+            "BGPsec+EdgeFilter",
             "ASRA",
         }
     ),
@@ -190,8 +190,8 @@ GraphFactory(
                 line_info_dict["ASPA"],
                 label="ASPA/OTC/ASPA+OTC",
             ),
-            "ASPA + EdgeFilter": replace(
-                line_info_dict["ASPA + EdgeFilter"],
+            "ASPA+EdgeFilter": replace(
+                line_info_dict["ASPA+EdgeFilter"],
                 label="ASPA+Edge/OTC+Edge/ASPA+OTC+Edge",
             ),
 
@@ -201,8 +201,8 @@ GraphFactory(
         {
             "ASRA",
             "OnlyToCustomers",
-            "ASPA + OTC + EdgeFilter",
-            "OTC + EdgeFilter",
+            "ASPA+OTC+EdgeFilter",
+            "OTC+EdgeFilter",
         }
     ),
     y_limit=ACCIDENTAL_ROUTE_LEAKS_Y_LIMIT,
@@ -223,7 +223,7 @@ GraphFactory(
             )
            },
     },
-    labels_to_remove=frozenset({"ASRA", "OnlyToCustomers", "BGP-iSec", "ASPA + OTC"}),
+    labels_to_remove=frozenset({"ASRA", "OnlyToCustomers", "BGP-iSec", "ASPA+OTC"}),
     y_limit=ACCIDENTAL_ROUTE_LEAKS_Y_LIMIT,
     **path_kwargs("accidentalrouteleak_transit_1_attackers")
 ).generate_graphs()
