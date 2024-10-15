@@ -8,7 +8,7 @@ from frozendict import frozendict
 
 from bgpy.simulation_framework import GraphFactory, LineInfo
 
-BASE_PATH = Path("/home/anon/aspa_sims_2024_10_15")
+BASE_PATH = Path("/home/anon/aspa_sims_2024_10_15_final")
 
 GRAPH_DIR = Path("/home/anon/Desktop/aspa_sims_formatted")
 GRAPH_DIR.mkdir(exist_ok=True, parents=True)
@@ -53,7 +53,7 @@ for label in (
     line_info_dict[label] = LineInfo(label=label)
 
 edge_filter_line_info = LineInfo(label="EdgeFilter")
-line_info_dict["ROV+EdgeFilter"] = edge_filter_line_info
+line_info_dict["ROV + EdgeFilter"] = edge_filter_line_info
 line_info_dict["ASRA"] = LineInfo(label="ASPAwN")
 
 ########################
@@ -97,7 +97,7 @@ GraphFactory(
     line_info_dict={
         **line_info_dict,
         **{
-            "ROV+EdgeFilter": replace(
+            "ROV + EdgeFilter": replace(
                 edge_filter_line_info,
                 label="EdgeFilter/BGPsec+EdgeFilter"
             ),
@@ -134,12 +134,6 @@ GraphFactory(
     **path_kwargs("forgedoriginprefixhijack_etc_1_attackers")
 ).generate_graphs()
 
-GraphFactory(
-    line_info_dict=line_info_dict,
-    labels_to_remove=frozenset({"ROV"}),
-    **path_kwargs("forgedoriginprefixhijack_stub_or_multihomed_10_attackers")
-).generate_graphs()
-
 #################
 # Shortest-Path #
 #################
@@ -160,6 +154,12 @@ GraphFactory(
     line_info_dict=line_info_dict,
     labels_to_remove=frozenset({"ROV"}),
     **path_kwargs("papershortestpathprefixhijack_stub_or_multihomed_1_attackers")
+).generate_graphs()
+
+GraphFactory(
+    line_info_dict=line_info_dict,
+    labels_to_remove=frozenset({"ROV"}),
+    **path_kwargs("papershortestpathprefixhijack_stub_or_multihomed_10_attackers")
 ).generate_graphs()
 
 #######################
@@ -184,7 +184,7 @@ GraphFactory(
         **{
             "ROV": replace(
                 rov_line_info,
-                label="ROV/Path-End"
+                label="ROV/Path-End/BGPsec"
             ),
             "ASPA": replace(
                 line_info_dict["ASPA"],
@@ -203,6 +203,8 @@ GraphFactory(
             "OnlyToCustomers",
             "ASPA+OTC+EdgeFilter",
             "OTC+EdgeFilter",
+            "BGPsec+EdgeFilter",
+            "BGPsec",
         }
     ),
     y_limit=ACCIDENTAL_ROUTE_LEAKS_Y_LIMIT,
@@ -215,7 +217,7 @@ GraphFactory(
         **{
             "ROV": replace(
                 rov_line_info,
-                label="ROV/Path-End"
+                label="ROV/Path-End/BGPsec"
             ),
             "ASPA": replace(
                 line_info_dict["ASPA"],
@@ -223,21 +225,20 @@ GraphFactory(
             )
            },
     },
-    labels_to_remove=frozenset({"ASRA", "OnlyToCustomers", "BGP-iSec", "ASPA+OTC"}),
+    labels_to_remove=frozenset({
+        "ASRA",
+        "OnlyToCustomers",
+        "BGP-iSec",
+        "ASPA+OTC",
+        "BGPsec+EdgeFilter",
+        "BGPsec",
+    }),
     y_limit=ACCIDENTAL_ROUTE_LEAKS_Y_LIMIT,
     **path_kwargs("accidentalrouteleak_transit_1_attackers")
 ).generate_graphs()
 
 GraphFactory(
-    line_info_dict={
-        **line_info_dict,
-        **{
-            "No Tier-1": replace(
-                line_info_dict["No Tier-1"],
-                label="No Tier-1/Only Edge"
-            ),
-           },
-    },
+    line_info_dict=line_info_dict,
     labels_to_remove=frozenset({"Only Edge"}),
     y_limit=ACCIDENTAL_ROUTE_LEAKS_Y_LIMIT,
     **path_kwargs("AccidentalRouteLeak_adoption_scenarios")
