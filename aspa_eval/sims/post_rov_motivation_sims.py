@@ -125,7 +125,8 @@ for Src in [x for x in ROVSource if x not in (ROVSource.FRIENDS, *not_in_paper)]
 # Agg funcs #
 #############
 
-# prob_funcs.extend([max_prob_func, mean_prob_func, mean_when_measured_prob_func])  # Don't need for paper  # type: ignore
+# Don't need for papee
+# prob_funcs.extend([max_prob_func, mean_prob_func, mean_when_measured_prob_func])
 
 
 def run_post_rov_motivation_sim(prob_func):
