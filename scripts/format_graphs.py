@@ -47,6 +47,7 @@ for label in (
     "BGPsec+EdgeFilter",
     "ASRA",
     # Adoption Scenarios
+    "Baseline (ROV)",
     "Random Adoption",
     "No Tier-1",
     "Only Edge",
@@ -304,7 +305,15 @@ GraphFactory(
 ).generate_graphs()
 
 GraphFactory(
-    line_info_dict=line_info_dict,
+    line_info_dict={
+        **line_info_dict,
+        **{
+            "Baseline (ROV)": replace(
+                line_info_dict["Baseline (ROV)"],
+                label="Baseline (ROV)/Only Edge"
+            )
+        },
+    },
     labels_to_remove=frozenset({"Only Edge"}),
     y_limit=ACCIDENTAL_ROUTE_LEAKS_Y_LIMIT,
     **path_kwargs("AccidentalRouteLeak_adoption_scenarios")
