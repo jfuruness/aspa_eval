@@ -14,7 +14,7 @@ if os.environ["PYTHONHASHSEED"] != "0":
     raise ValueError("Set PYTHONHASHSEED=0 for same colors")
 random.seed(0)
 
-BASE_PATH = Path("/home/anon/aspa_sims_2024_10_15_final")
+BASE_PATH = Path("/home/anon/aspa_sims_2024_11_17_final")
 
 GRAPH_DIR = Path("/home/anon/Desktop/aspa_sims_formatted")
 GRAPH_DIR.mkdir(exist_ok=True, parents=True)
@@ -314,7 +314,7 @@ GraphFactory(
 
 
 
-for folder_path in BASE_PATH.iterdir():
+for folder_path in GRAPH_DIR.iterdir():
     # Copy the attacker success graph to a new location
     atk_success_path = (
         GRAPH_DIR
