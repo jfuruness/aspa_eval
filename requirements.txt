@@ -1,2 +1,1 @@
-bgpy_pkg~=10.0
-rov_collector==1.1.11
+bgpy_pkg~=11.0
