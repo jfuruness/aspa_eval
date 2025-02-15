@@ -49,14 +49,14 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
     "Intended Audience :: Developers",
     "Operating System :: POSIX :: Linux",
-    "Operating System :: Microsoft :: Windows",
+    # "Operating System :: Microsoft :: Windows",
     "Operating System :: MacOS",
     "Operating System :: MacOS :: MacOS X",
     "Topic :: Security",
 ]
 
 dependencies = [
-    "bgpy_pkg~=11.0",
+    "bgpy_pkg~=13.0",
 ]
 
 [project.urls]
@@ -67,7 +67,7 @@ aspa_eval = "aspa_eval.__main__:main"
 
 [project.optional-dependencies]
 test = [
-    "bgpy_pkg[test]~=11.0"
+    "bgpy_pkg[test]~=13.0"
 ]
 
 [tool.setuptools]

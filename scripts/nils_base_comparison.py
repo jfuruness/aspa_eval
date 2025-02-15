@@ -1,3 +1,8 @@
+# NOTE: This script must be upgraded to the latest version of BGPy
+
+
+
+
 import sys
 import time
 from multiprocessing import cpu_count

@@ -1,3 +1,8 @@
+# NOTE: This script must be upgraded to the latest version of BGPy
+
+
+
+
 import time
 from copy import deepcopy
 
