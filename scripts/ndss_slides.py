@@ -38,9 +38,9 @@ cc_sim = ASPASim(
         ScenarioConfig(
             AdoptPolicyCls=ASPAwN,
             ScenarioCls=ShortestPathCustomerConeHijack,
-            scenario_label="Shortest Path (ASPAwN)"
+            scenario_label="Shortest Path (ASPAwN)",
+            attacker_subcategory_attr=ASGroups.ETC.value,
         ),
-
     ]
 )
 
