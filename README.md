@@ -1,6 +1,5 @@
 [![PyPI version](https://badge.fury.io/py/aspa_eval.svg)](https://badge.fury.io/py/aspa_eval)
 ![PyPy](https://img.shields.io/badge/PyPy-7.3.17-blue)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/aspa_eval)](https://pypi.org/project/aspa_eval/)
 ![Tests](https://github.com/jfuruness/aspa_eval/actions/workflows/tests.yml/badge.svg)
 ![Linux](https://img.shields.io/badge/os-Linux-blue.svg)
 ![macOS Intel](https://img.shields.io/badge/os-macOS_Intel-lightgrey.svg)
