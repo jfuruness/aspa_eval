@@ -16,6 +16,9 @@
 
 Conference slides: https://docs.google.com/presentation/d/1WQXK-JlCqNEaWqtDYI7O-UOUiYpUVPjM0oXznlxZyaY/edit?usp=sharing
 
+If you're looking for the ROV datasets: github.com/jfuruness/rov_collector
+
+
 * [Description](#package-description)
 * [Usage](#usage)
 * [Installation](#installation)
@@ -26,6 +29,8 @@ Conference slides: https://docs.google.com/presentation/d/1WQXK-JlCqNEaWqtDYI7O-
 ## Package Description
 
 See Securing BGP ASAP: ASPA and Other Post-ROV Defenses
+
+If you're looking for the ROV dataset, see github.com/jfuruness/rov_collector
 
 This package runs all simulations and generates graphs for the conference paper above. These simulations are also powered by BGPy (github.com/jfuruness/bgpy_pkg). Check out the tutorial there for more info.
 
