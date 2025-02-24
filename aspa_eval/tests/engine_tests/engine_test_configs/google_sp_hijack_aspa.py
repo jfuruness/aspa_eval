@@ -1,14 +1,8 @@
-from frozendict import frozendict
-
 from bgpy.shared.enums import ASNs
-from bgpy.simulation_engine import BGP, ASPA
+from bgpy.simulation_engine import ASPA, BGP
 from bgpy.simulation_framework import ScenarioConfig, ShortestPathPrefixHijack
 from bgpy.tests.engine_tests.utils import EngineTestConfig
-
-from bgpy.as_graphs import ASGraphInfo
-from bgpy.as_graphs.base.links import CustomerProviderLink as CPLink
-from bgpy.as_graphs.base.links import PeerLink
-from bgpy.shared.enums import ASNs
+from frozendict import frozendict
 
 from .google_hijack import as_graph_info
 
